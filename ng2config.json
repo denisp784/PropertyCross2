@@ -1,0 +1,12 @@
+{
+  "appName": "PropertryCross2",
+  "appType": "standard",
+  "appFolder": "app",
+  "bootLocation": "boot.ts",
+  "defaultFolders": {
+    "components": "common/components",
+    "services": "common/services",
+    "directives": "common/directives",
+    "pipes": "common/pipes"
+  }
+}
