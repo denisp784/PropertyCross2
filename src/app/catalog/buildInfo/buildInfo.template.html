@@ -1,9 +1,15 @@
-<md-card>
-  <label>
-    Indeterminate progress-bar
-    <md-progress-bar
-      class="app-progress"
-      mode="indeterminate"
-      aria-label="Indeterminate progress-bar example"></md-progress-bar>
-  </label>
-</md-card>
+<md-toolbar color="primary" *ngIf="build">
+  <i class="material-icons app-toolbar-menu">←</i>
+  {{build.title}}
+</md-toolbar>
+
+<div class="app-content">
+  <md-card>
+    <img src="{{build.img_url}}" width="{{build.img_width}}" height="{{build.img_height}}">
+    <div>
+      <span>qweqweq</span>
+      <span>qweqweq</span>
+      <span>qweqweq</span>
+    </div>
+  </md-card>
+</div>

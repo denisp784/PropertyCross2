@@ -10,6 +10,7 @@ import {CatalogService} from './catalog/catalog.service';
 import { MaterialModule } from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {BuildInfoComponent} from './catalog/buildInfo/buildInfo.component';
+import {CatalogStorage} from './catalog/CatalogStorage';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,15 @@ import {BuildInfoComponent} from './catalog/buildInfo/buildInfo.component';
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {path: 'build', component: BuildInfoComponent},
-      {path: 'builds', component: CatalogPageComponent}
+      {path: 'builds', component: CatalogPageComponent},
+      {path: '', component: CatalogPageComponent}
     ])
   ],
-  providers: [AppService, CatalogService],
+  providers: [
+    AppService,
+    CatalogService,
+    CatalogStorage
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

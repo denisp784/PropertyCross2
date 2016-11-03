@@ -1,7 +1,7 @@
 <div class="catalog-page">
   <md-spinner *ngIf="!builds"></md-spinner>
   <div *ngIf="builds">
-    <md-card *ngFor="let build of builds">
+    <md-card *ngFor="let build of builds" (click)="onBuildClick(build)">
       <img src="{{build.img_url}}">
     </md-card>
   </div>
