@@ -8,7 +8,7 @@ import {CatalogPageComponent} from './catalog/catalogPage/catalogPage.component'
 import {AppService} from './app.service';
 import {CatalogService} from './catalog/catalog.service';
 import { MaterialModule } from '@angular/material';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Router, Event, NavigationEnd} from '@angular/router';
 import {BuildInfoComponent} from './catalog/buildInfo/buildInfo.component';
 import {CatalogStorage} from './catalog/CatalogStorage';
 
@@ -25,7 +25,6 @@ import {CatalogStorage} from './catalog/CatalogStorage';
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {path: 'build', component: BuildInfoComponent},
-      {path: 'builds', component: CatalogPageComponent},
       {path: '', component: CatalogPageComponent}
     ])
   ],
@@ -36,4 +35,15 @@ import {CatalogStorage} from './catalog/CatalogStorage';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router){
+
+    router.events.subscribe((event:Event) => {
+      if(event instanceof NavigationEnd ){
+
+        console.log(event.url);
+      }
+    });
+
+  }
+}

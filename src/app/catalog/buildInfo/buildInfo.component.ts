@@ -15,7 +15,7 @@ export class BuildInfoComponent {
               router: Router) {
     this.build = this.catalogStorage.build;
     if (!this.build) {
-      router.navigate(['builds']);
+      router.navigate(['']);
     }
   }
 }
