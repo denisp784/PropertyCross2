@@ -22,8 +22,6 @@ export class CategoriesComponent {
     this.appService.uploadFile('images/upload', this.file)
       .then((imageData: SimpleModel) => {
         console.log(imageData.id);
-        console.log(imageData.name);
-        console.log(imageData);
       });
   }
 }

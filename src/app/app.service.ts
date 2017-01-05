@@ -18,12 +18,9 @@ export class AppService {
   }
 
   makePost(url: string, data: any): Promise<any> {
-    let headers = new Headers({'Content-Type': 'multipart/form-data'});
-    let options = new RequestOptions({headers: headers});
-
     const fullPath = APP_ROOT_PATH + url;
 
-    return this.http.post(fullPath, data, options)
+    return this.http.post(fullPath, data)
       .map(response => response.json().response)
       .toPromise();
   }
@@ -38,7 +35,7 @@ export class AppService {
       formData.append('image', file);
       xhr.open('POST', fullPath, true);
 
-      xhr.onload = () => resolve(xhr.response);
+      xhr.onload = () => resolve(JSON.parse(xhr.response));
       xhr.onerror = () => reject({
         status: xhr.status,
         statusText: xhr.statusText

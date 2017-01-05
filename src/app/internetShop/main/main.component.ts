@@ -18,7 +18,6 @@ export class MainComponent {
 
     this.shopService.getCategories()
       .then((categories) => {
-        console.log(categories);
         this.categories = categories;
       });
   }
