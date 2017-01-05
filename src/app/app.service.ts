@@ -1,16 +1,51 @@
-import {Http, Response, URLSearchParams} from '@angular/http';
+import {Http, Response, URLSearchParams, RequestOptions, Headers} from '@angular/http';
 import 'rxjs/Rx';
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
+
+export const APP_ROOT_PATH = 'http://localhost:8080/';
 
 @Injectable()
 export class AppService {
-  constructor(private http: Http) {
+  constructor(@Inject(Http) private http: Http) {
   }
 
   makeGet(url: string, params?: URLSearchParams): Promise<any> {
-    return this.http.get(url, {search: params})
+    const fullPath = APP_ROOT_PATH + url;
+
+    return this.http.get(fullPath, {search: params})
+      .map(response => response.json())
+      .toPromise();
+  }
+
+  makePost(url: string, data: any): Promise<any> {
+    let headers = new Headers({'Content-Type': 'multipart/form-data'});
+    let options = new RequestOptions({headers: headers});
+
+    const fullPath = APP_ROOT_PATH + url;
+
+    return this.http.post(fullPath, data, options)
       .map(response => response.json().response)
       .toPromise();
+  }
+
+  uploadFile(url: string, file: any): Promise<any> {
+    const formData = new FormData();
+    const fullPath = APP_ROOT_PATH + url;
+
+    return new Promise((resolve, reject) => {
+      let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+      formData.append('image', file);
+      xhr.open('POST', fullPath, true);
+
+      xhr.onload = () => resolve(xhr.response);
+      xhr.onerror = () => reject({
+        status: xhr.status,
+        statusText: xhr.statusText
+      });
+
+      xhr.send(formData);
+    });
   }
 
   catchError(err: string) {

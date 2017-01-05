@@ -1,22 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
-import { AppComponent } from './app.component';
-import {CatalogPageComponent} from './catalog/catalogPage/catalogPage.component';
+import {AppComponent} from './app.component';
 import {AppService} from './app.service';
-import {CatalogService} from './catalog/catalog.service';
-import { MaterialModule } from '@angular/material';
+import {MaterialModule} from '@angular/material';
 import {RouterModule, Router, Event, NavigationEnd} from '@angular/router';
-import {BuildInfoComponent} from './catalog/buildInfo/buildInfo.component';
-import {CatalogStorage} from './catalog/CatalogStorage';
+import {MainComponent} from './internetShop/main/main.component';
+import {CategoriesComponent} from "./internetShop/categories/categories.component";
+import {ShopService} from "./internetShop/ShopService";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CatalogPageComponent,
-    BuildInfoComponent
+    MainComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -24,26 +23,15 @@ import {CatalogStorage} from './catalog/CatalogStorage';
     HttpModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
-      {path: 'build', component: BuildInfoComponent},
-      {path: '', component: CatalogPageComponent}
+      {path: '', component: MainComponent},
+      {path: 'test', component: MainComponent}
     ])
   ],
   providers: [
     AppService,
-    CatalogService,
-    CatalogStorage
+    ShopService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(router: Router){
-
-    router.events.subscribe((event:Event) => {
-      if(event instanceof NavigationEnd ){
-
-        console.log(event.url);
-      }
-    });
-
-  }
 }
