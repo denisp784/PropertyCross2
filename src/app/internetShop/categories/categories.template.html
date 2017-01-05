@@ -1,15 +1,20 @@
 <div class="row">
-  <md-card class="col-lg-2 col-md-4 col-sm-6 category"
-       *ngFor="let category of categories">
-    <span>{{category.categoryName}}</span>
-    <img ng-if="file"
-         src="{{file}}">
+  <md-card *ngFor="let category of categories"
+           class="col-lg-2 col-md-4 col-sm-6 category">
+    <img [src]="'data:image/jpg;base64,' + category.image.image" class="category__img">
+    <span class="category__text">{{category.categoryName}}</span>
   </md-card>
-  <md-card class="col-lg-2 col-md-4 col-sm-6 category">
-    <span>+</span>
-    <input type="file"
-           name="file"
-           (change)="onFileChange($event)">
+  <md-card class="col-lg-2 col-md-4 col-sm-6 category category-add">
+    <img [src]="previewImg" class="category__img">
+    <div class="category-add_block">
+      <input [(ngModel)]="category.categoryName">
+      <div class="fileUpload btn btn-primary">
+        <span>+</span>
+        <input type="file" class="upload"
+               (change)="onFileChange($event)"
+               name="file"/>
+      </div>
+      <button (click)="upload()">Upload</button>
+    </div>
   </md-card>
-  <button (click)="upload()">Upload</button>
 </div>

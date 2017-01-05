@@ -14,7 +14,7 @@ export class ShopService {
     return this.appService.makeGet(`${CATEGORIES}/get`);
   }
 
-  addCategory(categoryName: string) {
-    return this.appService.makePost(`${CATEGORIES}/add`, {categoryName, image: null});
+  addCategory(category: ICategory) {
+    return this.appService.makePost(`${CATEGORIES}/add`, category);
   }
 }
