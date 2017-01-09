@@ -1,11 +1,14 @@
 <div class="row">
   <md-card *ngFor="let category of categories"
            class="col-lg-2 col-md-4 col-sm-6 category">
-    <img [src]="'data:image/jpg;base64,' + category.image.image" class="category__img">
+    <div class="delete-block" (click)="deleteCategory(category.id)">
+      <img class="delete" [src]="closeIcon" title="Удалить">
+    </div>
+    <img [src]="'http://localhost:8080/images/get/' + category.imageId" class="category__img">
     <span class="category__text">{{category.categoryName}}</span>
   </md-card>
   <md-card class="col-lg-2 col-md-4 col-sm-6 category category-add">
-    <img [src]="previewImg" class="category__img">
+    <img [src]="getPicture()" class="category-add__img">
     <div class="category-add_block">
       <input [(ngModel)]="category.categoryName">
       <div class="fileUpload btn btn-primary">
@@ -14,7 +17,7 @@
                (change)="onFileChange($event)"
                name="file"/>
       </div>
-      <button (click)="upload()">Upload</button>
+      <button class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">Добавить</button>
     </div>
   </md-card>
 </div>

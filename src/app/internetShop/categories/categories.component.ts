@@ -3,16 +3,17 @@ import {ICategory} from "../models/ICategory";
 import {AppService} from "../../app.service";
 import {SimpleModel} from "../models/SimpleModel";
 import {ShopService} from "../ShopService";
-import {IImage} from "../models/IImage";
 
 interface FileReaderEventTarget extends EventTarget {
-  result:string
+  result: string
 }
 
 interface FileReaderEvent extends Event {
   target: FileReaderEventTarget;
-  getMessage():string;
+  getMessage(): string;
 }
+const close = require('../resource/images/closeDark.png');
+const noImageIcon = require("../resource/images/noImageIcon.png");
 
 @Component({
   selector: 'categories',
@@ -24,9 +25,16 @@ export class CategoriesComponent {
   file: any;
   category: ICategory = <ICategory>{};
   previewImg: any;
+  closeIcon = close;
 
   constructor(private appService: AppService,
-              private shopService: ShopService) {}
+              private shopService: ShopService) {
+    this.initNewCategory();
+  }
+
+  getPicture() {
+    return this.previewImg || noImageIcon;
+  }
 
   onFileChange(event) {
     this.file = event.target.files[0];
@@ -45,8 +53,29 @@ export class CategoriesComponent {
   upload() {
     this.appService.uploadFile('images/upload', this.file)
       .then((imageData: SimpleModel) => {
-        this.category.image = <IImage>{id: imageData.id};
+        this.category.imageId = imageData.id;
         return this.shopService.addCategory(this.category);
+      })
+      .then(() => this.shopService.getCategories())
+      .then((categories: ICategory[]) => {
+        this.categories = categories;
       });
+  }
+
+  isAddDisabled(): boolean {
+    return !this.category.categoryName || !this.file;
+  }
+
+  deleteCategory(categoryId: number) {
+    this.shopService.deleteCategory(categoryId)
+      .then((categories: ICategory[]) => {
+        this.categories = categories;
+      })
+  }
+
+  private initNewCategory() {
+    this.file = null;
+    this.previewImg = null;
+    this.category = <ICategory>{};
   }
 }

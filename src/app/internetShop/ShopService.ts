@@ -14,7 +14,11 @@ export class ShopService {
     return this.appService.makeGet(`${CATEGORIES}/get`);
   }
 
-  addCategory(category: ICategory) {
+  addCategory(category: ICategory): Promise<ICategory> {
     return this.appService.makePost(`${CATEGORIES}/add`, category);
+  }
+
+  deleteCategory(categoryId: number): Promise<ICategory[]> {
+    return this.appService.makeGet(`${CATEGORIES}/delete/${categoryId}`);
   }
 }
