@@ -7,14 +7,18 @@ import {AppService} from './app.service';
 import {MaterialModule} from '@angular/material';
 import {RouterModule, Router, Event, NavigationEnd} from '@angular/router';
 import {MainComponent} from './internetShop/main/main.component';
-import {CategoriesComponent} from "./internetShop/categories/categories.component";
+import {CategoriesComponent} from "./internetShop/category/category.component";
 import {ShopService} from "./internetShop/ShopService";
+import {SectionsComponent} from "./internetShop/sections/sections.component";
+import {CategoryGroupComponent} from "./internetShop/categoryGroup/categoryGroup.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    SectionsComponent,
+    CategoryGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +27,7 @@ import {ShopService} from "./internetShop/ShopService";
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: MainComponent},
-      {path: 'test', component: MainComponent}
+      {path: 'categoryGroup/:sectionId', component: CategoryGroupComponent}
     ])
   ],
   providers: [

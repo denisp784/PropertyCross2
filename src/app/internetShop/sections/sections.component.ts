@@ -1,8 +1,9 @@
 import {Component, Input} from "@angular/core";
-import {ICategory} from "../models/ICategory";
 import {AppService} from "../../app.service";
 import {SimpleModel} from "../models/SimpleModel";
 import {ShopService} from "../ShopService";
+import {ISection} from "../models/ISection";
+import {Router} from "@angular/router";
 
 interface FileReaderEventTarget extends EventTarget {
   result: string
@@ -16,20 +17,25 @@ const close = require('../resource/images/closeDark.png');
 const noImageIcon = require("../resource/images/noImageIcon.png");
 
 @Component({
-  selector: 'categories',
-  templateUrl: 'categories.template.html',
-  styleUrls: ['./categories.less']
+  selector: 'sections',
+  templateUrl: 'sections.template.html',
+  styleUrls: ['sections.less']
 })
-export class CategoriesComponent {
-  @Input() categories: ICategory[];
+export class SectionsComponent {
+  @Input() sections: ISection[];
   file: any;
-  category: ICategory = <ICategory>{};
+  section: ISection = <ISection>{};
   previewImg: any;
   closeIcon = close;
 
   constructor(private appService: AppService,
-              private shopService: ShopService) {
-    this.initNewCategory();
+              private shopService: ShopService,
+              private router:Router) {
+    this.initNewSection();
+  }
+
+  goToSection(id: number) {
+    this.router.navigateByUrl(`/categoryGroup/${id}`);
   }
 
   getPicture() {
@@ -53,29 +59,29 @@ export class CategoriesComponent {
   upload() {
     this.appService.uploadFile('images/upload', this.file)
       .then((imageData: SimpleModel) => {
-        this.category.imageId = imageData.id;
-        return this.shopService.addCategory(this.category);
+        this.section.imageId = imageData.id;
+        return this.shopService.addSection(this.section);
       })
-      .then(() => this.shopService.getCategories())
-      .then((categories: ICategory[]) => {
-        this.categories = categories;
+      .then(() => this.shopService.getSections())
+      .then((sections: ISection[]) => {
+        this.sections = sections;
       });
   }
 
   isAddDisabled(): boolean {
-    return !this.category.categoryName || !this.file;
+    return !this.section.sectionName || !this.file;
   }
 
-  deleteCategory(categoryId: number) {
-    this.shopService.deleteCategory(categoryId)
-      .then((categories: ICategory[]) => {
-        this.categories = categories;
+  deleteSection(sectionId: number) {
+    this.shopService.deleteSection(sectionId)
+      .then((sections: ISection[]) => {
+        this.sections = sections;
       })
   }
 
-  private initNewCategory() {
+  private initNewSection() {
     this.file = null;
     this.previewImg = null;
-    this.category = <ICategory>{};
+    this.section = <ISection>{};
   }
 }

@@ -1,11 +1,11 @@
-<div class="row">
+<div *ngFor="let categoryGroup of categoryGroups"
+     class="row">
+  <div>
+    {{categoryGroup.categoryGroupName}}
+  </div>
   <md-card *ngFor="let category of categories"
            class="col-lg-2 col-md-4 col-sm-6 category">
-    <div class="delete-block" (click)="deleteCategory(category.id)">
-      <img class="delete" [src]="closeIcon" title="Удалить">
-    </div>
-    <img [src]="'http://localhost:8080/images/get/' + category.imageId" class="category__img">
-    <span class="category__text">{{category.categoryName}}</span>
+    <category [category]="category"></category>
   </md-card>
   <md-card class="col-lg-2 col-md-4 col-sm-6 category category-add">
     <img [src]="getPicture()" class="category-add__img">
@@ -17,7 +17,7 @@
                (change)="onFileChange($event)"
                name="file"/>
       </div>
-      <button class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">Добавить</button>
+      <button class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload(categoryGroup)">Добавить</button>
     </div>
   </md-card>
 </div>

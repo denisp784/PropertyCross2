@@ -1,0 +1,5 @@
+<div class="delete-block" (click)="deleteCategory(category.id, $event)">
+  <img class="delete" [src]="closeIcon" title="Удалить">
+</div>
+<img [src]="'http://localhost:8080/images/get/' + category.imageId" class="category__img">
+<span class="category__text">{{category.categoryName}}</span>
