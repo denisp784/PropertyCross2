@@ -11,6 +11,7 @@ import {CategoriesComponent} from "./internetShop/category/category.component";
 import {ShopService} from "./internetShop/ShopService";
 import {SectionsComponent} from "./internetShop/sections/sections.component";
 import {CategoryGroupComponent} from "./internetShop/categoryGroup/categoryGroup.component";
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {CategoryGroupComponent} from "./internetShop/categoryGroup/categoryGroup
     BrowserModule,
     FormsModule,
     HttpModule,
+    Ng2Bs3ModalModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: MainComponent},

@@ -1,5 +1,28 @@
-<div class="main-block">
-  <!--<category [category]="category">
-  </category>-->
-  <sections [sections]="sections"></sections>
+<div class="wrapper">
+    <div class="header">
+        <div class="logo"><span>Здесь будет охрененный логотип</span></div>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Введите запрос...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Найти!</button>
+            </span>
+        </div>
+
+        <div class="right-buttons">
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Корзина
+            </button>
+
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-log-in"></span> Войти
+            </button>
+        </div>
+    </div>
+
+    <div class="main-block">
+        <!--<category [category]="category">
+        </category>-->
+        <sections [sections]="sections"></sections>
+    </div>
+
 </div>

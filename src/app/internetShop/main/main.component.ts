@@ -3,7 +3,7 @@ import {ICategory} from "../models/ICategory";
 import IPromise = Q.IPromise;
 import {ShopService} from "../ShopService";
 import {ISection} from "../models/ISection";
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'main',

@@ -25,10 +25,9 @@ body {
   &-add {
 
     &_block {
-      position: absolute;
-      left: 0;
-      right: 0;
       bottom: 4%;
+
+
 
       &.input {
         height: 40px;
@@ -36,14 +35,17 @@ body {
     }
 
     &__img {
-      width: 50px;
+      width: 400px;
     }
   }
+
 }
 
 .fileUpload {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .fileUpload input.upload {
@@ -74,4 +76,100 @@ body {
       background: gainsboro;
     }
   }
+}
+
+
+/*
+KNFKJNSJKFNKJNFKJNFKJFKNJKNJSKFNKJnsdkjnfsdnjfnskjdnfkjnsdkjnfksndjfnoasfmsdkfmlksdmfndslnfnsdl
+*/
+
+
+
+.sections  {
+  list-style: none;
+  width: 100%;
+  table-layout: fixed;
+  display: table;
+  padding-left: 0px;
+
+  li {
+    display: table-cell;
+    text-align: center;
+    background-color: #ffffff;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    border-bottom-color: #fff;
+    border-bottom-width: 4px;
+    border-bottom-style: inset;
+    position: relative;
+
+    .img-wrapper {
+      display: inline-block;
+      width: 70px;
+      height: 70px;
+      overflow: hidden;
+    }
+
+    img {
+      vertical-align: middle;
+      max-width: 70px;
+      max-height: 70px;
+      filter: grayscale(100%);
+    }
+
+    span {
+      display: block;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    .description {
+      margin-top:5px;
+    }
+
+    .remove-section {
+      position: absolute;
+      right: 5px;
+    }
+
+    button {
+      margin-bottom: 5px;
+    }
+
+
+  }
+
+  li:hover {
+    cursor: pointer;
+    border-bottom-color: #ccc;
+  }
+
+
+
+
+}
+
+.remove-section:hover {
+  color: #d60000;
+}
+
+.hello {
+  width: 100%;
+}
+
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 20px 23px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.add-image {
+  margin: auto;
+  width: 400px;
 }
