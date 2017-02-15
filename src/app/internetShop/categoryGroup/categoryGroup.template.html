@@ -1,4 +1,4 @@
-<div *ngFor="let categoryGroup of categoryGroups"
+<!--<div *ngFor="let categoryGroup of categoryGroups"
      class="row">
   <div>
     {{categoryGroup.categoryGroupName}}
@@ -20,4 +20,28 @@
       <button class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload(categoryGroup)">Добавить</button>
     </div>
   </md-card>
+</div>-->
+
+
+<div class="drop-menu">
+  <div class="cat-groups">
+    <ul>
+      <li>Мобильные телефоны и аксессуары</li>
+      <li>Телевидение и видео</li>
+      <li>Планшеты и электронные книги</li>
+      <li>Аудиотехника</li>
+      <li>Фото и видеотехника</li>
+      <li>Гаджеты</li>
+      <li>Мобильные телефоны и аксессуары</li>
+      <li>Телевидение и видео</li>
+      <li>Планшеты и электронные книги</li>
+      <li>Аудиотехника</li>
+      <li>Фото и видеотехника</li>
+      <li>Гаджеты</li>
+    </ul>
+  </div>
+
+  <div class="categories">
+      <category></category>
+  </div>
 </div>
