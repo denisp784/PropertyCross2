@@ -1,11 +1,11 @@
-import {Component, Input, ViewChild, OnInit} from "@angular/core";
+import {Component, Input, ViewChild, OnInit, AfterViewInit} from "@angular/core";
 import {AppService} from "../../app.service";
 import {SimpleModel} from "../models/SimpleModel";
 import {ShopService} from "../ShopService";
 import {ISection} from "../models/ISection";
 import {Router} from "@angular/router";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-
+import {DialogService} from "../dialogModule/dialogService";
 
 interface FileReaderEventTarget extends EventTarget {
     result: string
@@ -23,53 +23,56 @@ const noImageIcon = require("../resource/images/noImageIcon.png");
     templateUrl: 'sections.template.html',
     styleUrls: ['sections.less']
 })
-export class SectionsComponent implements OnInit {
+export class SectionsComponent implements OnInit, AfterViewInit {
     @Input() sections: ISection[];
-
+    
     @ViewChild('myModal')
     modal: ModalComponent;
-
+    
     file: any;
     section: ISection = <ISection>{};
     previewImg: any;
     closeIcon = close;
-
-    constructor(private appService: AppService,
+    
+    constructor(private dialogService: DialogService,
+                private appService: AppService,
                 private shopService: ShopService,
                 private router: Router) {
-
     }
-
+    
+    ngAfterViewInit() {
+        this.dialogService.showDialog();
+    }
+    
     ngOnInit() {
         this.initNewSection();
     }
-
+    
     goToSection(id: number) {
         this.router.navigateByUrl(`/categoryGroup/${id}`);
     }
-
+    
     getPicture() {
         return this.previewImg || noImageIcon;
     }
-
-
-
+    
+    
     onFileChange(event) {
         this.file = event.target.files[0];
-
+        
         if (event.target.files && event.target.files[0]) {
             var reader = new FileReader();
-
+            
             reader.onload = (e: FileReaderEvent) => {
                 this.previewImg = e.target.result;
             };
-
+            
             reader.readAsDataURL(event.target.files[0]);
         }
-
-
+        
+        
     }
-
+    
     upload() {
         this.appService.uploadFile('images/upload', this.file)
             .then((imageData: SimpleModel) => {
@@ -84,18 +87,18 @@ export class SectionsComponent implements OnInit {
                 }
             );
     }
-
+    
     isAddDisabled(): boolean {
         return !this.section.sectionName || !this.file;
     }
-
+    
     deleteSection(sectionId: number) {
         this.shopService.deleteSection(sectionId)
             .then((sections: ISection[]) => {
                 this.sections = sections;
             })
     }
-
+    
     private initNewSection() {
         this.file = null;
         this.previewImg = null;
