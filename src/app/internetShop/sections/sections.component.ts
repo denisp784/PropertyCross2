@@ -41,7 +41,7 @@ export class SectionsComponent implements OnInit, AfterViewInit {
     }
     
     ngAfterViewInit() {
-        this.dialogService.showDialog();
+        //this.dialogService.showDialog();
     }
     
     ngOnInit() {

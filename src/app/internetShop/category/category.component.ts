@@ -21,6 +21,11 @@ export class CategoriesComponent {
 
   constructor(private shopService: ShopService) {
   }
+
+
+  test () {
+    console.log('hello');
+  }
   /*file: any;
   categories: ICategory[];
   category: ICategory = <ICategory>{};
@@ -110,4 +115,6 @@ export class CategoriesComponent {
     this.category = <ICategory>{};
     this.category.sectionId = +this.sectionId;
   }*/
+
+
 }
