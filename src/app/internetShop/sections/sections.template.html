@@ -23,37 +23,14 @@
   </md-card>
 -->
 <ul class="sections">
-    <!--  <li *ngFor="let section of sections">
-          <div class="img-wrapper">
-              <img [src]="'http://localhost:8080/images/get/' + section.imageId" class="section__img">
-          </div>
-        <span>{{section.sectionName}}</span>
-      </li>-->
-
-    <li *ngFor="let section of sections">
+    <li *ngFor="let section of sections" (click)="switchCategory(section.id)" >
         <img [src]="'http://localhost:8080/images/get/' + section.imageId" class="section__img">
         <span class="description">{{section.sectionName}}</span>
-        <span class="remove-section glyphicon glyphicon-remove" (click)="deleteSection(section.id)"></span>
+        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection($event, section.id)"></span>
     </li>
-    <!--  <li>
 
-          <input type="text" class="add-text" [(ngModel)]="section.sectionName">
-          <div class="fileUpload btn btn-primary">
-            <span class="glyphicon glyphicon-camera"></span>
-            <input type="file" class="upload"
-                   (change)="onFileChange($event)"
-                   name="file"/>
-          </div>
-          <button class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">
-            <span class="glyphicon glyphicon-ok"></span>
-          </button>
-
-
-
-      </li>-->
-
-    <li>
-        <button type="button" class="btn btn-default btn-circle btn-xl" (click)="showAddSectionDialog()">
+    <li (click)="showAddSectionDialog()">
+        <button type="button" class="btn btn-default btn-circle btn-xl" >
             <i class="glyphicon glyphicon-plus"></i>
         </button>
         <span>Добавить</span>
@@ -91,4 +68,4 @@
 </ul>
 
 
-<categoryGroup></categoryGroup>
+<categoryGroup *ngIf="showCategory"></categoryGroup>

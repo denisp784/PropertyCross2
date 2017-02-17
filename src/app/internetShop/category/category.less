@@ -75,8 +75,8 @@ ul {
     width: 33.3%;
     height: 80px;
     display: table-cell;
-    border: 0 solid #f5f5f5;
-    border-width: 0px 1px 1px 0px;
+    border: solid #f5f5f5;
+    border-width: 0 1px 1px 0;
     float: left;
 
     .img-wrapper {
@@ -176,11 +176,17 @@ ul {
   }
 
   li:nth-child(3n) {
-    border: 1px solid #f5f5f5;
+    border: solid #f5f5f5;
     border-width: 0 0 1px 0;
   }
 
   li:hover {
+
+    .add {
+      color: #d60000;
+    }
+
+
     .remove-section {
       display: block;
     }

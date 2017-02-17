@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {ICategory} from "../models/ICategory";
 import {SimpleModel} from "../models/SimpleModel";
 import {AppService} from "../../app.service";
+import {StorageService} from "../StorageService";
 
 const noImageIcon = require("../resource/images/noImageIcon.png");
 
@@ -32,19 +33,28 @@ export class CategoryGroupComponent implements OnInit {
   file: any;
   private subscription: Subscription;
 
+
   constructor(
     private appService: AppService,
     private shopService: ShopService,
+    private storageService: StorageService,
     private route: ActivatedRoute,
     private parentRouter: Router) {
-  }
 
-  ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.sectionId = params['sectionId'];
     });
 
+
+    this.storageService.onSetLastSection.subscribe(() => {
+      this.loadCategories();
+    });
+
     this.loadCategories();
+  }
+
+  ngOnInit() {
+    
   }
 
   ngOnDestroy() {
@@ -53,17 +63,28 @@ export class CategoryGroupComponent implements OnInit {
 
   loadCategories() {
 
-    if (!this.sectionId) {
+
+/*    if (!this.sectionId) {
       this.parentRouter.navigateByUrl("");
       return;
-    }
+    }*/
 
     // this.initNewCategory();
 
-    this.shopService.getCategoryGroupBySection(this.sectionId)
-      .then((categoryGroups) => {
-        this.categoryGroups = categoryGroups;
-      });
+    console.log('blablabla');
+
+    if (this.storageService.cachedGroup[this.storageService.lastSection]) {
+      this.categoryGroups = this.storageService.cachedGroup[this.storageService.lastSection];
+      console.log('из кэша');
+      return;
+    }
+      this.shopService.getCategoryGroupBySection(this.storageService.lastSection)
+          .then((categoryGroups) => {
+            this.categoryGroups = categoryGroups;
+            this.storageService.cachedGroup[this.storageService.lastSection] = categoryGroups;
+            console.log('с сервера');
+          });
+
   }
 
   getPicture() {

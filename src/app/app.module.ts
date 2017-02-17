@@ -14,6 +14,7 @@ import {CategoryGroupComponent} from "./internetShop/categoryGroup/categoryGroup
 import {Ng2Bs3ModalModule} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {DialogConfigModule} from "./internetShop/dialogModule/dialogConfig.module";
 import {DialogsModule} from "./internetShop/dialogs/Dialogs.module";
+import {StorageService} from "./internetShop/StorageService";
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import {DialogsModule} from "./internetShop/dialogs/Dialogs.module";
     ],
     providers: [
         AppService,
-        ShopService
+        ShopService,
+        StorageService
     ],
     bootstrap: [AppComponent]
 })

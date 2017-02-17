@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, EventEmitter} from "@angular/core";
 import IPromise = Q.IPromise;
 import {ICategory} from "./models/ICategory";
 import {AppService} from "../app.service";
@@ -12,7 +12,11 @@ const CATEGORY_GROUPS = 'categoryGroups';
 @Injectable()
 export class ShopService {
 
+
+
   constructor(private appService: AppService) {}
+
+
 
   getSections(): IPromise<ISection[]> {
     return this.appService.makeGet(`${SECTIONS}/get`);
