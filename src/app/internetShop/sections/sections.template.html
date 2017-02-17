@@ -53,12 +53,12 @@
       </li>-->
 
     <li>
-        <button type="button" class="btn btn-default btn-circle btn-xl" (click)="modal.open()">
+        <button type="button" class="btn btn-default btn-circle btn-xl" (click)="showAddSectionDialog()">
             <i class="glyphicon glyphicon-plus"></i>
         </button>
         <span>Добавить</span>
 
-        <modal #myModal>
+        <!--<modal #myModal>
             <modal-header [show-close]="true">
                 <h4 class="modal-title">Добавление новой секции</h4>
             </modal-header>
@@ -86,7 +86,7 @@
                 <button type="button" class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">Добавить
                 </button>
             </modal-footer>
-        </modal>
+        </modal>-->
     </li>
 </ul>
 
