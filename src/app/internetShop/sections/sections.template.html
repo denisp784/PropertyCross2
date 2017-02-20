@@ -26,10 +26,10 @@
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)" >
         <img [src]="'http://localhost:8080/images/get/' + section.imageId" class="section__img">
         <span class="description">{{section.sectionName}}</span>
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection($event, section.id)"></span>
+        <span class="remove-section glyphicon glyphicon-edit" (click)="showAddSectionDialog($event, section.id)"></span>
     </li>
 
-    <li (click)="showAddSectionDialog()">
+    <li (click)="showAddSectionDialog($event)">
         <button type="button" class="btn btn-default btn-circle btn-xl" >
             <i class="glyphicon glyphicon-plus"></i>
         </button>

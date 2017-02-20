@@ -26,51 +26,13 @@
 <div class="drop-menu">
   <div class="cat-groups">
     <ul>
-
       <li *ngFor="let group of categoryGroups">{{group.categoryGroupName}}
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
+        <span class="remove-section glyphicon glyphicon-edit" (click)="showAddGroupDialog($event, group.id)"></span>
       </li>
-<!--      <li>Телевидение и видео
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Планшеты и электронные книги
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Аудиотехника
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Фото и видеотехника
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Гаджеты
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Мобильные телефоны и аксессуары
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Телевидение и видео
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Планшеты и электронные книги
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Аудиотехника
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Фото и видеотехника
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Гаджеты
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Фото и видеотехника
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>
-      <li>Гаджеты
-        <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
-      </li>-->
 
-      <li class="add-cat-group"><i class="glyphicon glyphicon-plus"></i> Добавить группу категорий</li>
+      <li class="add-cat-group" (click)="showAddGroupDialog($event)">
+        <i class="glyphicon glyphicon-plus"></i> Добавить группу категорий
+      </li>
     </ul>
   </div>
 

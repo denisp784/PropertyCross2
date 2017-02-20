@@ -22,6 +22,10 @@ export class ShopService {
     return this.appService.makeGet(`${SECTIONS}/get`);
   }
 
+  getSectionById(sectionId: string): IPromise<ISection> {
+    return this.appService.makeGet(`${SECTIONS}/get/${sectionId}`);
+  }
+
   addSection(section: ISection): Promise<ISection> {
     return this.appService.makePost(`${SECTIONS}/add`, section);
   }
@@ -52,6 +56,10 @@ export class ShopService {
 
   getCategoryGroupBySection(sectionId: number): IPromise<ICategoryGroup[]> {
     return this.appService.makeGet(`${CATEGORY_GROUPS}/getBySection?sectionId=${sectionId}`);
+  }
+
+  getCategoryGroupById(sectionId: string): IPromise<ICategoryGroup> {
+    return this.appService.makeGet(`${CATEGORY_GROUPS}/get/${sectionId}`);
   }
 
   addCategoryGroup(categoryGroup: ICategoryGroup): IPromise<ICategoryGroup> {

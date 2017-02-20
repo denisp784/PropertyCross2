@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit, trigger, state, transition, style, animate} from "@angular/core";
 import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
 import {ISection} from "../../models/ISection";
 import {SimpleModel} from "../../models/SimpleModel";
@@ -22,10 +22,11 @@ interface FileReaderEvent extends Event {
     templateUrl: 'addSection.template.html',
     styleUrls: ['addSection.less']
 })
-export class AddSectionComponent extends DialogAwareComponent {
+export class AddSectionComponent extends DialogAwareComponent implements OnInit{
     previewImg: any;
     section: ISection = <ISection>{};
     file: any;
+    imageUrl: string;
     
     constructor(private appService: AppService,
                 private shopService: ShopService,
@@ -33,9 +34,24 @@ export class AddSectionComponent extends DialogAwareComponent {
         super();
         this.initNewSection();
     }
+
+    ngOnInit() {
+        if (this.currentData.sectionId) {
+            this.shopService.getSectionById(this.currentData.sectionId)
+                .then((section: ISection) => {
+                    this.section = section;
+                    this.imageUrl = 'http://localhost:8080/images/get/' + this.section.imageId;
+                });
+        }
+    }
+
+    deleteSection() {
+        this.shopService.deleteSection(this.currentData.sectionId)
+            .then(() => this.dialog.ok());
+    }
     
     getPicture() {
-        return this.previewImg || noImageIcon;
+        return this.previewImg || this.imageUrl || noImageIcon;
     }
     
     onFileChange(event) {
@@ -50,25 +66,29 @@ export class AddSectionComponent extends DialogAwareComponent {
             
             reader.readAsDataURL(event.target.files[0]);
         }
-        
-        
     }
     
     goToSection(id: number) {
         this.router.navigateByUrl(`/categoryGroup/${id}`);
     }
-    
+
     upload() {
-        this.appService.uploadFile('images/upload', this.file)
-            .then((imageData: SimpleModel) => {
-                this.section.imageId = imageData.id;
-                return this.shopService.addSection(this.section);
-            })
-            .then(() => this.dialog.ok());
+        if (this.file) {
+            this.appService.uploadFile('images/upload', this.file)
+                .then((imageData: SimpleModel) => {
+                    this.section.imageId = imageData.id;
+                    return this.shopService.addSection(this.section);
+                })
+                .then(() => this.dialog.ok());
+        } else {
+            this.shopService.addSection(this.section)
+                .then(() => this.dialog.ok());
+        }
+
     }
     
     isAddDisabled(): boolean {
-        return !this.section.sectionName || !this.file;
+        return !this.section.sectionName;
     }
     
     private initNewSection() {

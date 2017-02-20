@@ -3,6 +3,7 @@ import {AddSectionComponent} from "./AddSectionDialog/addSection.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
 import {FormsModule} from "@angular/forms";
+import {AddGroupComponent} from "./AddGroupDialog/addGroup.component";
 
 @NgModule({
     imports: [
@@ -11,7 +12,8 @@ import {FormsModule} from "@angular/forms";
         Ng2Bs3ModalModule
     ],
     declarations: [
-        AddSectionComponent
+        AddSectionComponent,
+        AddGroupComponent
     ]
 })
 export class DialogsModule {}

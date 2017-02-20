@@ -8,9 +8,11 @@ export interface IDialogAwareComponent {
 
 export class DialogAwareComponent implements IDialogAwareComponent {
     dialog: DialogComponent;
+    currentData: any;
 
     setDialog(dialog: DialogComponent) {
         this.dialog = dialog;
+        this.currentData = this.dialog.config.data;
     }
 
     getDialog(): DialogComponent {
