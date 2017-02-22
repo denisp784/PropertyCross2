@@ -33,6 +33,7 @@ export class CategoryGroupComponent implements OnInit {
     sectionId: number;
     previewImg: any;
     file: any;
+    showCategories: boolean;
     private subscription: Subscription;
     private data: any;
 
@@ -53,6 +54,10 @@ export class CategoryGroupComponent implements OnInit {
             this.loadCategories();
         });
 
+        this.storageService.onSetLastGroup.subscribe(() => {
+            this.loadCategories();
+        });
+
         this.loadCategories();
     }
 
@@ -69,6 +74,8 @@ export class CategoryGroupComponent implements OnInit {
          this.parentRouter.navigateByUrl("");
          return;
          }*/
+
+        console.log('azaz');
 
         if (this.storageService.cachedGroup[this.storageService.lastSection]) {
             this.categoryGroups = this.storageService.cachedGroup[this.storageService.lastSection];
@@ -107,8 +114,8 @@ export class CategoryGroupComponent implements OnInit {
         this.appService.uploadFile('images/upload', this.file)
             .then((imageData: SimpleModel) => {
                 this.category.imageId = imageData.id;
-                this.category.categoryGroup = group;
-                return this.shopService.addCategory(this.category);
+                //this.category.categoryGroup = group;
+                //return this.shopService.addCategory(this.category);
             })
             .then(() => this.shopService.getCategoryGroupBySection(this.sectionId))
             .then((categoryGroups: ICategoryGroup[]) => {
@@ -138,5 +145,12 @@ export class CategoryGroupComponent implements OnInit {
                     )
             });
         event.stopPropagation();
+    }
+
+    groupId: number;
+
+    isShowCategories(id: number) {
+        this.groupId = id;
+        this.showCategories = !this.showCategories;
     }
 }

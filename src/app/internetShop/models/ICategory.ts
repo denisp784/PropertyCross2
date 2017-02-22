@@ -1,6 +1,7 @@
 export interface ICategory {
   id: number;
   categoryName: string;
-  categoryGroup: {};
+  categoryGroupId: number;
   imageId: number;
+  priority: number;
 }

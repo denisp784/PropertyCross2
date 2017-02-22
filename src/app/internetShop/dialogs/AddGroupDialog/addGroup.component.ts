@@ -4,8 +4,8 @@ import {AppService} from "../../../app.service";
 import {ShopService} from "../../ShopService";
 import {StorageService} from "../../StorageService";
 import {Router} from "@angular/router";
-import {ICategory} from "../../models/ICategory";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
+import * as _ from 'lodash';
 
 @Component({
     selector: 'addGroup',
@@ -25,6 +25,7 @@ export class AddGroupComponent extends DialogAwareComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.categoryGroup.priority = 1;
         if (this.currentData.id) {
             this.shopService.getCategoryGroupById(this.currentData.id)
                 .then((categoryGroup: ICategoryGroup) => {
@@ -36,14 +37,15 @@ export class AddGroupComponent extends DialogAwareComponent implements OnInit{
 
     upload() {
         this.categoryGroup.sectionId = this.storageService.lastSection;
+        const categoryGroup = _.assign({}, this.categoryGroup);
+        categoryGroup.categories = null;
 
-        this.shopService.addCategoryGroup(this.categoryGroup)
+        this.shopService.addCategoryGroup(categoryGroup)
             .then(() => this.dialog.ok());
     }
 
-
     isAddDisabled(): boolean {
-        return !this.categoryGroup.categoryGroupName;
+        return !this.categoryGroup.categoryGroupName || !this.categoryGroup.priority;
     }
 
     deleteGroup() {
@@ -54,6 +56,4 @@ export class AddGroupComponent extends DialogAwareComponent implements OnInit{
     private initNewGroup() {
         this.categoryGroup = <ICategoryGroup>{};
     }
-
-
 }

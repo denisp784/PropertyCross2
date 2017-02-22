@@ -8,17 +8,19 @@
 
 
 <ul>
-  <li>
+  <li *ngFor="let category of categoryGroup.categories">
     <div class="img-wrapper">
-      <img src="https://content2.onliner.by/catalog/device/header/3b18cc43f324821bae9ac56e3c48a8bc.jpeg" alt="">
+        <img [src]="'http://localhost:8080/images/get/' + category.imageId">
     </div>
-    <span class="name">Мобильные телефоны</span>
+    <span class="name">{{category.categoryName}}</span>
     <span class="count">Много штук</span>
     <div class="hover">
-      <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
+      <span class="remove-section glyphicon glyphicon-edit" (click)="showAddCategoryDialog($event, category.id)"></span>
     </div>
   </li>
-  <li>
+
+
+<!--  <li>
     <div class="img-wrapper">
       <img src="https://content2.onliner.by/catalog/device/header/7cfaa80229ff08b28fafea0f4d1137a4.jpg" alt="">
     </div>
@@ -139,14 +141,14 @@
       <span class="remove-section glyphicon glyphicon-edit" (click)="deleteSection(section.id)"></span>
     </div>
 
-  </li>
+  </li>-->
 
-  <li (click)="test()">
+
+  <li (click)="showAddCategoryDialog($event)">
     <div class="img-wrapper">
       <img src="app/internetShop/resource/images/add.png" height="100" width="100"/>
     </div>
     <span class="add">Добавить новую категорию</span>
     <div class="hover"></div>
   </li>
-
 </ul>

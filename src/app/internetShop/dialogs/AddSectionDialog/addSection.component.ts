@@ -27,7 +27,9 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
     section: ISection = <ISection>{};
     file: any;
     imageUrl: string;
-    
+
+
+
     constructor(private appService: AppService,
                 private shopService: ShopService,
                 private router: Router) {
@@ -36,6 +38,7 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.section.priority = 1;
         if (this.currentData.sectionId) {
             this.shopService.getSectionById(this.currentData.sectionId)
                 .then((section: ISection) => {
@@ -49,25 +52,25 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
         this.shopService.deleteSection(this.currentData.sectionId)
             .then(() => this.dialog.ok());
     }
-    
+
     getPicture() {
         return this.previewImg || this.imageUrl || noImageIcon;
     }
-    
+
     onFileChange(event) {
         this.file = event.target.files[0];
-        
+
         if (event.target.files && event.target.files[0]) {
             var reader = new FileReader();
-            
+
             reader.onload = (e: FileReaderEvent) => {
                 this.previewImg = e.target.result;
             };
-            
+
             reader.readAsDataURL(event.target.files[0]);
         }
     }
-    
+
     goToSection(id: number) {
         this.router.navigateByUrl(`/categoryGroup/${id}`);
     }
@@ -84,13 +87,12 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
             this.shopService.addSection(this.section)
                 .then(() => this.dialog.ok());
         }
+    }
 
-    }
-    
     isAddDisabled(): boolean {
-        return !this.section.sectionName;
+        return !this.section.sectionName || !this.section.priority;
     }
-    
+
     private initNewSection() {
         this.file = null;
         this.previewImg = null;

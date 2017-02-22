@@ -4,6 +4,7 @@ import {ICategory} from "./models/ICategory";
 import {AppService} from "../app.service";
 import {ISection} from "./models/ISection";
 import {ICategoryGroup} from "./models/ICategoryGroup";
+import {IAddCategory} from "./models/IAddCategory";
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
@@ -13,60 +14,71 @@ const CATEGORY_GROUPS = 'categoryGroups';
 export class ShopService {
 
 
+    constructor(private appService: AppService) {
+    }
 
-  constructor(private appService: AppService) {}
 
+    getSections(): IPromise<ISection[]> {
+        return this.appService.makeGet(`${SECTIONS}/get`);
+    }
 
+    getSectionById(sectionId: string): IPromise<ISection> {
+        return this.appService.makeGet(`${SECTIONS}/get/${sectionId}`);
+    }
 
-  getSections(): IPromise<ISection[]> {
-    return this.appService.makeGet(`${SECTIONS}/get`);
-  }
+    addSection(section: ISection): Promise<ISection> {
+        return this.appService.makePost(`${SECTIONS}/add`, section);
+    }
 
-  getSectionById(sectionId: string): IPromise<ISection> {
-    return this.appService.makeGet(`${SECTIONS}/get/${sectionId}`);
-  }
+    getCategories(): IPromise<ICategory[]> {
+        return this.appService.makeGet(`${CATEGORIES}/get`);
+    }
 
-  addSection(section: ISection): Promise<ISection> {
-    return this.appService.makePost(`${SECTIONS}/add`, section);
-  }
+    getSectionCategories(sectionId: string): IPromise<ICategory[]> {
+        return this.appService.makeGet(`${CATEGORIES}/getBySection?sectionId=${sectionId}`);
+    }
 
-  getCategories(): IPromise<ICategory[]> {
-    return this.appService.makeGet(`${CATEGORIES}/get`);
-  }
+    addCategory(category: IAddCategory): Promise<IAddCategory> {
+        return this.appService.makePost(`${CATEGORIES}/add`, category);
+    }
 
-  getSectionCategories(sectionId: string): IPromise<ICategory[]> {
-    return this.appService.makeGet(`${CATEGORIES}/getBySection?sectionId=${sectionId}`);
-  }
+    deleteCategory(categoryId: number): Promise<ICategory[]> {
+        return this.appService.makeGet(`${CATEGORIES}/delete/${categoryId}`);
+    }
 
-  addCategory(category: ICategory): Promise<ICategory> {
-    return this.appService.makePost(`${CATEGORIES}/add`, category);
-  }
+    getCategoryById(categoryId: number): Promise<IAddCategory> {
+        return this.appService.makeGet(`${CATEGORIES}/get/${categoryId}`);
+    }
 
-  deleteCategory(categoryId: number): Promise<ICategory[]> {
-    return this.appService.makeGet(`${CATEGORIES}/delete/${categoryId}`);
-  }
+    getByCategoryGroup(groupId: number): Promise<ICategory[]> {
+        return this.appService.makeGet(`${CATEGORIES}/getByCategoryGroup?categoryGroupId=${groupId}`);
+    }
 
-  deleteSection(sectionId: number): Promise<ISection[]> {
-    return this.appService.makeGet(`${SECTIONS}/delete/${sectionId}`);
-  }
+    updateCategory(category: IAddCategory): Promise<IAddCategory> {
+        return this.appService.makePost(`${CATEGORIES}/update`, category);
+    }
 
-  getCategoryGroups(): IPromise<ICategoryGroup[]> {
-    return this.appService.makeGet(`${CATEGORY_GROUPS}/get`);
-  }
+    deleteSection(sectionId: number): Promise<ISection[]> {
+        return this.appService.makeGet(`${SECTIONS}/delete/${sectionId}`);
+    }
 
-  getCategoryGroupBySection(sectionId: number): IPromise<ICategoryGroup[]> {
-    return this.appService.makeGet(`${CATEGORY_GROUPS}/getBySection?sectionId=${sectionId}`);
-  }
+    getCategoryGroups(): IPromise<ICategoryGroup[]> {
+        return this.appService.makeGet(`${CATEGORY_GROUPS}/get`);
+    }
 
-  getCategoryGroupById(sectionId: string): IPromise<ICategoryGroup> {
-    return this.appService.makeGet(`${CATEGORY_GROUPS}/get/${sectionId}`);
-  }
+    getCategoryGroupBySection(sectionId: number): IPromise<ICategoryGroup[]> {
+        return this.appService.makeGet(`${CATEGORY_GROUPS}/getBySection?sectionId=${sectionId}`);
+    }
 
-  addCategoryGroup(categoryGroup: ICategoryGroup): IPromise<ICategoryGroup> {
-    return this.appService.makePost(`${CATEGORY_GROUPS}/add`, categoryGroup);
-  }
+    getCategoryGroupById(sectionId: string): IPromise<ICategoryGroup> {
+        return this.appService.makeGet(`${CATEGORY_GROUPS}/get/${sectionId}`);
+    }
 
-  deleteCategoryGroup(categoryGroupId: number): Promise<ICategory[]> {
-    return this.appService.makeGet(`${CATEGORY_GROUPS}/delete/${categoryGroupId}`);
-  }
+    addCategoryGroup(categoryGroup: ICategoryGroup): IPromise<ICategoryGroup> {
+        return this.appService.makePost(`${CATEGORY_GROUPS}/add`, categoryGroup);
+    }
+
+    deleteCategoryGroup(categoryGroupId: number): Promise<ICategory[]> {
+        return this.appService.makeGet(`${CATEGORY_GROUPS}/delete/${categoryGroupId}`);
+    }
 }

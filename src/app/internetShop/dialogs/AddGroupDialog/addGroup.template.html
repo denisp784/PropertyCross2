@@ -6,6 +6,13 @@
                id="categoryGroupName" required
                [(ngModel)]="categoryGroup.categoryGroupName">
     </div>
+    <div class="form-group">
+        <label for="priority">Приоритет группы категорий (По умолчанию: 1)</label>
+        <input type="text" class="add-text form-control"
+               name="priority"
+               id="priority" required
+               [(ngModel)]="categoryGroup.priority">
+    </div>
 </modal-body>
 <modal-footer>
     <span *ngIf="currentData.isEdit" class="delete" (click)="deleteGroup()">Удалить</span>

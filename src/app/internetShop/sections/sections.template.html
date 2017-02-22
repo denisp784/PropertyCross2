@@ -1,27 +1,3 @@
-<!--
-  <md-card *ngFor="let section of sections"
-           class="col-lg-1 col-md-3 col-sm-5 section"
-           (click)="goToSection(section.id)">
-    <div class="delete-block" (click)="deleteSection(section.id)">
-      <img class="delete" [src]="closeIcon" title="Удалить">
-    </div>
-    <img [src]="'http://localhost:8080/images/get/' + section.imageId" class="section__img">
-    <span class="section__text">{{section.sectionName}}</span>
-  </md-card>
-  <md-card class="col-lg-2 col-md-4 col-sm-6 section section-add">
-    <img [src]="getPicture()" class="section-add__img">
-    <div class="section-add_block">
-      <input [(ngModel)]="section.sectionName">
-      <div class="fileUpload btn btn-primary">
-        <span>+</span>
-        <input type="file" class="upload"
-               (change)="onFileChange($event)"
-               name="file"/>xfdfsfsdf
-      </div>
-      <button class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">Добавить</button>
-    </div>
-  </md-card>
--->
 <ul class="sections">
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)" >
         <img [src]="'http://localhost:8080/images/get/' + section.imageId" class="section__img">
@@ -34,38 +10,7 @@
             <i class="glyphicon glyphicon-plus"></i>
         </button>
         <span>Добавить</span>
-
-        <!--<modal #myModal>
-            <modal-header [show-close]="true">
-                <h4 class="modal-title">Добавление новой секции</h4>
-            </modal-header>
-            <modal-body>
-                <div class="form-group">
-                    <div class="add-image">
-                        <img [src]="getPicture()" class="section-add__img">
-                    </div>
-
-                    <div class="fileUpload btn btn-primary">
-                        <span class="glyphicon glyphicon-camera"></span> Выбрать картинку
-                        <input type="file" class="upload"
-                               (change)="onFileChange($event)"
-                               name="file"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="sectionName">Название секции</label>
-                    <input type="text" class="add-text form-control" name="sectionName" id="sectionName" required [(ngModel)]="section.sectionName">
-                </div>
-            </modal-body>
-            <modal-footer>
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Отмена
-                </button>
-                <button type="button" class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">Добавить
-                </button>
-            </modal-footer>
-        </modal>-->
     </li>
 </ul>
-
 
 <categoryGroup *ngIf="showCategory"></categoryGroup>

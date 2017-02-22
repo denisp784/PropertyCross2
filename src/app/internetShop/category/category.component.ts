@@ -1,120 +1,59 @@
-import {Component, Input, Output} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {ICategory} from "../models/ICategory";
-import {AppService} from "../../app.service";
-import {SimpleModel} from "../models/SimpleModel";
 import {ShopService} from "../ShopService";
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from "rxjs";
+import {DialogService} from "../dialogModule/dialogService";
+import {dialogConfigs} from "../dialogs/dialogs.config";
+import {StorageService} from "../StorageService";
+import {ICategoryGroup} from "../models/ICategoryGroup";
+import * as _ from 'lodash';
 
 const close = require('../resource/images/closeDark.png');
 const noImageIcon = require("../resource/images/noImageIcon.png");
 
 @Component({
-  selector: 'category',
-  templateUrl: 'category.template.html',
-  styleUrls: ['category.less']
+    selector: 'category',
+    templateUrl: 'category.template.html',
+    styleUrls: ['category.less']
 })
 export class CategoriesComponent {
 
-  @Input() category: ICategory;
-  @Output() deleteCategory: (category: ICategory) => void;
-
-  constructor(private shopService: ShopService) {
-  }
+    category: ICategory = <ICategory>{};
 
 
-  test () {
-    console.log('hello');
-  }
-  /*file: any;
-  categories: ICategory[];
-  category: ICategory = <ICategory>{};
-  previewImg: any;
-  closeIcon = close;
-  sectionId: string;
-  private subscription: Subscription;
-
-  constructor(private appService: AppService,
-              private shopService: ShopService,
-              private route: ActivatedRoute,
-              private parentRouter: Router) {
-  }
-
-  ngOnInit() {
-    this.subscription = this.route.params.subscribe(params => {
-      this.sectionId = params['sectionId'];
-    });
-
-    this.loadCategories();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  loadCategories() {
-    if (!this.sectionId) {
-      this.parentRouter.navigateByUrl("");
-      return;
+    constructor(private shopService: ShopService,
+                private dialogService: DialogService,
+                private storageService: StorageService) {
     }
 
-    this.initNewCategory();
-    this.shopService.getSectionCategories(this.sectionId)
-      .then((categories: ICategory[]) => {
-        this.categories = categories;
-      });
-  }
+    @Input() categoryGroup: any;
 
-  getPicture() {
-    return this.previewImg || noImageIcon;
-  }
+    showAddCategoryDialog(event, id) {
+        this.storageService.lastGroup = this.categoryGroup.id;
+        let addCategoryDialog = dialogConfigs.addCategoryDialog;
 
-  onFileChange(event) {
-    this.file = event.target.files[0];
+        let data = {
+            isEdit: arguments.length === 2,
+            id
+        };
 
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+        addCategoryDialog.data = data;
 
-      reader.onload = (e: FileReaderEvent) => {
-        this.previewImg = e.target.result;
-      };
+        addCategoryDialog.title = arguments.length === 2 ? 'Изменение группы категорий' : 'Добавление группы категорий';
 
-      reader.readAsDataURL(event.target.files[0]);
+        this.dialogService.showDialog(addCategoryDialog)
+            .subscribe(() => {
+                this.shopService.getCategoryGroupById(this.categoryGroup.id)
+                    .then((categoryGroup: ICategoryGroup) => {
+                        this.categoryGroup = categoryGroup;
+                        //this.storageService.cachedGroup[this.storageService.lastSection] = _.replace(this.storageService.cachedGroup[this.storageService.lastSection], {id: this.categoryGroup.id}, categoryGroup);
+                        const groupIndex = _.findIndex(this.storageService.cachedGroup[this.storageService.lastSection], {id: this.categoryGroup.id});
+                        this.storageService.cachedGroup[this.storageService.lastSection][groupIndex] = categoryGroup;
+                        console.log(this.categoryGroup);
+                        console.log(this.storageService.cachedGroup);
+                        }
+                    );
+            });
+
+        event.stopPropagation();
     }
-  }
-
-  upload() {
-    this.appService.uploadFile('images/upload', this.file)
-      .then((imageData: SimpleModel) => {
-        this.category.imageId = imageData.id;
-        return this.shopService.addCategory(this.category);
-      })
-      .then(() => this.shopService.getSectionCategories(this.sectionId))
-      .then((categories: ICategory[]) => {
-        this.categories = categories;
-        this.initNewCategory();
-      });
-  }
-
-  isAddDisabled(): boolean {
-    return !this.category.categoryName || !this.file;
-  }
-
-  deleteCategory(categoryId: number, event) {
-    event.stopPropagation();
-
-    this.shopService.deleteCategory(categoryId)
-      .then((categories: ICategory[]) => {
-        this.categories = categories;
-      });
-  }
-
-  private initNewCategory() {
-    this.file = null;
-    this.previewImg = null;
-    this.category = <ICategory>{};
-    this.category.sectionId = +this.sectionId;
-  }*/
-
-
 }

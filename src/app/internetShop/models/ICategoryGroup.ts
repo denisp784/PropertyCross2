@@ -5,4 +5,5 @@ export class ICategoryGroup {
   categoryGroupName: string;
   sectionId: number;
   categories: ICategory[];
+  priority: number;
 }
