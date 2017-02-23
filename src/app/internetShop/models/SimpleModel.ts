@@ -1,3 +1,3 @@
 export interface SimpleModel {
-  id: number;
+    id: number;
 }

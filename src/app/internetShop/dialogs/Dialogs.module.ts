@@ -1,10 +1,10 @@
 import {NgModule} from "@angular/core";
-import {AddSectionComponent} from "./AddSectionDialog/addSection.component";
+import {SectionDialogComponent} from "./sectionDialog/sectionDialog.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
 import {FormsModule} from "@angular/forms";
-import {AddGroupComponent} from "./AddGroupDialog/addGroup.component";
-import {AddCategoryComponent} from "./addCategoryDialog/addCategory.component";
+import {CategoryGroupDialogComponent} from "./categoryGroupDialog/categoryGroupDialog.component";
+import {CategoryDialogComponent} from "./categoryDialog/categoryDialog.component";
 
 @NgModule({
     imports: [
@@ -13,9 +13,10 @@ import {AddCategoryComponent} from "./addCategoryDialog/addCategory.component";
         Ng2Bs3ModalModule
     ],
     declarations: [
-        AddSectionComponent,
-        AddGroupComponent,
-        AddCategoryComponent
+        SectionDialogComponent,
+        CategoryGroupDialogComponent,
+        CategoryDialogComponent
     ]
 })
-export class DialogsModule {}
+export class DialogsModule {
+}

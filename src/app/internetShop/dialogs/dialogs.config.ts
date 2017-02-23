@@ -1,21 +1,21 @@
-import {AddSectionComponent} from "./AddSectionDialog/addSection.component";
+import {SectionDialogComponent} from "./sectionDialog/sectionDialog.component";
 import {IDialogConfig} from "../dialogModule/IDialogConfig";
-import {AddGroupComponent} from "./AddGroupDialog/addGroup.component";
-import {AddCategoryComponent} from "./addCategoryDialog/addCategory.component";
+import {CategoryGroupDialogComponent} from "./categoryGroupDialog/categoryGroupDialog.component";
+import {CategoryDialogComponent} from "./categoryDialog/categoryDialog.component";
 
 export const dialogConfigs = {
-    addSectionDialog: <IDialogConfig>{
+    sectionDialogConfig: <IDialogConfig>{
         title: 'Добавление секции',
-        component: AddSectionComponent
+        component: SectionDialogComponent
     },
 
-    addGroupDialog: <IDialogConfig> {
+    categoryGroupDialogConfig: <IDialogConfig> {
         title: 'Добавление группы категорий',
-        component: AddGroupComponent
+        component: CategoryGroupDialogComponent
     },
 
-    addCategoryDialog: <IDialogConfig> {
+    categoryDialogConfig: <IDialogConfig> {
         title: 'Добавление категории',
-        component: AddCategoryComponent
+        component: CategoryDialogComponent
     }
 };

@@ -1,11 +1,9 @@
-import {Component, OnInit, trigger, state, transition, style, animate} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ICategory} from "../../models/ICategory";
 import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
 import {AppService} from "../../../app.service";
 import {ShopService} from "../../ShopService";
 import {StorageService} from "../../StorageService";
-import {Router} from "@angular/router";
-import {IAddCategory} from "../../models/IAddCategory";
 import {SimpleModel} from "../../models/SimpleModel";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
 
@@ -20,56 +18,43 @@ interface FileReaderEvent extends Event {
     getMessage(): string;
 }
 
-
 @Component({
-    selector: 'addCategory',
-    templateUrl: 'addCategory.template.html',
-    styleUrls: ['addCategory.less']
+    selector: 'categoryDialog',
+    templateUrl: 'categoryDialog.template.html',
+    styleUrls: ['categoryDialog.less']
 })
 
-export class AddCategoryComponent extends DialogAwareComponent implements OnInit {
-
-    category: ICategory;
+export class CategoryDialogComponent extends DialogAwareComponent implements OnInit {
     categoryGroups: ICategoryGroup[];
-    addCategory: IAddCategory;
+    category: ICategory;
     previewImg: any;
     file: any;
     imageUrl: string;
 
     constructor(private appService: AppService,
                 private shopService: ShopService,
-                private storageService: StorageService,
-                private router: Router) {
+                private storageService: StorageService) {
         super();
         this.initNewCategory();
     }
 
+    private initNewCategory() {
+        this.file = null;
+        this.previewImg = null;
+        this.category = <ICategory>{};
+    }
+
     ngOnInit() {
-        this.addCategory.priority = 1;
+        this.category.priority = 1;
         if (this.currentData.id) {
             this.shopService.getCategoryById(this.currentData.id)
-                .then((addCategory: IAddCategory) => {
-                        this.addCategory = addCategory;
+                .then((category: ICategory) => {
+                        this.category = category;
+                        this.imageUrl = 'http://localhost:8080/images/get/' + this.category.imageId;
                     }
                 )
         }
     }
-
-    initNewCategory() {
-        this.file = null;
-        this.previewImg = null;
-        this.addCategory = <IAddCategory>{};
-    }
-
-/*    upload() {
-        console.log(this.addCategory);
-        this.addCategory.categoryGroup = {id: 5};
-        this.addCategory.imageId = 1;
-        this.addCategory.priority = 1;
-        this.addCategory.urlName = 'test';
-        this.shopService.addCategory(this.addCategory)
-            .then(() => this.dialog.ok());
-    }*/
 
     getPicture() {
         return this.previewImg || this.imageUrl || noImageIcon;
@@ -79,7 +64,7 @@ export class AddCategoryComponent extends DialogAwareComponent implements OnInit
         this.file = event.target.files[0];
 
         if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
+            const reader = new FileReader();
 
             reader.onload = (e: FileReaderEvent) => {
                 this.previewImg = e.target.result;
@@ -90,23 +75,30 @@ export class AddCategoryComponent extends DialogAwareComponent implements OnInit
     }
 
     deleteCategory() {
-        this.shopService.deleteCategory(this.addCategory.id)
+        this.shopService.deleteCategory(this.category.id)
             .then(() => this.dialog.ok());
     }
 
     upload() {
-        this.addCategory.categoryGroupId = this.storageService.lastGroup;
+        this.category.categoryGroupId = this.storageService.lastGroupId;
 
         if (this.file) {
             this.appService.uploadFile('images/upload', this.file)
                 .then((imageData: SimpleModel) => {
-                    this.addCategory.imageId = imageData.id;
-                    return this.shopService.addCategory(this.addCategory);
+                    this.category.imageId = imageData.id;
+                    return this.shopService.addCategory(this.category);
                 })
                 .then(() => this.dialog.ok());
         } else {
-            this.shopService.addCategory(this.addCategory)
+            this.shopService.addCategory(this.category)
                 .then(() => this.dialog.ok());
         }
+    }
+
+    isAddDisabled(): boolean {
+        if (this.currentData.isEditFlag) {
+            return !this.category.categoryName || !this.category.urlName || !this.category.priority;
+        } else return !this.category.categoryName || !this.file || !this.category.urlName || !this.category.priority;
+
     }
 }

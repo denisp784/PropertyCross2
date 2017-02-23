@@ -1,115 +1,122 @@
 {
-  // Временно отключаю, в связи с тем, что кастомное правило не подтягивается при сборке других проектов
-  //  "rulesDirectory": [
-  //    "node_modules/tslint-microsoft-contrib"
-  //  ],
-  "rules": {
-    "align": [true, "parameters", "statements"],
-    "class-name": true,
-    "comment-format": [
-      true,
-      "check-space"
-    ],
-    "curly": true,
-    "eofline": false,
-    "forin": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
-    "interface-name": true,
-    "jsdoc-format": true,
-    "label-position": true,
-    "label-undefined": true,
-    "max-line-length": [
-      true,
-      120
-    ],
-    //    "new-parens": true,
-    "no-arg": true,
-    "no-bitwise": true,
-    "no-conditional-assignment": true,
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
-    "no-construct": true,
-    "no-debugger": true,
-    "no-duplicate-key": true,
-    "no-duplicate-variable": true,
-    "no-empty": false,
-    "no-eval": true,
-    "no-inferrable-types": [true, "ignore-params"],
-    "no-internal-module": true,
-    "no-reference": true,
-    "no-string-literal": false,
-    "no-switch-case-fall-through": true,
-    "no-trailing-whitespace": true,
-    "no-unreachable": true,
-    "no-unused-expression": true,
-    "no-unused-variable": true,
-    "no-use-before-declare": true,
-    "no-var-keyword": true,
-    //    "object-literal-key-quotes": [true, "as-needed"],
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-finally",
-      "check-whitespace"
-    ],
-    "one-variable-per-declaration": true,
-    "quotemark": [
-      true,
-      "single"
-    ],
-    "radix": true,
-    "semicolon": true,
-    "trailing-comma": false,
-    "triple-equals": true,
-    "typedef": [
-      true,
-      "parameter"
-    ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      },
-      {
-        "call-signature": "space",
-        "index-signature": "space",
-        "parameter": "space",
-        "property-declaration": "space",
-        "variable-declaration": "space"
-      }
-    ],
-    "use-isnan": true,
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-module",
-      "check-separator",
-      "check-type"
-    ]
-    //  ,
-    //    "max-func-body-length": [
-    //      true,
-    //      20,
-    //      {
-    //        "ignore-parameters-to-function-regex": "describe|it"
-    //      }
-    //    ]
-  }
+    // Временно отключаю, в связи с тем, что кастомное правило не подтягивается при сборке других проектов
+    //  "rulesDirectory": [
+    //    "node_modules/tslint-microsoft-contrib"
+    //  ],
+    "rules": {
+        "align": [
+            true,
+            "parameters",
+            "statements"
+        ],
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "curly": true,
+        "eofline": false,
+        "forin": true,
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "interface-name": true,
+        "jsdoc-format": true,
+        "label-position": true,
+        "label-undefined": true,
+        "max-line-length": [
+            true,
+            120
+        ],
+        //    "new-parens": true,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-console": [
+            true,
+            "debug",
+            "info",
+            "time",
+            "timeEnd",
+            "trace"
+        ],
+        "no-construct": true,
+        "no-debugger": true,
+        "no-duplicate-key": true,
+        "no-duplicate-variable": true,
+        "no-empty": false,
+        "no-eval": true,
+        "no-inferrable-types": [
+            true,
+            "ignore-params"
+        ],
+        "no-internal-module": true,
+        "no-reference": true,
+        "no-string-literal": false,
+        "no-switch-case-fall-through": true,
+        "no-trailing-whitespace": true,
+        "no-unreachable": true,
+        "no-unused-expression": true,
+        "no-unused-variable": true,
+        "no-use-before-declare": true,
+        "no-var-keyword": true,
+        //    "object-literal-key-quotes": [true, "as-needed"],
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-catch",
+            "check-else",
+            "check-finally",
+            "check-whitespace"
+        ],
+        "one-variable-per-declaration": true,
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "radix": true,
+        "semicolon": true,
+        "trailing-comma": false,
+        "triple-equals": true,
+        "typedef": [
+            true,
+            "parameter"
+        ],
+        "typedef-whitespace": [
+            true,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            },
+            {
+                "call-signature": "space",
+                "index-signature": "space",
+                "parameter": "space",
+                "property-declaration": "space",
+                "variable-declaration": "space"
+            }
+        ],
+        "use-isnan": true,
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-module",
+            "check-separator",
+            "check-type"
+        ]
+        //  ,
+        //    "max-func-body-length": [
+        //      true,
+        //      20,
+        //      {
+        //        "ignore-parameters-to-function-regex": "describe|it"
+        //      }
+        //    ]
+    }
 }

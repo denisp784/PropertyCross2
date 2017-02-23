@@ -1,15 +1,14 @@
-import {Component, OnInit, trigger, state, transition, style, animate} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
 import {ISection} from "../../models/ISection";
 import {SimpleModel} from "../../models/SimpleModel";
 import {AppService} from "../../../app.service";
 import {ShopService} from "../../ShopService";
-import {Router} from "@angular/router";
 
 const noImageIcon = require("../../resource/images/noImageIcon.png");
 
 interface FileReaderEventTarget extends EventTarget {
-    result: string
+    result: string;
 }
 
 interface FileReaderEvent extends Event {
@@ -18,23 +17,26 @@ interface FileReaderEvent extends Event {
 }
 
 @Component({
-    selector: 'addSection',
-    templateUrl: 'addSection.template.html',
-    styleUrls: ['addSection.less']
+    selector: 'sectionDialog',
+    templateUrl: 'sectionDialog.template.html',
+    styleUrls: ['sectionDialog.less']
 })
-export class AddSectionComponent extends DialogAwareComponent implements OnInit{
+export class SectionDialogComponent extends DialogAwareComponent implements OnInit {
     previewImg: any;
     section: ISection = <ISection>{};
     file: any;
     imageUrl: string;
 
-
-
     constructor(private appService: AppService,
-                private shopService: ShopService,
-                private router: Router) {
+                private shopService: ShopService) {
         super();
         this.initNewSection();
+    }
+
+    private initNewSection() {
+        this.file = null;
+        this.previewImg = null;
+        this.section = <ISection>{};
     }
 
     ngOnInit() {
@@ -61,7 +63,7 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
         this.file = event.target.files[0];
 
         if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
+            const reader = new FileReader();
 
             reader.onload = (e: FileReaderEvent) => {
                 this.previewImg = e.target.result;
@@ -69,10 +71,6 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
 
             reader.readAsDataURL(event.target.files[0]);
         }
-    }
-
-    goToSection(id: number) {
-        this.router.navigateByUrl(`/categoryGroup/${id}`);
     }
 
     upload() {
@@ -91,11 +89,5 @@ export class AddSectionComponent extends DialogAwareComponent implements OnInit{
 
     isAddDisabled(): boolean {
         return !this.section.sectionName || !this.section.priority;
-    }
-
-    private initNewSection() {
-        this.file = null;
-        this.previewImg = null;
-        this.section = <ISection>{};
     }
 }

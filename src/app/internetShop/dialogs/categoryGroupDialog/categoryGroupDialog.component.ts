@@ -1,27 +1,27 @@
-import {Component, OnInit, trigger, state, transition, style, animate} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
-import {AppService} from "../../../app.service";
 import {ShopService} from "../../ShopService";
 import {StorageService} from "../../StorageService";
-import {Router} from "@angular/router";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'addGroup',
-    templateUrl: 'addGroup.template.html',
-    styleUrls: ['addGroup.less']
+    selector: 'categoryGroupDialog',
+    templateUrl: 'categoryGroupDialog.template.html',
+    styleUrls: ['categoryGroupDialog.less']
 })
 
-export class AddGroupComponent extends DialogAwareComponent implements OnInit{
+export class CategoryGroupDialogComponent extends DialogAwareComponent implements OnInit {
     categoryGroup: ICategoryGroup;
 
-    constructor(private appService: AppService,
-                private shopService: ShopService,
-                private storageService: StorageService,
-                private router: Router) {
+    constructor(private shopService: ShopService,
+                private storageService: StorageService) {
         super();
         this.initNewGroup();
+    }
+
+    private initNewGroup() {
+        this.categoryGroup = <ICategoryGroup>{};
     }
 
     ngOnInit() {
@@ -51,9 +51,5 @@ export class AddGroupComponent extends DialogAwareComponent implements OnInit{
     deleteGroup() {
         this.shopService.deleteCategoryGroup(this.categoryGroup.id)
             .then(() => this.dialog.ok());
-    }
-
-    private initNewGroup() {
-        this.categoryGroup = <ICategoryGroup>{};
     }
 }

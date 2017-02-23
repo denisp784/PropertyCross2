@@ -12,26 +12,31 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="sectionName">Название секции</label>
+        <label for="categoryName">Название категории</label>
         <input type="text" class="add-text form-control"
-               name="sectionName"
-               id="sectionName" required
-               [(ngModel)]="section.sectionName">
+               name="categoryName"
+               id="categoryName" required
+               [(ngModel)]="category.categoryName">
+    </div>
+    <div class="form-group">
+        <label for="urlName">URL категории (латиница)</label>
+        <input type="text" class="add-text form-control"
+               name="urlName"
+               id="urlName" required
+               [(ngModel)]="category.urlName">
     </div>
     <div class="form-group">
         <label for="priority">Приоритет секции (По умолчанию: 1)</label>
         <input type="text" class="add-text form-control"
                name="priority"
                id="priority" required
-               [(ngModel)]="section.priority">
+               [(ngModel)]="category.priority">
     </div>
 </modal-body>
 <modal-footer>
-    <span *ngIf="currentData.isEdit" class="delete" (click)="deleteSection()">Удалить</span>
+    <span *ngIf="currentData.isEditFlag" class="delete" (click)="deleteCategory()">Удалить</span>
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
     </button>
-    <button type="button" class="btn btn-primary"
-            [disabled]="isAddDisabled()"
-            (click)="upload()">{{!currentData.isEdit ? 'Добавить' : 'Изменить'}}
+    <button type="button" class="btn btn-primary" [disabled]="isAddDisabled()" (click)="upload()">Добавить
     </button>
 </modal-footer>

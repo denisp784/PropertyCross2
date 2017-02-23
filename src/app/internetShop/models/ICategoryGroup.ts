@@ -1,9 +1,9 @@
 import {ICategory} from "./ICategory";
 
 export class ICategoryGroup {
-  id: number;
-  categoryGroupName: string;
-  sectionId: number;
-  categories: ICategory[];
-  priority: number;
+    id: number;
+    categoryGroupName: string;
+    sectionId: number;
+    categories: ICategory[];
+    priority: number;
 }

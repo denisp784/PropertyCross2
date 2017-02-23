@@ -3,9 +3,9 @@ import {Injectable, EventEmitter} from "@angular/core";
 @Injectable()
 export class StorageService {
     onSetLastSection = new EventEmitter();
-    onSetLastGroup = new EventEmitter();
-
+    lastGroupId: number = null;
     _lastSection: number = null;
+    cachedGroups = {};
 
     get lastSection(): number {
         return this._lastSection;
@@ -18,18 +18,5 @@ export class StorageService {
         }
     }
 
-    _lastGroup: number = null;
 
-    get lastGroup(): number {
-        return this._lastGroup;
-    }
-
-    set lastGroup(lastGroup: number) {
-        this._lastGroup = lastGroup;
-        if (lastGroup) {
-            this.onSetLastGroup.emit();
-        }
-    }
-
-    cachedGroup = {};
 }

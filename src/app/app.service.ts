@@ -6,46 +6,46 @@ export const APP_ROOT_PATH = 'http://localhost:8080/';
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(Http) private http: Http) {
-  }
+    constructor(@Inject(Http) private http: Http) {
+    }
 
-  makeGet(url: string, params?: URLSearchParams): Promise<any> {
-    const fullPath = APP_ROOT_PATH + url;
+    makeGet(url: string, params?: URLSearchParams): Promise<any> {
+        const fullPath = APP_ROOT_PATH + url;
 
-    return this.http.get(fullPath, {search: params})
-      .map(response => response.json())
-      .toPromise();
-  }
+        return this.http.get(fullPath, {search: params})
+            .map(response => response.json())
+            .toPromise();
+    }
 
-  makePost(url: string, data: any): Promise<any> {
-    const fullPath = APP_ROOT_PATH + url;
+    makePost(url: string, data: any): Promise<any> {
+        const fullPath = APP_ROOT_PATH + url;
 
-    return this.http.post(fullPath, data)
-      .map(response => response.json().response)
-      .toPromise();
-  }
+        return this.http.post(fullPath, data)
+            .map(response => response.json().response)
+            .toPromise();
+    }
 
-  uploadFile(url: string, file: any): Promise<any> {
-    const formData = new FormData();
-    const fullPath = APP_ROOT_PATH + url;
+    uploadFile(url: string, file: any): Promise<any> {
+        const formData = new FormData();
+        const fullPath = APP_ROOT_PATH + url;
 
-    return new Promise((resolve, reject) => {
-      let xhr: XMLHttpRequest = new XMLHttpRequest();
+        return new Promise((resolve, reject) => {
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
 
-      formData.append('image', file);
-      xhr.open('POST', fullPath, true);
+            formData.append('image', file);
+            xhr.open('POST', fullPath, true);
 
-      xhr.onload = () => resolve(JSON.parse(xhr.response));
-      xhr.onerror = () => reject({
-        status: xhr.status,
-        statusText: xhr.statusText
-      });
+            xhr.onload = () => resolve(JSON.parse(xhr.response));
+            xhr.onerror = () => reject({
+                status: xhr.status,
+                statusText: xhr.statusText
+            });
 
-      xhr.send(formData);
-    });
-  }
+            xhr.send(formData);
+        });
+    }
 
-  catchError(err: string) {
-    console.log(err);
-  }
+    catchError(err: string) {
+        console.log(err);
+    }
 }

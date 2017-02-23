@@ -1,0 +1,21 @@
+<ul>
+    <li *ngFor="let category of categoryGroup.categories">
+        <div class="img-wrapper">
+            <img [src]="'http://localhost:8080/images/get/' + category.imageId">
+        </div>
+        <span class="name">{{category.categoryName}}</span>
+        <span class="count">Много штук</span>
+        <div class="hover">
+            <span class="remove-section glyphicon glyphicon-edit"
+                  (click)="showCategoryDialog($event, category.id)"></span>
+        </div>
+    </li>
+
+    <li (click)="showCategoryDialog($event)">
+        <div class="img-wrapper">
+            <img src="app/internetShop/resource/images/add.png" height="100" width="100"/>
+        </div>
+        <span class="add">Добавить новую категорию</span>
+        <div class="hover"></div>
+    </li>
+</ul>
