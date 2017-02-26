@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild, OnInit, AfterViewInit, Inject} from "@angular/core";
+import {Component} from "@angular/core";
 import {ShopService} from "../../ShopService";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
 import {ActivatedRoute} from "@angular/router";
@@ -17,10 +17,11 @@ const noImageIcon = require("../../resource/images/noImageIcon.png");
 
 export class CategoryGroupComponent {
     categoryGroups: ICategoryGroup[];
+    categoryGroup: ICategoryGroup;
     sectionId: number;
     previewImg: any;
     showCategories: boolean;
-    categoryGroupId: number;
+    activeGroupIndex: number;
     private subscription: Subscription;
 
     constructor(private shopService: ShopService,
@@ -33,15 +34,16 @@ export class CategoryGroupComponent {
         });
 
         this.storageService.onSetLastSection.subscribe(() => {
-            this.loadCategories();
+            this.loadCategoryGroups();
         });
 
-        this.loadCategories();
+        this.loadCategoryGroups();
     }
 
-    loadCategories() {
+    loadCategoryGroups() {
         if (this.storageService.cachedGroups[this.storageService.lastSection]) {
             this.categoryGroups = this.storageService.cachedGroups[this.storageService.lastSection];
+            this.categoryGroup = this.categoryGroups[0];
             return;
         }
         this.shopService.getCategoryGroupBySection(this.storageService.lastSection)
@@ -49,7 +51,10 @@ export class CategoryGroupComponent {
                 this.categoryGroups = categoryGroups;
                 this.storageService.cachedGroups[this.storageService.lastSection] = categoryGroups;
 
+                this.categoryGroup = categoryGroups[0];
+                this.activeGroupIndex = 0;
             });
+
     }
 
     getPicture() {
@@ -79,8 +84,8 @@ export class CategoryGroupComponent {
         event.stopPropagation();
     }
 
-    isShowCategories(id: number) {
-        this.categoryGroupId = id;
-        this.showCategories = !this.showCategories;
+    isShowCategories(i:number) {
+        this.activeGroupIndex = i;
+        this.categoryGroup = this.categoryGroups[i];
     }
 }
