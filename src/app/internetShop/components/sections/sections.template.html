@@ -13,4 +13,4 @@
     </li>
 </ul>
 
-<categoryGroup *ngIf="showCategoryFlag"></categoryGroup>
+<categoryGroup [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></categoryGroup>

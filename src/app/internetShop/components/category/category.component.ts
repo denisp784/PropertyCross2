@@ -28,7 +28,7 @@ export class CategoriesComponent {
             id
         };
 
-        categoryDialog.title = arguments.length === 2 ? 'Изменение группы категорий' : 'Добавление группы категорий';
+        categoryDialog.title = arguments.length === 2 ? 'Изменение категории' : 'Добавление категории';
 
         this.dialogService.showDialog(categoryDialog)
             .subscribe(() => {

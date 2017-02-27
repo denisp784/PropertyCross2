@@ -4,14 +4,14 @@
         <input type="text" class="add-text form-control"
                name="categoryGroupName"
                id="categoryGroupName" required
-               [(ngModel)]="categoryGroup.categoryGroupName">
+               [(ngModel)]="categoryGroup.categoryGroupName" #categoryGroupName="ngModel">
     </div>
     <div class="form-group">
         <label for="priority">Приоритет группы категорий (По умолчанию: 1)</label>
         <input type="text" class="add-text form-control"
                name="priority"
                id="priority" required
-               [(ngModel)]="categoryGroup.priority">
+               [(ngModel)]="categoryGroup.priority" #priority="ngModel" pattern="^[ 0-9]+$">
     </div>
 </modal-body>
 <modal-footer>
@@ -19,7 +19,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
     </button>
     <button type="button" class="btn btn-primary"
-            [disabled]="isAddDisabled()"
+            [disabled]="isAddDisabled(categoryGroupName, priority)"
             (click)="upload()">{{!currentData.isEditFlag ? 'Добавить' : 'Изменить'}}
     </button>
 </modal-footer>

@@ -16,14 +16,14 @@
         <input type="text" class="add-text form-control"
                name="sectionName"
                id="sectionName" required
-               [(ngModel)]="section.sectionName">
+               [(ngModel)]="section.sectionName" #sectionName="ngModel">
     </div>
     <div class="form-group">
         <label for="priority">Приоритет секции (По умолчанию: 1)</label>
         <input type="text" class="add-text form-control"
                name="priority"
                id="priority" required
-               [(ngModel)]="section.priority">
+               [(ngModel)]="section.priority" #priority="ngModel" pattern="^[ 0-9]+$">
     </div>
 </modal-body>
 <modal-footer>
@@ -31,7 +31,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
     </button>
     <button type="button" class="btn btn-primary"
-            [disabled]="isAddDisabled()"
+            [disabled]="isAddDisabled(sectionName, priority)"
             (click)="upload()">{{!currentData.isEditFlag ? 'Добавить' : 'Изменить'}}
     </button>
 </modal-footer>

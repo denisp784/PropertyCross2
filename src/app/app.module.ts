@@ -34,7 +34,7 @@ import {StorageService} from "./internetShop/StorageService";
         MaterialModule.forRoot(),
         RouterModule.forRoot([
             {path: '', component: MainComponent},
-            {path: 'categoryGroup/:sectionId', component: CategoryGroupComponent}
+            {path: '/:categoryUrl', component: CategoryGroupComponent}
         ])
     ],
     providers: [

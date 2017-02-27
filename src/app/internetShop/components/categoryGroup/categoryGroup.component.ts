@@ -20,7 +20,6 @@ export class CategoryGroupComponent {
     categoryGroup: ICategoryGroup;
     sectionId: number;
     previewImg: any;
-    showCategories: boolean;
     activeGroupIndex: number;
     private subscription: Subscription;
 
@@ -41,11 +40,16 @@ export class CategoryGroupComponent {
     }
 
     loadCategoryGroups() {
+        if (!this.storageService.lastSection) {
+            return;
+        }
+
         if (this.storageService.cachedGroups[this.storageService.lastSection]) {
             this.categoryGroups = this.storageService.cachedGroups[this.storageService.lastSection];
             this.categoryGroup = this.categoryGroups[0];
             return;
         }
+
         this.shopService.getCategoryGroupBySection(this.storageService.lastSection)
             .then((categoryGroups) => {
                 this.categoryGroups = categoryGroups;
@@ -54,7 +58,6 @@ export class CategoryGroupComponent {
                 this.categoryGroup = categoryGroups[0];
                 this.activeGroupIndex = 0;
             });
-
     }
 
     getPicture() {
@@ -84,7 +87,7 @@ export class CategoryGroupComponent {
         event.stopPropagation();
     }
 
-    isShowCategories(i:number) {
+    isShowCategories(i: number) {
         this.activeGroupIndex = i;
         this.categoryGroup = this.categoryGroups[i];
     }

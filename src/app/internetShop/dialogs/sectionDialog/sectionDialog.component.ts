@@ -87,7 +87,9 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
         }
     }
 
-    isAddDisabled(): boolean {
-        return !this.section.sectionName || !this.section.priority;
+    isAddDisabled(sectionName, priority): boolean {
+        /*return !this.section.sectionName || !this.section.priority;*/
+
+        return sectionName.invalid || priority.invalid;
     }
 }
