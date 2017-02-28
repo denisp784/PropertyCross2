@@ -15,6 +15,10 @@ import {Ng2Bs3ModalModule} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {DialogConfigModule} from "./internetShop/dialogModule/dialogConfig.module";
 import {DialogsModule} from "./internetShop/dialogs/Dialogs.module";
 import {StorageService} from "./internetShop/StorageService";
+import { routes } from "./app.routes"
+import {CategoryDetailComponent} from "./internetShop/components/categoryDetail/categoryDetail.component";
+import {HeaderComponent} from "./internetShop/components/header/header.component";
+import {AuthService} from "./internetShop/AuthService";
 
 @NgModule({
     declarations: [
@@ -22,7 +26,9 @@ import {StorageService} from "./internetShop/StorageService";
         MainComponent,
         CategoriesComponent,
         SectionsComponent,
-        CategoryGroupComponent
+        CategoryGroupComponent,
+        CategoryDetailComponent,
+        HeaderComponent
     ],
     imports: [
         DialogsModule,
@@ -32,15 +38,13 @@ import {StorageService} from "./internetShop/StorageService";
         HttpModule,
         Ng2Bs3ModalModule,
         MaterialModule.forRoot(),
-        RouterModule.forRoot([
-            {path: '', component: MainComponent},
-            {path: '/:categoryUrl', component: CategoryGroupComponent}
-        ])
+        RouterModule.forRoot(routes)
     ],
     providers: [
         AppService,
         ShopService,
-        StorageService
+        StorageService,
+        AuthService
     ],
     bootstrap: [AppComponent]
 })

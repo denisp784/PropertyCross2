@@ -44,6 +44,10 @@ export class ShopService {
         return this.appService.makeGet(`${CATEGORIES}/get/${categoryId}`);
     }
 
+    getCategoryByUrl(url: string): Promise<ICategory> {
+        return this.appService.makeGet(`${CATEGORIES}/getByUrl?url=${url}`)
+    }
+
     getCategoryGroupBySection(sectionId: number): IPromise<ICategoryGroup[]> {
         return this.appService.makeGet(`${CATEGORY_GROUPS}/getBySection?sectionId=${sectionId}`);
     }

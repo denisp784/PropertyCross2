@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ShopService} from "../../ShopService";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
 import {ActivatedRoute} from "@angular/router";
@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {StorageService} from "../../StorageService";
 import {DialogService} from "../../dialogModule/dialogService";
 import {dialogConfigs} from "../../dialogs/dialogs.config";
+import {AuthService} from "../../AuthService";
 
 const noImageIcon = require("../../resource/images/noImageIcon.png");
 
@@ -15,18 +16,20 @@ const noImageIcon = require("../../resource/images/noImageIcon.png");
     styleUrls: ['categoryGroup.less']
 })
 
-export class CategoryGroupComponent {
+export class CategoryGroupComponent implements OnInit{
     categoryGroups: ICategoryGroup[];
     categoryGroup: ICategoryGroup;
     sectionId: number;
     previewImg: any;
     activeGroupIndex: number;
+    isAdmin: boolean;
     private subscription: Subscription;
 
     constructor(private shopService: ShopService,
                 private storageService: StorageService,
                 private route: ActivatedRoute,
-                private dialogService: DialogService) {
+                private dialogService: DialogService,
+                private authService: AuthService) {
 
         this.subscription = this.route.params.subscribe(params => {
             this.sectionId = params['sectionId'];
@@ -37,6 +40,10 @@ export class CategoryGroupComponent {
         });
 
         this.loadCategoryGroups();
+    }
+
+    ngOnInit() {
+        this.isAdmin = this.authService.isManager(this.authService.getUserRole());
     }
 
     loadCategoryGroups() {

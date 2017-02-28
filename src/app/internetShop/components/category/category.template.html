@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let category of categoryGroup.categories">
+    <li *ngFor="let category of categoryGroup.categories" (click)="onSelect(category.urlName)">
         <div class="img-wrapper">
             <img [src]="'http://localhost:8080/images/get/' + category.imageId">
         </div>
@@ -7,11 +7,12 @@
         <span class="count">Много штук</span>
         <div class="hover">
             <span class="remove-section glyphicon glyphicon-edit"
-                  (click)="showCategoryDialog($event, category.id)"></span>
+                  (click)="showCategoryDialog($event, category.id)"
+                  *ngIf="isAdmin"></span>
         </div>
     </li>
 
-    <li (click)="showCategoryDialog($event)">
+    <li (click)="showCategoryDialog($event)" *ngIf="isAdmin">
         <div class="img-wrapper">
             <img src="app/internetShop/resource/images/add.png" height="100" width="100"/>
         </div>

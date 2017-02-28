@@ -1,22 +1,31 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {ShopService} from "../../ShopService";
 import {DialogService} from "../../dialogModule/dialogService";
 import {dialogConfigs} from "../../dialogs/dialogs.config";
 import {StorageService} from "../../StorageService";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
 import * as _ from 'lodash';
+import {Router} from "@angular/router";
+import {AuthService} from "../../AuthService";
 
 @Component({
     selector: 'category',
     templateUrl: 'category.template.html',
     styleUrls: ['category.less']
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit {
     @Input() categoryGroup: ICategoryGroup;
+    isAdmin: boolean;
 
     constructor(private shopService: ShopService,
                 private dialogService: DialogService,
-                private storageService: StorageService) {
+                private storageService: StorageService,
+                private router: Router,
+                private authService: AuthService) {
+    }
+
+    ngOnInit() {
+        this.isAdmin = this.authService.isManager(this.authService.getUserRole());
     }
 
     showCategoryDialog(event, id) {
@@ -43,5 +52,7 @@ export class CategoriesComponent {
         event.stopPropagation();
     }
 
-
+    onSelect(url: string) {
+        this.router.navigate(["category", url])
+    }
 }

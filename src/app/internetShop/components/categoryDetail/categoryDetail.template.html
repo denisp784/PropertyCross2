@@ -1,18 +1,16 @@
 <ul class="sections">
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)">
-        <img [src]="'http://localhost:8080/images/get/' + section.imageId">
+
         <span class="description">{{section.sectionName}}</span>
-        <span class="remove-section glyphicon glyphicon-edit"
-              (click)="showSectionDialog($event, section.id)"
-              *ngIf="isAdmin"></span>
+        <span class="remove-section glyphicon glyphicon-edit" (click)="showSectionDialog($event, section.id)"></span>
     </li>
 
-    <li (click)="showSectionDialog($event)" *ngIf="isAdmin">
+    <li (click)="showSectionDialog($event)">
         <button type="button" class="btn btn-default btn-circle btn-xl">
             <i class="glyphicon glyphicon-plus"></i>
         </button>
         <span>Добавить</span>
     </li>
 </ul>
-
 <categoryGroup [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></categoryGroup>
+<span *ngIf="category?.categoryName">{{category.categoryName}}</span>
