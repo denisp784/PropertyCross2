@@ -95,12 +95,9 @@ export class CategoryDialogComponent extends DialogAwareComponent implements OnI
         }
     }
 
-    isAddDisabled(categoryName, urlName, priority): boolean {
-/*        if (this.currentData.isEditFlag) {
-            return !this.category.categoryName || !this.category.urlName || !this.category.priority;
-        } else return !this.category.categoryName || !this.file || !this.category.urlName || !this.category.priority;*/
-
-        return categoryName.invalid || urlName.invalid || priority.invalid;
-
+    isAddDisabled(categoryName, urlName, priority, file): boolean {
+        if (this.currentData.isEditFlag) {
+            return categoryName.invalid || priority.invalid || urlName.invalid;
+        } else return categoryName.invalid || priority.invalid || urlName.invalid || !file;
     }
 }

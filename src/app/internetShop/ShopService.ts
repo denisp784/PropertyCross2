@@ -4,10 +4,14 @@ import {ICategory} from "./models/ICategory";
 import {AppService} from "../app.service";
 import {ISection} from "./models/ISection";
 import {ICategoryGroup} from "./models/ICategoryGroup";
+import {IProperty} from "./models/IProperty";
+import {IPropertyInCategory} from "./models/IPropertyInCategory";
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
 const CATEGORY_GROUPS = 'categoryGroups';
+const PROPERTIES = 'properties';
+const CATEGORY_PROPERTIES = 'categoryProperties';
 
 @Injectable()
 export class ShopService {
@@ -62,5 +66,13 @@ export class ShopService {
 
     deleteCategoryGroup(categoryGroupId: number): Promise<ICategory[]> {
         return this.appService.makeGet(`${CATEGORY_GROUPS}/delete/${categoryGroupId}`);
+    }
+
+    addProperty(property: IProperty): Promise<IProperty> {
+        return this.appService.makePost(`${PROPERTIES}/add`, property);
+    }
+
+    addPropertyInCategory(property: IPropertyInCategory): Promise<IPropertyInCategory> {
+        return this.appService.makePost(`${CATEGORY_PROPERTIES}/add`, property)
     }
 }

@@ -6,11 +6,33 @@
     </li>
 
     <li (click)="showSectionDialog($event)">
-        <button type="button" class="btn btn-default btn-circle btn-xl">
-            <i class="glyphicon glyphicon-plus"></i>
-        </button>
-        <span>Добавить</span>
+        <i class="glyphicon glyphicon-plus"></i> Добавить
     </li>
 </ul>
 <categoryGroup [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></categoryGroup>
-<span *ngIf="category?.categoryName">{{category.categoryName}}</span>
+
+<div class="content">
+    <div class="current-category" *ngIf="category?.categoryName">
+        <span class="category-name">
+            {{category.categoryName}}
+        </span>
+
+        <span class="add-properties" (click)="showPropertiesDialog(category.id)">
+            Добавить свойства
+        </span>
+
+        <span class="add-item">
+            Добавить товар
+        </span>
+
+    </div>
+
+    <div class="properties">
+
+    </div>
+
+    <div class="items">
+
+    </div>
+</div>
+

@@ -5,6 +5,8 @@
                name="categoryGroupName"
                id="categoryGroupName" required
                [(ngModel)]="categoryGroup.categoryGroupName" #categoryGroupName="ngModel">
+        <div class="input-error" [hidden]="categoryGroupName.valid || categoryGroupName.untouched">
+            Введите название категории групп</div>
     </div>
     <div class="form-group">
         <label for="priority">Приоритет группы категорий (По умолчанию: 1)</label>
@@ -12,6 +14,8 @@
                name="priority"
                id="priority" required
                [(ngModel)]="categoryGroup.priority" #priority="ngModel" pattern="^[ 0-9]+$">
+        <div class="input-error" [hidden]="priority.valid || priority.untouched">
+            Приоритет может содержать только цифры</div>
     </div>
 </modal-body>
 <modal-footer>
@@ -19,7 +23,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
     </button>
     <button type="button" class="btn btn-primary"
-            [disabled]="isAddDisabled(categoryGroupName, priority)"
+            [disabled]="isAddDisabled(categoryGroupName, priority, file)"
             (click)="upload()">{{!currentData.isEditFlag ? 'Добавить' : 'Изменить'}}
     </button>
 </modal-footer>

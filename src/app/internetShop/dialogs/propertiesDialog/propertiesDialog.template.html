@@ -1,0 +1,17 @@
+<modal-body>
+    <div class="form-group">
+        <label for="sectionName">Название секции</label>
+        <input type="text" class="add-text form-control"
+               name="sectionName"
+               id="sectionName" required
+               [(ngModel)]="property.name" #sectionName="ngModel">
+    </div>
+</modal-body>
+
+<modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
+    </button>
+    <button type="button" class="btn btn-primary"
+            (click)="upload()">Добавить
+    </button>
+</modal-footer>

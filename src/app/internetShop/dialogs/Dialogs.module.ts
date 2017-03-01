@@ -5,6 +5,7 @@ import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
 import {FormsModule} from "@angular/forms";
 import {CategoryGroupDialogComponent} from "./categoryGroupDialog/categoryGroupDialog.component";
 import {CategoryDialogComponent} from "./categoryDialog/categoryDialog.component";
+import {PropertiesDialogComponent} from "./propertiesDialog/propertiesDialog.component";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {CategoryDialogComponent} from "./categoryDialog/categoryDialog.component
     declarations: [
         SectionDialogComponent,
         CategoryGroupDialogComponent,
-        CategoryDialogComponent
+        CategoryDialogComponent,
+        PropertiesDialogComponent
     ]
 })
 export class DialogsModule {

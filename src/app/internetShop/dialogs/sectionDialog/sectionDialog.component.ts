@@ -87,9 +87,9 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
         }
     }
 
-    isAddDisabled(sectionName, priority): boolean {
-        /*return !this.section.sectionName || !this.section.priority;*/
-
-        return sectionName.invalid || priority.invalid;
+    isAddDisabled(sectionName, priority, file): boolean {
+        if (this.currentData.isEditFlag) {
+            return sectionName.invalid || priority.invalid;
+        } else return sectionName.invalid || priority.invalid || !file;
     }
 }

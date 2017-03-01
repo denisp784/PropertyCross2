@@ -8,7 +8,7 @@ export const routes: Routes = [
         component: MainComponent
     },
     {
-        path: 'category/:url',
+        path: ':url',
         component: CategoryDetailComponent
     },
     /*{path: '/:categoryUrl', component: CategoryGroupComponent}*/

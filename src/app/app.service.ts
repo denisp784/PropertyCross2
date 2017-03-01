@@ -21,7 +21,7 @@ export class AppService {
         const fullPath = APP_ROOT_PATH + url;
 
         return this.http.post(fullPath, data)
-            .map(response => response.json().response)
+            .map(response => response.json())
             .toPromise();
     }
 
