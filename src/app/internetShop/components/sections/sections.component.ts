@@ -1,4 +1,4 @@
-import {Component, Input, trigger, transition, style, animate, OnInit} from "@angular/core";
+import {Component, Input, trigger, transition, style, animate} from "@angular/core";
 import {ShopService} from "../../ShopService";
 import {ISection} from "../../models/ISection";
 import {DialogService} from "../../dialogModule/dialogService";
@@ -11,7 +11,7 @@ import {AuthService} from "../../AuthService";
     templateUrl: 'sections.template.html',
     styleUrls: ['sections.less']
 })
-export class SectionsComponent implements OnInit {
+export class SectionsComponent {
     @Input() sections: ISection[];
     showCategoryFlag: boolean = false;
     isAdmin: boolean;
@@ -20,10 +20,6 @@ export class SectionsComponent implements OnInit {
                 private shopService: ShopService,
                 private storageService: StorageService,
                 private authService: AuthService) {
-    }
-
-    ngOnInit() {
-        this.isAdmin = this.authService.isManager(this.authService.getUserRole());
     }
 
     switchCategory(sectionId: number) {

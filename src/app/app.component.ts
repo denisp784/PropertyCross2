@@ -1,4 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CookieService} from "./internetShop/CookieService";
+import {ShopService} from "./internetShop/ShopService";
+import {AppService} from "./app.service";
+import {StorageService} from "./internetShop/StorageService";
+import {AuthService} from "./internetShop/AuthService";
 
 @Component({
     selector: 'app-root',
@@ -6,6 +11,23 @@ import {Component} from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
+    constructor(private shopService: ShopService,
+        private cookieService: CookieService,
+        private storageService: StorageService,
+        private authService: AuthService) {
+    }
+
+    ngOnInit() {
+        this.authService.login();
+    }
+
+    checkCookie() {
+
+        //this.cookieService.setCookie('auth', 'Basic '  + btoa('admin' + ':' + 'admin'), 10, 'aaa');
+    }
+
+
+
     title = 'app works!';
 }

@@ -1,0 +1,64 @@
+<modal-body *ngIf="isRegister">
+    <div class="form-group">
+        <label for="login">Логин</label>
+        <input type="text" class="add-text form-control"
+               name="login"
+               id="login" required
+               [(ngModel)]="user.login" #sectionName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" class="add-text form-control"
+               name="password"
+               id="password" required
+               [(ngModel)]="user.password" #sectionName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="add-text form-control"
+               name="email"
+               id="email" required
+               [(ngModel)]="user.email" #sectionName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="fio">ФИО</label>
+        <input type="text" class="add-text form-control"
+               name="fio"
+               id="fio" required
+               [(ngModel)]="user.fio" #sectionName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="address">Адрес</label>
+        <input type="text" class="add-text form-control"
+               name="address"
+               id="address" required
+               [(ngModel)]="user.address" #sectionName="ngModel">
+    </div>
+</modal-body>
+
+<modal-body *ngIf="!isRegister">
+    <div class="form-group">
+        <label for="login">Логин</label>
+        <input type="text" class="add-text form-control"
+               name="login"
+               id="login1" required
+               [(ngModel)]="user.login" #sectionName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" class="add-text form-control"
+               name="password"
+               id="password1" required
+               [(ngModel)]="user.password" #sectionName="ngModel">
+    </div>
+</modal-body>
+
+<modal-footer>
+    <span class="delete" (click)="switchRegister()">
+        {{isRegister ? 'У меня есть аккаунт. Войти' : 'У меня ещё нет аккаунта. Зарегистрироваться'}}
+    </span>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
+    </button>
+    <button *ngIf="isRegister" type="button" class="btn btn-primary" (click)="register()">Регистрация</button>
+    <button *ngIf="!isRegister" type="button" class="btn btn-primary" (click)="login()">Войти</button>
+</modal-footer>

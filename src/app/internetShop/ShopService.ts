@@ -6,12 +6,15 @@ import {ISection} from "./models/ISection";
 import {ICategoryGroup} from "./models/ICategoryGroup";
 import {IProperty} from "./models/IProperty";
 import {IPropertyInCategory} from "./models/IPropertyInCategory";
+import {IUser} from "./models/IUser";
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
 const CATEGORY_GROUPS = 'categoryGroups';
 const PROPERTIES = 'properties';
 const CATEGORY_PROPERTIES = 'categoryProperties';
+const USER_ROLES = 'userRoles';
+const USERS = 'users';
 
 @Injectable()
 export class ShopService {
@@ -73,6 +76,14 @@ export class ShopService {
     }
 
     addPropertyInCategory(property: IPropertyInCategory): Promise<IPropertyInCategory> {
-        return this.appService.makePost(`${CATEGORY_PROPERTIES}/add`, property)
+        return this.appService.makePost(`${CATEGORY_PROPERTIES}/add`, property);
+    }
+
+    checkUserRole(): Promise<any> {
+        return this.appService.makeGet(`${USER_ROLES}/login`);
+    }
+
+    addUser(user: IUser): Promise <IUser> {
+        return this.appService.makePost(`${USERS}/add`, user);
     }
 }

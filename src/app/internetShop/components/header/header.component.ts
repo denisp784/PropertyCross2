@@ -1,4 +1,6 @@
 import {Component, OnInit} from "@angular/core";
+import {DialogService} from "../../dialogModule/dialogService";
+import {dialogConfigs} from "../../dialogs/dialogs.config";
 
 
 @Component({
@@ -10,5 +12,18 @@ import {Component, OnInit} from "@angular/core";
 
 export class HeaderComponent {
 
+    constructor(private dialogService: DialogService) {
+
+    }
+
+    showLoginDialog() {
+        const loginDialog = dialogConfigs.loginDialogConfig;
+
+        this.dialogService.showDialog(loginDialog)
+            .subscribe(() => {
+
+            })
+
+    }
 
 }

@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {CategoryGroupDialogComponent} from "./categoryGroupDialog/categoryGroupDialog.component";
 import {CategoryDialogComponent} from "./categoryDialog/categoryDialog.component";
 import {PropertiesDialogComponent} from "./propertiesDialog/propertiesDialog.component";
+import {LoginDialogComponent} from "./loginDialog/loginDialog.component";
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import {PropertiesDialogComponent} from "./propertiesDialog/propertiesDialog.com
         SectionDialogComponent,
         CategoryGroupDialogComponent,
         CategoryDialogComponent,
-        PropertiesDialogComponent
+        PropertiesDialogComponent,
+        LoginDialogComponent
     ]
 })
 export class DialogsModule {

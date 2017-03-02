@@ -1,7 +1,12 @@
 import {Injectable, EventEmitter} from "@angular/core";
+import {AuthService} from "./AuthService";
 
 @Injectable()
 export class StorageService {
+    constructor(private authService:AuthService) {
+
+    }
+
     onSetLastSection = new EventEmitter();
     lastGroupId: number = null;
     _lastSection: number = null;
@@ -18,5 +23,13 @@ export class StorageService {
         }
     }
 
+    isAdmin(): boolean {
+        let isAdminFlag = this.authService.isManager();
+        this.authService.onRoleChange
+            .subscribe(() => {
+                isAdminFlag = this.authService.isManager();
+            });
 
+        return isAdminFlag;
+    }
 }

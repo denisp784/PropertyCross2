@@ -9,20 +9,45 @@ export class AppService {
     constructor(@Inject(Http) private http: Http) {
     }
 
-    makeGet(url: string, params?: URLSearchParams): Promise<any> {
+    authRequest(username: string, password: string) {
+        let headers = new Headers();
+
+        headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+
+        return headers;
+    }
+
+    private makeRequest(url: string, type: string, data?: any) {
         const fullPath = APP_ROOT_PATH + url;
 
-        return this.http.get(fullPath, {search: params})
+        let headers = this.authRequest('admin', 'admin');
+
+        return this.getRequest(type, fullPath, data, {headers})
             .map(response => response.json())
-            .toPromise();
+            .toPromise()
+            .catch(() => {
+                alert('rrrrrr');
+            });
+    }
+
+    private getRequest(type: string, url: string, data: any, headers: any) {
+        if (type === 'get') {
+            return this.http.get(url, headers);
+        }
+
+        if (type === 'post') {
+            return this.http.post(url, data, headers)
+        }
+    }
+
+    makeGet(url: string): Promise<any> {
+
+        return this.makeRequest(url, 'get', null)
     }
 
     makePost(url: string, data: any): Promise<any> {
-        const fullPath = APP_ROOT_PATH + url;
 
-        return this.http.post(fullPath, data)
-            .map(response => response.json())
-            .toPromise();
+        return this.makeRequest(url, 'post', data)
     }
 
     uploadFile(url: string, file: any): Promise<any> {

@@ -25,7 +25,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isAdmin = this.authService.isManager(this.authService.getUserRole());
+        this.isAdmin = this.authService.isManager();
     }
 
     showCategoryDialog(event, id) {

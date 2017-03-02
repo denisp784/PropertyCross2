@@ -19,6 +19,7 @@ import { routes } from "./app.routes"
 import {CategoryDetailComponent} from "./internetShop/components/categoryDetail/categoryDetail.component";
 import {HeaderComponent} from "./internetShop/components/header/header.component";
 import {AuthService} from "./internetShop/AuthService";
+import {CookieService} from "./internetShop/CookieService";
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import {AuthService} from "./internetShop/AuthService";
         AppService,
         ShopService,
         StorageService,
-        AuthService
+        AuthService,
+        CookieService
     ],
     bootstrap: [AppComponent]
 })

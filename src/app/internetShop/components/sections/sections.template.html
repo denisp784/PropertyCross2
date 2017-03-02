@@ -4,10 +4,10 @@
         <span class="description">{{section.sectionName}}</span>
         <span class="remove-section glyphicon glyphicon-edit"
               (click)="showSectionDialog($event, section.id)"
-              *ngIf="isAdmin"></span>
+              *ngIf="storageService.isAdmin()"></span>
     </li>
 
-    <li (click)="showSectionDialog($event)" *ngIf="isAdmin">
+    <li (click)="showSectionDialog($event)" *ngIf="storageService.isAdmin()">
         <button type="button" class="btn btn-default btn-circle btn-xl">
             <i class="glyphicon glyphicon-plus"></i>
         </button>

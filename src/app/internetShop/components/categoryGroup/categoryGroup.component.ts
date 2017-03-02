@@ -43,7 +43,7 @@ export class CategoryGroupComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.isAdmin = this.authService.isManager(this.authService.getUserRole());
+        this.isAdmin = this.authService.isManager();
     }
 
     loadCategoryGroups() {
