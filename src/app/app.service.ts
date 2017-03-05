@@ -1,18 +1,23 @@
 import {Http, Response, URLSearchParams, RequestOptions, Headers} from '@angular/http';
 import 'rxjs/Rx';
 import {Injectable, Inject} from '@angular/core';
+import {CookieService} from "./internetShop/CookieService";
 
 export const APP_ROOT_PATH = 'http://localhost:8080/';
 
 @Injectable()
 export class AppService {
-    constructor(@Inject(Http) private http: Http) {
+    constructor(@Inject(Http) private http: Http,
+                private cookieService: CookieService) {
     }
 
-    authRequest(username: string, password: string) {
+    authRequest() {
         let headers = new Headers();
 
-        headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+        let userpass = this.cookieService.getCookie('auth');
+
+        headers.append("Authorization", userpass);
+        //headers.append("Content-Type", 'application/json; charset=utf-8');
 
         return headers;
     }
@@ -20,13 +25,13 @@ export class AppService {
     private makeRequest(url: string, type: string, data?: any) {
         const fullPath = APP_ROOT_PATH + url;
 
-        let headers = this.authRequest('admin', 'admin');
+        let headers = this.authRequest();
 
         return this.getRequest(type, fullPath, data, {headers})
             .map(response => response.json())
             .toPromise()
-            .catch(() => {
-                alert('rrrrrr');
+            .catch((data) => {
+                return data;
             });
     }
 

@@ -8,11 +8,11 @@
         <div class="hover">
             <span class="remove-section glyphicon glyphicon-edit"
                   (click)="showCategoryDialog($event, category.id)"
-                  *ngIf="isAdmin"></span>
+                  *ngIf="storageService.isAdmin()"></span>
         </div>
     </li>
 
-    <li (click)="showCategoryDialog($event)" *ngIf="isAdmin">
+    <li (click)="showCategoryDialog($event)" *ngIf="storageService.isAdmin()">
         <div class="img-wrapper">
             <img src="app/internetShop/resource/images/add.png" height="100" width="100"/>
         </div>

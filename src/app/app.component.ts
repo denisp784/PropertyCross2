@@ -19,7 +19,12 @@ export class AppComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.authService.login();
+
+        this.cookieService.deleteCookie('auth');
+        this.authService.autoLogin();
+
+
+
     }
 
     checkCookie() {

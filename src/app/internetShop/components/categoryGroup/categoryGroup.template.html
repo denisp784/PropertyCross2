@@ -6,14 +6,14 @@
                     {{group.categoryGroupName}}
                     <span class="remove-section glyphicon glyphicon-edit"
                           (click)="showCategoryGroupDialog($event, group.id)"
-                          *ngIf="isAdmin"></span>
+                          *ngIf="storageService.isAdmin()"></span>
                 </div>
             </div>
 <!--                    <div [ngClass]="{'categories-hide': group.id !== categoryGroupId, 'categories-show': group.id === categoryGroupId}">
                         <category [categoryGroup]="group"></category>
                     </div>-->
         </div>
-        <div class="cat-groups" *ngIf="isAdmin">
+        <div class="cat-groups" *ngIf="storageService.isAdmin()">
             <div class="group">
                 <div class="txt" (click)="showCategoryGroupDialog($event)">
                     <i class="glyphicon glyphicon-plus"></i> Добавить группу категорий

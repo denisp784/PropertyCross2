@@ -14,7 +14,6 @@ import {AuthService} from "../../AuthService";
 export class SectionsComponent {
     @Input() sections: ISection[];
     showCategoryFlag: boolean = false;
-    isAdmin: boolean;
 
     constructor(private dialogService: DialogService,
                 private shopService: ShopService,

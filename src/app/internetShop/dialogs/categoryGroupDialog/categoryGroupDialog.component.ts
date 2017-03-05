@@ -44,10 +44,8 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
             .then(() => this.dialog.ok());
     }
 
-    isAddDisabled(categoryGroupName, priority, file): boolean {
-        if (this.currentData.isEditFlag) {
-            return categoryGroupName.invalid || priority.invalid;
-        } else return categoryGroupName.invalid || priority.invalid || !file;
+    isAddDisabled(categoryGroupName, priority): boolean {
+        return categoryGroupName.invalid || priority.invalid;
     }
 
     deleteGroup() {

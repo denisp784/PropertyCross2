@@ -23,7 +23,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
     </button>
     <button type="button" class="btn btn-primary"
-            [disabled]="isAddDisabled(categoryGroupName, priority, file)"
+            [disabled]="isAddDisabled(categoryGroupName, priority)"
             (click)="upload()">{{!currentData.isEditFlag ? 'Добавить' : 'Изменить'}}
     </button>
 </modal-footer>

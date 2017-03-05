@@ -31,7 +31,7 @@ export class AuthService {
         return !!hasManageRole[this.role];
     }
 
-    login(): boolean {
+    autoLogin(): boolean {
         if (this.cookieService.getCookie('auth')) {
             this.shopService.checkUserRole()
                 .then((data) => {
