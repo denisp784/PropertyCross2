@@ -6,13 +6,13 @@ export class CookieService {
     constructor() { }
 
     public getCookie(name: string) {
-        let ca: Array<string> = document.cookie.replace(' ', '').split(';');
+        let ca: Array<string> = document.cookie.split(';');
         let caLen: number = ca.length;
         let cookieName = name + "=";
         let c: string;
 
         for (let i: number = 0; i < caLen; i += 1) {
-            c = ca[i];
+            c = ca[i].trim();
 
             if (c.indexOf(cookieName) == 0) {
                 return c.substring(cookieName.length, c.length);
