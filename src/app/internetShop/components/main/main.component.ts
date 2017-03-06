@@ -15,7 +15,7 @@ export class MainComponent {
 
     constructor(private shopService: ShopService) {
         this.shopService.getSections()
-            .then((sections: ISection[]) => {
+            .subscribe((sections: ISection[]) => {
                 this.sections = sections;
             });
     }

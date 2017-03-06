@@ -58,7 +58,7 @@ export class CategoryGroupComponent implements OnInit{
         }
 
         this.shopService.getCategoryGroupBySection(this.storageService.lastSection)
-            .then((categoryGroups) => {
+            .subscribe((categoryGroups) => {
                 this.categoryGroups = categoryGroups;
                 this.storageService.cachedGroups[this.storageService.lastSection] = categoryGroups;
 
@@ -85,7 +85,7 @@ export class CategoryGroupComponent implements OnInit{
             .subscribe((data) => {
                 console.log(data);
                 this.shopService.getCategoryGroupBySection(this.storageService.lastSection)
-                    .then((categoryGroups: ICategoryGroup[]) => {
+                    .subscribe((categoryGroups: ICategoryGroup[]) => {
                             this.categoryGroups = categoryGroups;
                             this.storageService.cachedGroups[this.storageService.lastSection] = categoryGroups;
                         }

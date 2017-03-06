@@ -26,12 +26,12 @@ export class PropertiesDialogComponent extends DialogAwareComponent implements O
 
     upload() {
         this.shopService.addProperty(this.property)
-            .then((data) => {
+            .subscribe((data) => {
                 this.propertyInCategory.category = {id: this.currentData.id};
                 this.propertyInCategory.property = {id: data.id};
 
                 this.shopService.addPropertyInCategory(this.propertyInCategory)
-                    .then(() => {
+                    .subscribe(() => {
                         console.log('свойство добавлено в категорию');
                     })
             });

@@ -48,7 +48,7 @@ export class CategoryDialogComponent extends DialogAwareComponent implements OnI
         this.category.priority = 1;
         if (this.currentData.id) {
             this.shopService.getCategoryById(this.currentData.id)
-                .then((category: ICategory) => {
+                .subscribe((category: ICategory) => {
                         this.category = category;
                         this.imageUrl = 'http://localhost:8080/images/get/' + this.category.imageId;
                     }
@@ -76,7 +76,7 @@ export class CategoryDialogComponent extends DialogAwareComponent implements OnI
 
     deleteCategory() {
         this.shopService.deleteCategory(this.category.id)
-            .then(() => this.dialog.ok());
+            .subscribe(() => this.dialog.ok());
     }
 
     upload() {
@@ -84,14 +84,14 @@ export class CategoryDialogComponent extends DialogAwareComponent implements OnI
 
         if (this.file) {
             this.appService.uploadFile('images/upload', this.file)
-                .then((imageData: SimpleModel) => {
+                .flatMap((imageData: SimpleModel) => {
                     this.category.imageId = imageData.id;
                     return this.shopService.addCategory(this.category);
                 })
-                .then(() => this.dialog.ok());
+                .subscribe(() => this.dialog.ok());
         } else {
             this.shopService.addCategory(this.category)
-                .then(() => this.dialog.ok());
+                .subscribe(() => this.dialog.ok());
         }
     }
 

@@ -35,13 +35,13 @@ export class CategoryDetailComponent implements OnInit {
 
     loadContent() {
         this.shopService.getSections()
-            .then((sections) => {
+            .subscribe((sections) => {
                 this.sections = sections;
                 console.log(this.sections);
             });
 
         this.shopService.getCategoryByUrl(this.currentUrl)
-            .then((category: ICategory) => {
+            .subscribe((category: ICategory) => {
                 this.category = category;
                 console.log(this.category);
             })
@@ -69,7 +69,7 @@ export class CategoryDetailComponent implements OnInit {
         this.dialogService.showDialog(sectionDialog)
             .subscribe(() => {
                 this.shopService.getSections()
-                    .then((sections: ISection[]) => {
+                    .subscribe((sections: ISection[]) => {
                             this.sections = sections;
                         }
                     )

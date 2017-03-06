@@ -41,13 +41,11 @@ export class SectionsComponent {
         sectionDialog.title = arguments.length === 2 ? 'Изменение секции' : 'Добавление секции';
 
         this.dialogService.showDialog(sectionDialog)
-            .subscribe(() => {
-                this.shopService.getSections()
-                    .then((sections: ISection[]) => {
-                            this.sections = sections;
-                        }
-                    )
-            });
+            .flatMap(() => this.shopService.getSections())
+            .subscribe((sections: ISection[]) => {
+                    this.sections = sections;
+                }
+            );
         event.stopPropagation();
     }
 }

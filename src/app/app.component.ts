@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
 
     ngOnInit() {
 
-        this.cookieService.deleteCookie('auth');
+        //this.cookieService.deleteCookie('auth');
         this.authService.autoLogin();
 
 

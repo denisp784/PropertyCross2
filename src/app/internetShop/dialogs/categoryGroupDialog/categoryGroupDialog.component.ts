@@ -28,7 +28,7 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
         this.categoryGroup.priority = 1;
         if (this.currentData.id) {
             this.shopService.getCategoryGroupById(this.currentData.id)
-                .then((categoryGroup: ICategoryGroup) => {
+                .subscribe((categoryGroup: ICategoryGroup) => {
                         this.categoryGroup = categoryGroup;
                     }
                 )
@@ -41,7 +41,7 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
         categoryGroup.categories = null;
 
         this.shopService.addCategoryGroup(categoryGroup)
-            .then(() => this.dialog.ok());
+            .subscribe(() => this.dialog.ok());
     }
 
     isAddDisabled(categoryGroupName, priority): boolean {
@@ -50,6 +50,6 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
 
     deleteGroup() {
         this.shopService.deleteCategoryGroup(this.categoryGroup.id)
-            .then(() => this.dialog.ok());
+            .subscribe(() => this.dialog.ok());
     }
 }

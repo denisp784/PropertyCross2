@@ -43,7 +43,7 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
         this.section.priority = 1;
         if (this.currentData.sectionId) {
             this.shopService.getSectionById(this.currentData.sectionId)
-                .then((section: ISection) => {
+                .subscribe((section: ISection) => {
                     this.section = section;
                     this.imageUrl = 'http://localhost:8080/images/get/' + this.section.imageId;
                 });
@@ -52,7 +52,7 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
 
     deleteSection() {
         this.shopService.deleteSection(this.currentData.sectionId)
-            .then(() => this.dialog.ok());
+            .subscribe(() => this.dialog.ok());
     }
 
     getPicture() {
@@ -76,14 +76,14 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
     upload() {
         if (this.file) {
             this.appService.uploadFile('images/upload', this.file)
-                .then((imageData: SimpleModel) => {
+                .flatMap((imageData: SimpleModel) => {
                     this.section.imageId = imageData.id;
                     return this.shopService.addSection(this.section);
                 })
-                .then(() => this.dialog.ok());
+                .subscribe(() => this.dialog.ok());
         } else {
             this.shopService.addSection(this.section)
-                .then(() => this.dialog.ok());
+                .subscribe(() => this.dialog.ok());
         }
     }
 

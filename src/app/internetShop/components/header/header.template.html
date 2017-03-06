@@ -12,8 +12,14 @@
             <span class="glyphicon glyphicon-shopping-cart"></span> Корзина
         </button>
 
-        <button type="button" class="btn btn-default" (click)="showLoginDialog()">
+        <button *ngIf="!cookieService.getCookie('auth')"
+            type="button" class="btn btn-default" (click)="showLoginDialog()">
             <span class="glyphicon glyphicon-log-in"></span> Войти / Регистрация
+        </button>
+
+        <button *ngIf="cookieService.getCookie('auth')"
+                type="button" class="btn btn-default" (click)="logout()">
+            <span class="glyphicon glyphicon-log-in"></span> Выйти
         </button>
     </div>
 </div>

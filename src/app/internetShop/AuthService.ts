@@ -34,7 +34,7 @@ export class AuthService {
     autoLogin(): boolean {
         if (this.cookieService.getCookie('auth')) {
             this.shopService.checkUserRole()
-                .then((data) => {
+                .subscribe((data) => {
                     console.log(!!hasManageRole[data.role]);
                     this.role = data.role;
                 });

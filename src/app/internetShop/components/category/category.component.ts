@@ -42,7 +42,7 @@ export class CategoriesComponent implements OnInit {
         this.dialogService.showDialog(categoryDialog)
             .subscribe(() => {
                 this.shopService.getCategoryGroupById(this.categoryGroup.id)
-                    .then((categoryGroup: ICategoryGroup) => {
+                    .subscribe((categoryGroup: ICategoryGroup) => {
                             this.categoryGroup = categoryGroup;
                             const groupIndex = _.findIndex(this.storageService.cachedGroups[this.storageService.lastSection], {id: this.categoryGroup.id});
                             this.storageService.cachedGroups[this.storageService.lastSection][groupIndex] = categoryGroup;

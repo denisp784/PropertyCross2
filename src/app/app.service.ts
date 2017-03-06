@@ -2,6 +2,8 @@ import {Http, Response, URLSearchParams, RequestOptions, Headers} from '@angular
 import 'rxjs/Rx';
 import {Injectable, Inject} from '@angular/core';
 import {CookieService} from "./internetShop/CookieService";
+import {Observable} from "rxjs";
+import 'rxjs/add/operator/catch';
 
 export const APP_ROOT_PATH = 'http://localhost:8080/';
 
@@ -16,7 +18,9 @@ export class AppService {
 
         let userpass = this.cookieService.getCookie('auth');
 
-        headers.append("Authorization", userpass);
+        if (userpass) {
+            headers.append("Authorization", userpass);
+        }
         //headers.append("Content-Type", 'application/json; charset=utf-8');
 
         return headers;
@@ -27,17 +31,19 @@ export class AppService {
 
         let headers = this.authRequest();
 
+        console.log(headers);
+
         return this.getRequest(type, fullPath, data, {headers})
             .map(response => response.json())
-            .toPromise()
             .catch((data) => {
+                console.log(data);
                 return data;
             });
     }
 
     private getRequest(type: string, url: string, data: any, headers: any) {
         if (type === 'get') {
-            return this.http.get(url, headers);
+            return this.http.get(url, headers)
         }
 
         if (type === 'post') {
@@ -45,28 +51,26 @@ export class AppService {
         }
     }
 
-    makeGet(url: string): Promise<any> {
-
+    makeGet(url: string): Observable<any> {
         return this.makeRequest(url, 'get', null)
     }
 
-    makePost(url: string, data: any): Promise<any> {
-
+    makePost(url: string, data: any): Observable<any> {
         return this.makeRequest(url, 'post', data)
     }
 
-    uploadFile(url: string, file: any): Promise<any> {
+    uploadFile(url: string, file: any): Observable<any> {
         const formData = new FormData();
         const fullPath = APP_ROOT_PATH + url;
 
-        return new Promise((resolve, reject) => {
+        return new Observable(observer => {
             let xhr: XMLHttpRequest = new XMLHttpRequest();
 
             formData.append('image', file);
             xhr.open('POST', fullPath, true);
 
-            xhr.onload = () => resolve(JSON.parse(xhr.response));
-            xhr.onerror = () => reject({
+            xhr.onload = () => observer.next(JSON.parse(xhr.response));
+            xhr.onerror = () => observer.error({
                 status: xhr.status,
                 statusText: xhr.statusText
             });
