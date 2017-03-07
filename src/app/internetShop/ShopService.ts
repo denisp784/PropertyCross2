@@ -87,6 +87,10 @@ export class ShopService {
         return this.appService.makePost(`${USERS}/add`, user);
     }
 
+    userRegistration(user: IUser): Observable <IUser> {
+        return this.appService.makePost(`${USERS}/userRegistration`, user)
+    }
+
     checkUserExist(login: string): Observable <boolean> {
         return this.appService.makeGet(`${USERS}/userExists?login=${login}`)
     }

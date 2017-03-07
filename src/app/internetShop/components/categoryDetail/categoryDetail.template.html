@@ -17,11 +17,11 @@
             {{category.categoryName}}
         </span>
 
-        <span class="add-properties" (click)="showPropertiesDialog(category.id)">
+        <span class="add-properties" (click)="showPropertiesDialog(category.id)" *ngIf="storageService.isAdmin()">
             Добавить свойства
         </span>
 
-        <span class="add-item">
+        <span class="add-item" *ngIf="storageService.isAdmin()">
             Добавить товар
         </span>
 

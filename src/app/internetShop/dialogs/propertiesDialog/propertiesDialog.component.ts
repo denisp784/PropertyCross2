@@ -25,6 +25,7 @@ export class PropertiesDialogComponent extends DialogAwareComponent implements O
     }
 
     upload() {
+        console.log(document.cookie);
         this.shopService.addProperty(this.property)
             .subscribe((data) => {
                 this.propertyInCategory.category = {id: this.currentData.id};

@@ -20,6 +20,7 @@ import {CategoryDetailComponent} from "./internetShop/components/categoryDetail/
 import {HeaderComponent} from "./internetShop/components/header/header.component";
 import {AuthService} from "./internetShop/AuthService";
 import {CookieService} from "./internetShop/CookieService";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import {CookieService} from "./internetShop/CookieService";
         DialogsModule,
         DialogConfigModule,
         BrowserModule,
+        CommonModule,
         FormsModule,
         HttpModule,
         Ng2Bs3ModalModule,

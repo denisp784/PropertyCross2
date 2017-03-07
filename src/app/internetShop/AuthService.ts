@@ -35,7 +35,6 @@ export class AuthService {
         if (this.cookieService.getCookie('auth')) {
             this.shopService.checkUserRole()
                 .subscribe((data) => {
-                    console.log(!!hasManageRole[data.role]);
                     this.role = data.role;
                 });
         } else {

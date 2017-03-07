@@ -83,7 +83,6 @@ export class CategoryGroupComponent implements OnInit{
 
         this.dialogService.showDialog(categoryGroupDialog)
             .subscribe((data) => {
-                console.log(data);
                 this.shopService.getCategoryGroupBySection(this.storageService.lastSection)
                     .subscribe((categoryGroups: ICategoryGroup[]) => {
                             this.categoryGroups = categoryGroups;

@@ -5,6 +5,7 @@ import {
 import {IDialogAwareComponent} from "./dialogAware.component";
 import {ModalComponent} from "ng2-bs3-modal/components/modal";
 import {IDialogConfig} from "./IDialogConfig";
+import {NgForm} from '@angular/forms';
 
 @Component({
     selector: 'ng2-dialog',

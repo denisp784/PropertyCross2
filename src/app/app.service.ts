@@ -22,7 +22,6 @@ export class AppService {
             headers.append("Authorization", userpass);
         }
         //headers.append("Content-Type", 'application/json; charset=utf-8');
-
         return headers;
     }
 
@@ -32,11 +31,9 @@ export class AppService {
         let headers = this.authRequest();
 
         console.log(headers);
-
         return this.getRequest(type, fullPath, data, {headers})
             .map(response => response.json())
             .catch((data) => {
-                console.log(data);
                 return data;
             });
     }
@@ -80,6 +77,6 @@ export class AppService {
     }
 
     catchError(err: string) {
-        console.log(err);
+        //console.log(err);
     }
 }

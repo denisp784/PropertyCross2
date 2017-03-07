@@ -38,7 +38,6 @@ export class HeaderComponent {
         this.cookieService.deleteCookie('auth');
         this.shopService.checkUserRole();
         this.authService.role = '';
-        console.log(this.storageService.isAdmin());
     }
 
 }

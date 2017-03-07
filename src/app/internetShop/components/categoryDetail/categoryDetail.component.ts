@@ -37,13 +37,11 @@ export class CategoryDetailComponent implements OnInit {
         this.shopService.getSections()
             .subscribe((sections) => {
                 this.sections = sections;
-                console.log(this.sections);
             });
 
         this.shopService.getCategoryByUrl(this.currentUrl)
             .subscribe((category: ICategory) => {
                 this.category = category;
-                console.log(this.category);
             })
     }
 
