@@ -21,39 +21,37 @@ export class AppService {
         if (userpass) {
             headers.append("Authorization", userpass);
         }
-        //headers.append("Content-Type", 'application/json; charset=utf-8');
+        // headers.append("Content-Type", 'application/json; charset=utf-8');
         return headers;
     }
 
     private makeRequest(url: string, type: string, data?: any) {
         const fullPath = APP_ROOT_PATH + url;
-
         let headers = this.authRequest();
 
-        console.log(headers);
         return this.getRequest(type, fullPath, data, {headers})
             .map(response => response.json())
-            .catch((data) => {
-                return data;
+            .catch((error: any) => {
+                return Observable.throw(error);
             });
     }
 
     private getRequest(type: string, url: string, data: any, headers: any) {
         if (type === 'get') {
-            return this.http.get(url, headers)
+            return this.http.get(url, headers);
         }
 
         if (type === 'post') {
-            return this.http.post(url, data, headers)
+            return this.http.post(url, data, headers);
         }
     }
 
     makeGet(url: string): Observable<any> {
-        return this.makeRequest(url, 'get', null)
+        return this.makeRequest(url, 'get', null);
     }
 
     makePost(url: string, data: any): Observable<any> {
-        return this.makeRequest(url, 'post', data)
+        return this.makeRequest(url, 'post', data);
     }
 
     uploadFile(url: string, file: any): Observable<any> {

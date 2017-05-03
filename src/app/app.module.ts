@@ -21,6 +21,9 @@ import {HeaderComponent} from "./internetShop/components/header/header.component
 import {AuthService} from "./internetShop/AuthService";
 import {CookieService} from "./internetShop/CookieService";
 import {CommonModule} from "@angular/common";
+import {PropertiesComponent} from './internetShop/components/properties/properties.component';
+import {ProductsComponent} from './internetShop/components/products/products.component';
+import {FilterComponent} from './internetShop/components/filter/filter.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +33,10 @@ import {CommonModule} from "@angular/common";
         SectionsComponent,
         CategoryGroupComponent,
         CategoryDetailComponent,
-        HeaderComponent
+        HeaderComponent,
+        PropertiesComponent,
+        ProductsComponent,
+        FilterComponent
     ],
     imports: [
         DialogsModule,

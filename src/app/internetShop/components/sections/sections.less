@@ -85,16 +85,72 @@
     transition: all 0.5s ease;
 }
 
-.showGroups{
-    float:left;
+.showGroups {
+    float: left;
     max-height: 500px;
     transition: max-height 0.5s ease-in;
     overflow: hidden;
 }
 
 .hideGroups {
-    float:left;
+    float: left;
     max-height: 0;
     transition: max-height 0.5s ease-out;
     overflow: hidden;
+}
+
+.new-sections {
+    display: inline-flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: stretch;
+
+    .section {
+        position: relative;
+        background-color: #ffffff;
+        padding-top: 10px;
+        padding-bottom: 8px;
+        border-bottom-color: #ffffff;
+        border-bottom-width: 4px;
+        border-bottom-style: inset;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        flex-grow: 1;
+
+        img {
+            vertical-align: middle;
+            max-width: 70px;
+            max-height: 70px;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            display: block;
+            margin: auto;
+        }
+
+        .description {
+            margin-top: 5px;
+        }
+
+        button {
+            outline: none;
+        }
+
+        .remove-section {
+            display: none;
+        }
+    }
+
+    .section:hover {
+        cursor: pointer;
+        border-bottom-color: #ccc;
+        transition: all 0.5s ease;
+
+        .remove-section {
+            display: block;
+        }
+    }
 }

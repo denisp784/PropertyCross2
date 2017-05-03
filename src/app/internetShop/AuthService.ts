@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {ShopService} from "./ShopService";
-import {CookieService} from "./CookieService";
-import {Subject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {ShopService} from './ShopService';
+import {CookieService} from './CookieService';
+import {Subject} from 'rxjs';
 
 const hasManageRole = {
     ROLE_ADMIN: true,

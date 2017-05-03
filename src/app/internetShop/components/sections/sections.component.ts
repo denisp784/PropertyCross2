@@ -1,10 +1,10 @@
-import {Component, Input, trigger, transition, style, animate} from "@angular/core";
-import {ShopService} from "../../ShopService";
-import {ISection} from "../../models/ISection";
-import {DialogService} from "../../dialogModule/dialogService";
-import {dialogConfigs} from "../../dialogs/dialogs.config";
-import {StorageService} from "../../StorageService";
-import {AuthService} from "../../AuthService";
+import {Component, Input, trigger, transition, style, animate} from '@angular/core';
+import {ShopService} from '../../ShopService';
+import {ISection} from '../../models/ISection';
+import {DialogService} from '../../dialogModule/dialogService';
+import {dialogConfigs} from '../../dialogs/dialogs.config';
+import {StorageService} from '../../StorageService';
+import {AuthService} from '../../AuthService';
 
 @Component({
     selector: 'sections',

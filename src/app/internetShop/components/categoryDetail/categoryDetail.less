@@ -100,40 +100,76 @@
 }
 
 .current-category {
-    padding: 15px;
-    float: left;
     width: 100%;
     height: 60px;
-    line-height: 30px;
     background-color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-color: #ccc;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
 
-    .category-name {
-        font-size: 20px;
-        font-weight: bold;
+    .name-block {
+        padding-left: 15px;
+
+        .category-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
     }
 
-    .add-properties {
-        float: right;
-        padding-left: 10px;
-        font-size: 12px;
-        color: #9c9c9c;
+    .add-block {
+        padding-right: 15px;
+
+        .add-properties {
+            padding-left: 10px;
+            font-size: 13px;
+            color: #9c9c9c;
+        }
+
+        .add-properties:hover {
+            cursor: pointer;
+            color: #000000;
+        }
+
+        .add-item {
+            padding-left: 10px;
+            font-size: 13px;
+            color: #9c9c9c;
+        }
+
+        .add-item:hover {
+            cursor: pointer;
+            color: #000000;
+        }
     }
 
-    .add-properties:hover {
-        cursor: pointer;
-        color: #000000;
-    }
+}
 
-    .add-item {
-        float: right;
-        padding-left: 10px;
-        font-size: 12px;
-        color: #9c9c9c;
-    }
+.content {
+    background-color: #ffffff;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 
-    .add-item:hover {
-        cursor: pointer;
-        color: #000000;
+    .wrapper {
+        width: 100%;
+        float: left;
+
+        .filter {
+            float: left;
+            width: 25%;
+            padding: 15px;
+        }
+
+        .products {
+            width: 75%;
+            float:right;
+            border-left-color: #cccccc;
+            border-left-style: solid;
+            border-left-width: 1px;
+        }
     }
 }
 

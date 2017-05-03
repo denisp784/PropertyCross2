@@ -15,4 +15,21 @@
     </li>
 </ul>
 
+<!--<div class="new-sections">
+    <div class="section" *ngFor="let section of sections" (click)="switchCategory(section.id)">
+        <img [src]="'http://localhost:8080/images/get/' + section.imageId">
+        <span class="description">{{section.sectionName}}</span>
+        <span class="remove-section glyphicon glyphicon-edit"
+              (click)="showSectionDialog($event, section.id)"
+              *ngIf="storageService.isAdmin()"></span>
+    </div>
+
+    <div class="section" (click)="showSectionDialog($event)" *ngIf="storageService.isAdmin()">
+        <button type="button" class="btn btn-default btn-circle btn-xl">
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+        <span class="description">Добавить</span>
+    </div>
+</div>-->
+
 <categoryGroup [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></categoryGroup>

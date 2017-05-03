@@ -1,10 +1,24 @@
 <modal-body>
     <div class="form-group">
-        <label for="sectionName">Название секции</label>
+        <label for="propertyName">Название cвойства</label>
         <input type="text" class="add-text form-control"
-               name="sectionName"
-               id="sectionName" required
-               [(ngModel)]="property.name" #sectionName="ngModel">
+               name="propertyName"
+               id="propertyName" required
+               [(ngModel)]="property.name" #propertyName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="propertyType">Тип cвойства</label>
+        <input type="text" class="add-text form-control"
+               name="propertyType"
+               id="propertyType" required
+               [(ngModel)]="property.type" #propertyType="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="propertyType">Приоритет</label>
+        <input type="text" class="add-text form-control"
+               name="propertyPriority"
+               id="propertyPriority" required
+               [(ngModel)]="property.priority" #propertyPriority="ngModel">
     </div>
 </modal-body>
 
@@ -12,6 +26,6 @@
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dialog.cancel()">Отмена
     </button>
     <button type="button" class="btn btn-primary"
-            (click)="upload()">Добавить
+            (click)="upload()">Изменить
     </button>
 </modal-footer>

@@ -1,11 +1,15 @@
 <ul class="sections">
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)">
 
-        <span class="description">{{section.sectionName}}</span>
-        <span class="remove-section glyphicon glyphicon-edit" (click)="showSectionDialog($event, section.id)"></span>
+        <span class="description">
+            {{section.sectionName}}
+        </span>
+        <span class="remove-section glyphicon glyphicon-edit"
+              (click)="showSectionDialog($event, section.id)"
+              *ngIf="storageService.isAdmin()"></span>
     </li>
 
-    <li (click)="showSectionDialog($event)">
+    <li (click)="showSectionDialog($event)" *ngIf="storageService.isAdmin()">
         <i class="glyphicon glyphicon-plus"></i> Добавить
     </li>
 </ul>
@@ -13,26 +17,36 @@
 
 <div class="content">
     <div class="current-category" *ngIf="category?.categoryName">
-        <span class="category-name">
-            {{category.categoryName}}
-        </span>
+        <div class="name-block">
+            <span class="category-name">
+                <span *ngIf="isPropertiesOpen">Свойства категории</span>
+                {{category.categoryName}}
+            </span>
+        </div>
 
-        <span class="add-properties" (click)="showPropertiesDialog(category.id)" *ngIf="storageService.isAdmin()">
-            Добавить свойства
-        </span>
+        <div class="add-block">
+            <span class="add-properties" (click)="openProperties()"
+                  *ngIf="storageService.isAdmin()">
+                    Управление свойствами
+            </span>
 
-        <span class="add-item" *ngIf="storageService.isAdmin()">
+            <span class="add-item" *ngIf="storageService.isAdmin()">
             Добавить товар
-        </span>
-
+            </span>
+        </div>
     </div>
 
-    <div class="properties">
-
+    <div class="wrapper" *ngIf="isProductsOpen">
+        <div class="filter" >
+            <filter></filter>
+        </div>
+        <div class="products">
+            <products></products>
+        </div>
     </div>
 
-    <div class="items">
-
-    </div>
+    <properties *ngIf="isPropertiesOpen"
+                [category]="category"
+                (close)="closeProperties()"></properties>
 </div>
 

@@ -1,11 +1,11 @@
-import {Component} from "@angular/core";
+import {Component, ViewChildren, AfterViewInit, ElementRef, ViewChild} from "@angular/core";
 import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
 import {IUser} from "../../models/IUser";
 import {ShopService} from "../../ShopService";
 import {CookieService} from "../../CookieService";
 import {AuthService} from "../../AuthService";
-import {Observable} from "rxjs";
-import {NgForm} from '@angular/forms';
+import {Observable, Subject} from "rxjs";
+import {NgForm, NgModel} from '@angular/forms';
 
 @Component({
     selector: 'loginDialog',
@@ -21,11 +21,22 @@ export class LoginDialogComponent extends DialogAwareComponent {
         super()
     }
 
+    @ViewChild('login') login: ElementRef;
+    @ViewChild('password') password: ElementRef;
+
+    @ViewChild('regLogin') regLogin: any;
+    @ViewChild('regPassword') regPassword: any;
+    @ViewChild('email') email: any;
+    @ViewChild('fio') fio: any;
+    @ViewChild('address') address: any;
+    @ViewChild('registerForm') registerForm: any;
+
     user: IUser = <IUser>{};
 
     isRegister: boolean = false;
     isCorrectLogin: boolean = true;
     isCorrectPassword: boolean = true;
+    onLogin = new Subject();
 
     switchRegister(): void {
         this.isRegister = !this.isRegister;
@@ -41,8 +52,8 @@ export class LoginDialogComponent extends DialogAwareComponent {
 
     }
 
-    resetCorrectLogin() {
-        if (!this.isCorrectLogin) {
+    resetCorrectLogin(event) {
+        if (!this.isCorrectLogin && event.keyCode !== 13) {
             this.isCorrectLogin = true;
         }
     }
@@ -68,21 +79,56 @@ export class LoginDialogComponent extends DialogAwareComponent {
                 }
             )
             .subscribe(
-                res => {
+                () => {
                     this.authService.autoLogin();
                     this.dialog.ok();
                 },
                 err => {
                     if (err === 'login not found') {
                         this.isCorrectLogin = false;
+                        this.onLogin.next();
                     }
 
                     if (err === 'wrong password') {
                         this.isCorrectPassword = false;
+                        this.onLogin.next();
                     }
 
                     this.cookieService.deleteCookie('auth');
                 });
+    }
+
+    enterEvent() {
+        if (this.isRegister) {
+            let regLogin = new ElementRef(this.regLogin.valueAccessor._elementRef.nativeElement);
+            let regPassword = new ElementRef(this.regPassword.valueAccessor._elementRef.nativeElement);
+            let email = new ElementRef(this.email.valueAccessor._elementRef.nativeElement);
+            let fio = new ElementRef(this.fio.valueAccessor._elementRef.nativeElement);
+            let address = new ElementRef(this.address.valueAccessor._elementRef.nativeElement);
+
+            console.log(this.regLogin);
+            this.regLogin.nativeElement.markAsDirty();
+            console.log(this.regLogin);
+
+            if (this.regLogin.valid) {
+                regPassword.nativeElement.focus();
+            }
+
+            if (this.regLogin.valid && this.regPassword.valid) {
+                email.nativeElement.focus();
+            }
+
+        }
+
+        if (!this.isRegister) {
+            this.logIn();
+            this.onLogin.subscribe(() => {
+                if (this.isCorrectLogin){
+                    this.password.nativeElement.focus();
+                }
+            });
+            console.log(this.isCorrectLogin);
+        }
     }
 
 

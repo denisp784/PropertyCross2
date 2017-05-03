@@ -75,8 +75,24 @@ export class ShopService {
         return this.appService.makePost(`${PROPERTIES}/add`, property);
     }
 
+    getPropertyById(propertyId: number): Observable<IProperty> {
+        return this.appService.makeGet(`${PROPERTIES}/get/${propertyId}`);
+    }
+
+    updateProperty(property: IProperty): Observable<IProperty> {
+        return this.appService.makePost(`${PROPERTIES}/update`, property);
+    }
+
+    deleteProperty(propertyId: number): Observable<IProperty> {
+        return this.appService.makeGet(`${PROPERTIES}/delete/${propertyId}`);
+    }
+
     addPropertyInCategory(property: IPropertyInCategory): Observable<IPropertyInCategory> {
         return this.appService.makePost(`${CATEGORY_PROPERTIES}/add`, property);
+    }
+
+    getPropertiesByCategory(categoryId: number): Observable<IProperty[]> {
+        return this.appService.makeGet(`${CATEGORY_PROPERTIES}/getByCategory?categoryId=${categoryId}`);
     }
 
     checkUserRole(): Observable<any> {

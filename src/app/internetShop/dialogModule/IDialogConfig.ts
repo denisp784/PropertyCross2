@@ -1,5 +1,5 @@
 export interface IDialogConfig {
     title: string;
-    component: Object,
+    component: Object;
     data?: any;
 }

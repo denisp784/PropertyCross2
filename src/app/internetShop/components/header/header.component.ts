@@ -36,7 +36,7 @@ export class HeaderComponent {
 
     logout() {
         this.cookieService.deleteCookie('auth');
-        this.shopService.checkUserRole();
+        //this.shopService.checkUserRole();
         this.authService.role = '';
     }
 

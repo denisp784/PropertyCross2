@@ -1,12 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {ICategory} from "../../models/ICategory";
-import {ShopService} from "../../ShopService";
-import {StorageService} from "../../StorageService"
-import {ISection} from "../../models/ISection";
-import {dialogConfigs} from "../../dialogs/dialogs.config";
-import {DialogService} from "../../dialogModule/dialogService";
-import {ICategoryGroup} from "../../models/ICategoryGroup";
+import {ICategory} from '../../models/ICategory';
+import {ShopService} from '../../ShopService';
+import {StorageService} from '../../StorageService';
+import {ISection} from '../../models/ISection';
+import {dialogConfigs} from '../../dialogs/dialogs.config';
+import {DialogService} from '../../dialogModule/dialogService';
 
 @Component({
     selector: 'categoryDetail',
@@ -25,6 +24,8 @@ export class CategoryDetailComponent implements OnInit {
     category: ICategory;
     sections: ISection[];
     showCategoryFlag: boolean;
+    isPropertiesOpen: boolean = false;
+    isProductsOpen: boolean = true;
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -42,7 +43,7 @@ export class CategoryDetailComponent implements OnInit {
         this.shopService.getCategoryByUrl(this.currentUrl)
             .subscribe((category: ICategory) => {
                 this.category = category;
-            })
+            });
     }
 
     switchCategory(sectionId: number) {
@@ -70,22 +71,18 @@ export class CategoryDetailComponent implements OnInit {
                     .subscribe((sections: ISection[]) => {
                             this.sections = sections;
                         }
-                    )
+                    );
             });
         event.stopPropagation();
     }
 
-    showPropertiesDialog(id) {
-        const propertiesDialog = dialogConfigs.propertiesDialogConfig;
+    openProperties(): void {
+        this.isPropertiesOpen = !this.isPropertiesOpen;
+        this.isProductsOpen = !this.isProductsOpen;
+    }
 
-        propertiesDialog.data = {
-            id
-        };
-
-        this.dialogService.showDialog(propertiesDialog)
-            .subscribe(() => {
-
-            });
-        event.stopPropagation();
+    closeProperties(): void {
+        this.isPropertiesOpen = false;
+        this.isProductsOpen = true;
     }
 }

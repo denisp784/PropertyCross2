@@ -1,40 +1,30 @@
-import {Component, OnInit} from "@angular/core";
-import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
-import {AppService} from "../../../app.service";
-import {ShopService} from "../../ShopService";
-import {IPropertyInCategory} from "../../models/IPropertyInCategory";
-import {IProperty} from "../../models/IProperty";
+import {Component, OnInit} from '@angular/core';
+import {DialogAwareComponent} from '../../dialogModule/dialogAware.component';
+import {ShopService} from '../../ShopService';
+import {IProperty} from '../../models/IProperty';
 
 @Component({
-    selector: "propertiesDialog",
-    templateUrl: "propertiesDialog.template.html",
+    selector: 'propertiesDialog',
+    templateUrl: 'propertiesDialog.template.html',
     styleUrls: ['propertiesDialog.less']
 })
 
 export class PropertiesDialogComponent extends DialogAwareComponent implements OnInit {
-    constructor(private appService: AppService,
-                private shopService: ShopService) {
+    constructor(private shopService: ShopService) {
         super();
     }
 
     property: IProperty = <IProperty>{};
-    propertyInCategory: IPropertyInCategory = <IPropertyInCategory>{};
 
     ngOnInit() {
-
+        this.shopService.getPropertyById(this.currentData.propertyId)
+            .subscribe((property) => this.property = property);
     }
 
     upload() {
-        console.log(document.cookie);
-        this.shopService.addProperty(this.property)
-            .subscribe((data) => {
-                this.propertyInCategory.category = {id: this.currentData.id};
-                this.propertyInCategory.property = {id: data.id};
-
-                this.shopService.addPropertyInCategory(this.propertyInCategory)
-                    .subscribe(() => {
-                        console.log('свойство добавлено в категорию');
-                    })
+        this.shopService.updateProperty(this.property)
+            .subscribe(() => {
+                this.dialog.ok();
             });
     }
 }

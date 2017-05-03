@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {ICategory} from "../../models/ICategory";
-import IPromise = Q.IPromise;
 import {ShopService} from "../../ShopService";
 import {ISection} from "../../models/ISection";
 

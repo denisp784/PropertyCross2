@@ -1,0 +1,50 @@
+<div class="content">
+    <div class="header">
+        <div class="add">
+            <form class="form-inline">
+                <label for="title">Название</label>
+                <input [(ngModel)]="property.name" #name='ngModel' name="name"
+                       type="text" class="form-control title" id="title" placeholder="Введите название...">
+                <label for="type">Тип</label>
+                <select [(ngModel)]="property.type" #type='ngModel' name="type"
+                        class="form-control type" id="type">
+                    <option>Type1</option>
+                    <option>Type2</option>
+                    <option>Type3</option>
+                    <option>Type4</option>
+                </select>
+                <label for="priority">Приоритет</label>
+                <input [(ngModel)]="property.priority" #priority='ngModel' name="priority"
+                       type="text" class="form-control priority" id="priority">
+                <button (click)="upload()" type="button" class="btn btn-primary">Добавить</button>
+            </form>
+        </div>
+
+        <span class="close" (click)="closeProperties()">Закрыть</span>
+    </div>
+
+    <div class="properties">
+        <table class="table table-hover">
+            <thead>
+            <tr class="active">
+                <th class="id">#</th>
+                <th class="title">Название</th>
+                <th class="type">Тип</th>
+                <th class="priority">Приоритет</th>
+                <th class="change"></th>
+                <th class="delete"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let property of properties; let i = index">
+                <td class="id">{{i+1}}</td>
+                <td>{{property.name}}</td>
+                <td>{{property.type}}</td>
+                <td>{{property.priority}}</td>
+                <td class="change" (click)="showPropertiesDialog(property.id)">Изменить</td>
+                <td class="delete" (click)="delete(property.id)">Удалить</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

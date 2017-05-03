@@ -1,6 +1,6 @@
 .wrapper {
     width: 1170px;
-    height: 100vh;
+    min-height: 100vh;
     margin: auto;
     background-color: #f8f8f8;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
@@ -8,45 +8,34 @@
 
 .header {
     height: 55px;
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
 
     .logo {
-        position: relative;
-        display: inline-block;
         margin-left: 15px;
-        height: 55px;
-        vertical-align: middle;
         width: 225px;
-
-        a {
-            position: absolute;
-            top: 30%;
-        }
-
     }
 
-    .search {
-        display: inline-block;
-        margin-top: 15px;
-        margin-left: 20px;
+    /*    .search {
+            display: inline-block;
+            margin-top: 15px;
+            margin-left: 20px;
 
-        input[class="input-array"] {
-            width: 500px;
-        }
-    }
+            input[class="input-array"] {
+                width: 510px;
+            }
+        }*/
 
     .right-buttons {
-        display: inline-block;
         margin-right: 15px;
-        vertical-align: middle;
-        float: right;
-        line-height: 55px;
     }
 
     .input-group {
-        display: inline-block;
-        width: 610px;
+        width: 579px;
         margin-left: 15px;
-        vertical-align: middle;
 
         input[class="form-control"] {
             width: 510px;
@@ -56,16 +45,4 @@
             height: 34px;
         }
     }
-
-    button {
-        outline: none;
-    }
-}
-
-.content {
-    position: relative;
-    float: left;
-    height: 100px;
-    background-color: #fff;
-    width: 100%;
 }

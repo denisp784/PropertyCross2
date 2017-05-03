@@ -22,7 +22,7 @@ export const dialogConfigs = {
     },
 
     propertiesDialogConfig: <IDialogConfig> {
-        title: 'Добавление свойств',
+        title: 'Изменение свойства',
         component: PropertiesDialogComponent
     },
 

@@ -31,7 +31,7 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
                 .subscribe((categoryGroup: ICategoryGroup) => {
                         this.categoryGroup = categoryGroup;
                     }
-                )
+                );
         }
     }
 
