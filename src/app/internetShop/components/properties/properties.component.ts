@@ -6,23 +6,9 @@ import {IProperty} from '../../models/IProperty';
 import {IPropertyInCategory} from '../../models/IPropertyInCategory';
 import {ICategory} from '../../models/ICategory';
 
-const testProperties = [
-    'Цена',
-    'Производитель',
-    'Дата выхода',
-    'Тип',
-    'Диагональ',
-    'Разрешение',
-    'Матрица',
-    'Процессор',
-    'Тактовая частота',
-    'Оперативная память',
-    'Тип диска',
-    'Ёмкость диска',
-    'Тип видеокарты',
-    'Количество ядер',
-    'Тип оперативной памяти',
-    'Видеопамять'
+const PROPERTIES_TYPES = [
+    'Checkbox',
+    'Input'
 ];
 
 @Component( {
@@ -36,16 +22,17 @@ export class PropertiesComponent implements OnInit {
                 private shopService: ShopService) {
     }
 
-    @Input() category: ICategory;
-    @Output() close = new EventEmitter<boolean>();
+    propertiesTypes = PROPERTIES_TYPES;
 
-    testProperties = testProperties;
+    @Input() category: ICategory;
+    @Output() closePropertiesEmit = new EventEmitter;
     property: IProperty = <IProperty>{};
     properties: IProperty[];
     propertyInCategory: IPropertyInCategory = <IPropertyInCategory>{};
 
     ngOnInit() {
         this.getProperties();
+        this.property.priority = 1;
     }
 
     getProperties(): void {
@@ -56,7 +43,7 @@ export class PropertiesComponent implements OnInit {
     }
 
     closeProperties(): void {
-        this.close.emit();
+        this.closePropertiesEmit.emit();
     }
 
     showPropertiesDialog(propertyId: number) {
@@ -73,6 +60,7 @@ export class PropertiesComponent implements OnInit {
     }
 
     upload() {
+        this.property.priority = 1;
         this.shopService.addProperty(this.property)
             .subscribe((data) => {
                 this.propertyInCategory.category = {id: this.category.id};

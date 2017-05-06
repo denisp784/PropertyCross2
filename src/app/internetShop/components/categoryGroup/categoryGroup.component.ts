@@ -11,12 +11,12 @@ import {AuthService} from "../../AuthService";
 const noImageIcon = require("../../resource/images/noImageIcon.png");
 
 @Component({
-    selector: 'categoryGroup',
+    selector: 'category-group',
     templateUrl: 'categoryGroup.template.html',
     styleUrls: ['categoryGroup.less']
 })
 
-export class CategoryGroupComponent implements OnInit{
+export class CategoryGroupComponent implements OnInit {
     categoryGroups: ICategoryGroup[];
     categoryGroup: ICategoryGroup;
     sectionId: number;

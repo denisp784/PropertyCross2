@@ -1,0 +1,170 @@
+.content {
+    width: 100%;
+    background-color: #fff;
+
+    .header {
+        width: 100%;
+        padding: 15px;
+        float: left;
+
+        .close {
+            font-size: 15px;
+            font: inherit;
+            color: #9c9c9c;
+            line-height: 34.4px;
+            opacity: 1;
+        }
+
+        .close:hover {
+            color: #000000;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .properties {
+        padding: 15px;
+
+        .property {
+            padding: 5px 0 5px 0;
+        }
+
+        .name {
+            display: inline-block;
+            width: 20%;
+            line-height: 34px;
+            vertical-align: middle;
+            float: left;
+        }
+
+        .input {
+            display: inline-block;
+            width: 80%;
+        }
+
+        .button {
+            float: right;
+            padding: 10px 0 10px 10px;
+        }
+    }
+}
+
+.add-image {
+    width: 568px;
+    max-height: 250px;
+    text-align: center;
+
+    img {
+        max-width: 400px;
+        max-height: 250px;
+    }
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+}
+
+.fileUpload input.upload {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.images {
+    overflow-x: auto;
+    display: flex;
+    height: 180px;
+
+    .main-image {
+        border-color: #337ab7 !important;
+        border-width: 2px !important;
+    }
+
+    .image {
+        position: relative;
+        width: 181px;
+        height: 150px;
+        display: flex;
+        flex: 0 0 auto;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #ccc;
+        border-radius: 4px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        img {
+            max-width: 180px;
+            max-height: 140px;
+            display: block;
+            margin: auto;
+        }
+
+        .set-main {
+            visibility: hidden;
+            position: absolute;
+            cursor: pointer;
+            bottom: 0;
+            width: 183px;
+            text-align: center;
+            background-color: #337ab7;
+            color: #ffffff;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .delete {
+            position: absolute;
+            cursor: pointer;
+            display: none;
+            right: 0;
+            margin-top: 1px;
+            margin-right: 1px;
+            opacity: 0.2;
+            transition: all 0.5s ease;
+        }
+
+        .delete:hover {
+            color: #d60000;
+            cursor: pointer;
+            opacity: 1;
+            transition: all 0.5s ease;
+        }
+    }
+
+    .image:hover {
+        .delete {
+            display: block;
+            transition: all 0.5s ease;
+        }
+
+        .set-main {
+            visibility: visible;
+            opacity: 0.8;
+            transition: all 0.5s ease;
+        }
+    }
+}
+
+.form-group {
+    width: 1148px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+

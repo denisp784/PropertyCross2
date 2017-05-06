@@ -8,10 +8,7 @@
                 <label for="type">Тип</label>
                 <select [(ngModel)]="property.type" #type='ngModel' name="type"
                         class="form-control type" id="type">
-                    <option>Type1</option>
-                    <option>Type2</option>
-                    <option>Type3</option>
-                    <option>Type4</option>
+                    <option *ngFor="let type of propertiesTypes">{{type}}</option>
                 </select>
                 <label for="priority">Приоритет</label>
                 <input [(ngModel)]="property.priority" #priority='ngModel' name="priority"

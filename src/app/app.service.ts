@@ -19,7 +19,7 @@ export class AppService {
         let userpass = this.cookieService.getCookie('auth');
 
         if (userpass) {
-            headers.append("Authorization", userpass);
+            headers.append('Authorization', userpass);
         }
         // headers.append("Content-Type", 'application/json; charset=utf-8');
         return headers;
@@ -74,7 +74,7 @@ export class AppService {
         });
     }
 
-    catchError(err: string) {
-        //console.log(err);
-    }
+/*    catchError(err: string) {
+        console.log(err);
+    }*/
 }

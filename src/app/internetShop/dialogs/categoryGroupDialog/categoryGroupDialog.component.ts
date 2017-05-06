@@ -6,7 +6,7 @@ import {ICategoryGroup} from "../../models/ICategoryGroup";
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'categoryGroupDialog',
+    selector: 'category-group-dialog',
     templateUrl: 'categoryGroupDialog.template.html',
     styleUrls: ['categoryGroupDialog.less']
 })

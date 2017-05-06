@@ -8,7 +8,7 @@ import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {DialogService} from '../../dialogModule/dialogService';
 
 @Component({
-    selector: 'categoryDetail',
+    selector: 'category-detail',
     templateUrl: 'categoryDetail.template.html',
     styleUrls: ['categoryDetail.less']
 })
@@ -24,8 +24,9 @@ export class CategoryDetailComponent implements OnInit {
     category: ICategory;
     sections: ISection[];
     showCategoryFlag: boolean;
-    isPropertiesOpen: boolean = false;
-    isProductsOpen: boolean = true;
+    isPropertiesOpen = false;
+    isProductsOpen = true;
+    isAddProductOpen = false;
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -77,12 +78,42 @@ export class CategoryDetailComponent implements OnInit {
     }
 
     openProperties(): void {
+        if (this.isAddProductOpen) {
+            this.isAddProductOpen = false;
+        }
+        if (this.isProductsOpen) {
+            this.isProductsOpen = false;
+        }
+        if (this.isPropertiesOpen) {
+            this.isProductsOpen = true;
+            this.isPropertiesOpen = false;
+            return;
+        }
         this.isPropertiesOpen = !this.isPropertiesOpen;
-        this.isProductsOpen = !this.isProductsOpen;
+    }
+
+    openAddProduct(): void {
+        if (this.isPropertiesOpen) {
+            this.isPropertiesOpen = false;
+        }
+        if (this.isProductsOpen) {
+            this.isProductsOpen = false;
+        }
+        if (this.isAddProductOpen) {
+            this.isProductsOpen = true;
+            this.isAddProductOpen = false;
+            return;
+        }
+        this.isAddProductOpen = !this.isAddProductOpen;
     }
 
     closeProperties(): void {
         this.isPropertiesOpen = false;
+        this.isProductsOpen = true;
+    }
+
+    closeAddProduct(): void {
+        this.isAddProductOpen = false;
         this.isProductsOpen = true;
     }
 }

@@ -24,6 +24,7 @@ import {CommonModule} from "@angular/common";
 import {PropertiesComponent} from './internetShop/components/properties/properties.component';
 import {ProductsComponent} from './internetShop/components/products/products.component';
 import {FilterComponent} from './internetShop/components/filter/filter.component';
+import {AddProductComponent} from './internetShop/components/addProduct/addProduct.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {FilterComponent} from './internetShop/components/filter/filter.component
         HeaderComponent,
         PropertiesComponent,
         ProductsComponent,
-        FilterComponent
+        FilterComponent,
+        AddProductComponent
     ],
     imports: [
         DialogsModule,

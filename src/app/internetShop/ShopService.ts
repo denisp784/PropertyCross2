@@ -1,12 +1,14 @@
-import {Injectable, EventEmitter} from "@angular/core";
-import {ICategory} from "./models/ICategory";
-import {AppService} from "../app.service";
-import {ISection} from "./models/ISection";
-import {ICategoryGroup} from "./models/ICategoryGroup";
-import {IProperty} from "./models/IProperty";
-import {IPropertyInCategory} from "./models/IPropertyInCategory";
-import {IUser} from "./models/IUser";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {ICategory} from './models/ICategory';
+import {AppService} from '../app.service';
+import {ISection} from './models/ISection';
+import {ICategoryGroup} from './models/ICategoryGroup';
+import {IProperty} from './models/IProperty';
+import {IPropertyInCategory} from './models/IPropertyInCategory';
+import {IUser} from './models/IUser';
+import {Observable} from 'rxjs';
+import {IProduct} from './models/IProduct';
+import {IProductProperty} from './models/IProductProperty';
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
@@ -15,6 +17,9 @@ const PROPERTIES = 'properties';
 const CATEGORY_PROPERTIES = 'categoryProperties';
 const USER_ROLES = 'userRoles';
 const USERS = 'users';
+const PRODUCTS = 'products';
+const PRODUCT_PROPERTY = 'productPropertyValues';
+const IMAGES = 'images';
 
 @Injectable()
 export class ShopService {
@@ -52,7 +57,7 @@ export class ShopService {
     }
 
     getCategoryByUrl(url: string): Observable<ICategory> {
-        return this.appService.makeGet(`${CATEGORIES}/getByUrl?url=${url}`)
+        return this.appService.makeGet(`${CATEGORIES}/getByUrl?url=${url}`);
     }
 
     getCategoryGroupBySection(sectionId: number): Observable<ICategoryGroup[]> {
@@ -104,10 +109,22 @@ export class ShopService {
     }
 
     userRegistration(user: IUser): Observable <IUser> {
-        return this.appService.makePost(`${USERS}/userRegistration`, user)
+        return this.appService.makePost(`${USERS}/userRegistration`, user);
     }
 
     checkUserExist(login: string): Observable <boolean> {
-        return this.appService.makeGet(`${USERS}/userExists?login=${login}`)
+        return this.appService.makeGet(`${USERS}/userExists?login=${login}`);
+    }
+
+    addProduct(product: IProduct): Observable <IProduct> {
+        return this.appService.makePost(`${PRODUCTS}/add`, product);
+    }
+
+    addPropertyInProduct(productProperty: IProductProperty): Observable <IProductProperty> {
+        return this.appService.makePost(`${PRODUCT_PROPERTY}/addAll`, productProperty);
+    }
+
+    deleteImage(id: number): Observable <any> {
+        return this.appService.makeGet(`${IMAGES}/delete/${id}`);
     }
 }

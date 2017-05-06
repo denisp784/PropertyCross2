@@ -5,7 +5,7 @@ import {SimpleModel} from "../../models/SimpleModel";
 import {AppService} from "../../../app.service";
 import {ShopService} from "../../ShopService";
 
-const noImageIcon = require("../../resource/images/noImageIcon.png");
+const noImageIcon = require('../../resource/images/noImageIcon.png');
 
 interface FileReaderEventTarget extends EventTarget {
     result: string;
@@ -17,7 +17,7 @@ interface FileReaderEvent extends Event {
 }
 
 @Component({
-    selector: 'sectionDialog',
+    selector: 'section-dialog',
     templateUrl: 'sectionDialog.template.html',
     styleUrls: ['sectionDialog.less']
 })

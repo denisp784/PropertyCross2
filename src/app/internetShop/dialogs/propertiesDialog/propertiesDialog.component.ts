@@ -4,7 +4,7 @@ import {ShopService} from '../../ShopService';
 import {IProperty} from '../../models/IProperty';
 
 @Component({
-    selector: 'propertiesDialog',
+    selector: 'properties-dialog',
     templateUrl: 'propertiesDialog.template.html',
     styleUrls: ['propertiesDialog.less']
 })

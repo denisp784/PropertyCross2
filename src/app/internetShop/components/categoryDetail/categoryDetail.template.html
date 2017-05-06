@@ -13,13 +13,14 @@
         <i class="glyphicon glyphicon-plus"></i> Добавить
     </li>
 </ul>
-<categoryGroup [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></categoryGroup>
+<category-group [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></category-group>
 
 <div class="content">
     <div class="current-category" *ngIf="category?.categoryName">
         <div class="name-block">
             <span class="category-name">
                 <span *ngIf="isPropertiesOpen">Свойства категории</span>
+                <span *ngIf="isAddProductOpen">Добавить товар в категорию</span>
                 {{category.categoryName}}
             </span>
         </div>
@@ -30,7 +31,8 @@
                     Управление свойствами
             </span>
 
-            <span class="add-item" *ngIf="storageService.isAdmin()">
+            <span class="add-item" (click)="openAddProduct()"
+                  *ngIf="storageService.isAdmin()">
             Добавить товар
             </span>
         </div>
@@ -47,6 +49,10 @@
 
     <properties *ngIf="isPropertiesOpen"
                 [category]="category"
-                (close)="closeProperties()"></properties>
+                (closePropertiesEmit)="closeProperties()"></properties>
+
+    <add-product *ngIf="isAddProductOpen"
+                 [category]="category"
+                 (closeAddProductEvent)="closeAddProduct()"></add-product>
 </div>
 

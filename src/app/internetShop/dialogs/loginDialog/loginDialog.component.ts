@@ -8,7 +8,7 @@ import {Observable, Subject} from "rxjs";
 import {NgForm, NgModel} from '@angular/forms';
 
 @Component({
-    selector: 'loginDialog',
+    selector: 'login-dialog',
     templateUrl: 'loginDialog.template.html',
     styleUrls: ['loginDialog.less']
 })

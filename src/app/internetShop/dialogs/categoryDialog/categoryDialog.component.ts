@@ -19,7 +19,7 @@ interface FileReaderEvent extends Event {
 }
 
 @Component({
-    selector: 'categoryDialog',
+    selector: 'category-dialog',
     templateUrl: 'categoryDialog.template.html',
     styleUrls: ['categoryDialog.less']
 })
