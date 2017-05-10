@@ -1,4 +1,7 @@
+
+
 <div class="drop-menu">
+    <spinner [isSpinnerVisible]="isSpinnerVisible"></spinner>
     <div class="groups">
         <div class="cat-groups" *ngFor="let group of categoryGroups; let i = index">
             <div class="group" (mouseenter)="isShowCategories(i)">

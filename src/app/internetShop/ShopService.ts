@@ -9,6 +9,7 @@ import {IUser} from './models/IUser';
 import {Observable} from 'rxjs';
 import {IProduct} from './models/IProduct';
 import {IProductProperty} from './models/IProductProperty';
+import {IProductFullInfo} from './models/IProductFullInfo';
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
@@ -118,6 +119,10 @@ export class ShopService {
 
     addProduct(product: IProduct): Observable <IProduct> {
         return this.appService.makePost(`${PRODUCTS}/add`, product);
+    }
+
+    getFullInfoByCategory(id: number): Observable <IProductFullInfo[]> {
+        return this.appService.makeGet(`${PRODUCTS}/getFullInfoByCategory/${id}`);
     }
 
     addPropertyInProduct(productProperty: IProductProperty): Observable <IProductProperty> {

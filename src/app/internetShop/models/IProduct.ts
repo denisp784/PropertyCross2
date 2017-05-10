@@ -3,4 +3,7 @@ export interface IProduct {
     images: number[];
     mainImageId: number;
     name: string;
+    category: {
+        id: number
+    };
 }

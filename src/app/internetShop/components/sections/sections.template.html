@@ -1,6 +1,15 @@
 <ul class="sections">
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)">
-        <img [src]="'http://localhost:8080/images/get/' + section.imageId">
+        <!-- <img [src]="'http://localhost:8080/images/get/' + section.imageId">-->
+
+
+        <img [src]="'http://localhost:8080/images/get/' + section.imageId" class="images"
+             (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded"/>
+        <div class="spinner" *ngIf="!loaded">
+            <spinner [isImgSpinnerVisible]="true"></spinner>
+        </div>
+
+
         <span class="description">{{section.sectionName}}</span>
         <span class="remove-section glyphicon glyphicon-edit"
               (click)="showSectionDialog($event, section.id)"

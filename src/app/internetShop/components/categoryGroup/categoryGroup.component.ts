@@ -23,6 +23,7 @@ export class CategoryGroupComponent implements OnInit {
     previewImg: any;
     activeGroupIndex: number;
     isAdmin: boolean;
+    isSpinnerVisible: boolean = false;
     private subscription: Subscription;
 
     constructor(private shopService: ShopService,
@@ -47,13 +48,16 @@ export class CategoryGroupComponent implements OnInit {
     }
 
     loadCategoryGroups() {
+        this.isSpinnerVisible = true;
         if (!this.storageService.lastSection) {
+            setTimeout(() => this.isSpinnerVisible = false, 500);
             return;
         }
 
         if (this.storageService.cachedGroups[this.storageService.lastSection]) {
             this.categoryGroups = this.storageService.cachedGroups[this.storageService.lastSection];
             this.categoryGroup = this.categoryGroups[0];
+            setTimeout(() => this.isSpinnerVisible = false, 500);
             return;
         }
 
@@ -64,6 +68,7 @@ export class CategoryGroupComponent implements OnInit {
 
                 this.categoryGroup = categoryGroups[0];
                 this.activeGroupIndex = 0;
+                setTimeout(() => this.isSpinnerVisible = false, 500);
             });
     }
 

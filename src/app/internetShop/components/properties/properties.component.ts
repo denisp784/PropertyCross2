@@ -29,8 +29,10 @@ export class PropertiesComponent implements OnInit {
     property: IProperty = <IProperty>{};
     properties: IProperty[];
     propertyInCategory: IPropertyInCategory = <IPropertyInCategory>{};
+    isSpinnerVisible: boolean = false;
 
     ngOnInit() {
+        this.isSpinnerVisible = true;
         this.getProperties();
         this.property.priority = 1;
     }
@@ -39,6 +41,7 @@ export class PropertiesComponent implements OnInit {
         this.shopService.getPropertiesByCategory(this.category.id)
             .subscribe((properties: IProperty[]) => {
                 this.properties = properties;
+                setTimeout(() => this.isSpinnerVisible = false, 500);
             });
     }
 

@@ -28,12 +28,16 @@ export class AddProductComponent implements OnInit {
                 private appService: AppService) {
     }
 
+    isSpinnerVisible: boolean = false;
+
     ngOnInit() {
+        this.isSpinnerVisible = true;
         this.getProperties();
     }
 
     @Input() category: ICategory;
     @Output() closeAddProductEvent = new EventEmitter;
+    @Output() addProductEvent = new EventEmitter;
 
     properties: IProperty[];
     product: IProduct = <IProduct>{};
@@ -64,13 +68,19 @@ export class AddProductComponent implements OnInit {
                 });
                 return propertyArray;
             })
-            .subscribe((properties) => this.propertiesArray = properties);
+            .subscribe((properties) => {
+                this.propertiesArray = properties;
+                setTimeout(() => this.isSpinnerVisible = false, 500);
+            });
     }
 
     addProduct(): void {
         if (!this.product.mainImageId) {
             this.product.mainImageId = this.product.images[0];
         }
+        this.product.category = {
+            id: this.category.id
+        };
 
         this.shopService.addProduct(this.product)
             .mergeMap((product) => {
@@ -81,6 +91,7 @@ export class AddProductComponent implements OnInit {
             })
             .subscribe(() => {
                 console.log('Добавлено');
+                this.addProductEvent.emit();
                 this.closeAddProduct();
             });
     }
@@ -91,11 +102,11 @@ export class AddProductComponent implements OnInit {
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
-/*            reader.onload = (e: IFileReaderEvent) => {
-                if (type === 'mainImage') {
-                    this.previewImg = e.target.result;
-                }
-            };*/
+            /*            reader.onload = (e: IFileReaderEvent) => {
+             if (type === 'mainImage') {
+             this.previewImg = e.target.result;
+             }
+             };*/
 
             reader.readAsDataURL(event.target.files[0]);
         }

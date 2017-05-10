@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import {CategoryDetailComponent} from "./internetShop/components/categoryDetail/categoryDetail.component";
 import {MainComponent} from "./internetShop/components/main/main.component";
+import {PropertiesComponent} from './internetShop/components/properties/properties.component';
 
 export const routes: Routes = [
     {
@@ -8,8 +9,11 @@ export const routes: Routes = [
         component: MainComponent
     },
     {
-        path: ':url',
+        path: 'category/:url',
         component: CategoryDetailComponent
     },
-    /*{path: '/:categoryUrl', component: CategoryGroupComponent}*/
+    {
+        path: '**',
+        redirectTo: '/'
+    },
 ];

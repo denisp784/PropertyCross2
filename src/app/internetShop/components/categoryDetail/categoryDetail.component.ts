@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ICategory} from '../../models/ICategory';
 import {ShopService} from '../../ShopService';
@@ -6,6 +6,7 @@ import {StorageService} from '../../StorageService';
 import {ISection} from '../../models/ISection';
 import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {DialogService} from '../../dialogModule/dialogService';
+import {IProductFullInfo} from '../../models/IProductFullInfo';
 
 @Component({
     selector: 'category-detail',
@@ -27,8 +28,11 @@ export class CategoryDetailComponent implements OnInit {
     isPropertiesOpen = false;
     isProductsOpen = true;
     isAddProductOpen = false;
+    isSpinnerVisible = false;
+    products: IProductFullInfo[];
 
     ngOnInit() {
+        this.isSpinnerVisible = true;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.currentUrl = params['url'];
             this.loadContent();
@@ -36,14 +40,17 @@ export class CategoryDetailComponent implements OnInit {
     }
 
     loadContent() {
+        this.isSpinnerVisible = true;
         this.shopService.getSections()
             .subscribe((sections) => {
                 this.sections = sections;
+                setTimeout(() => this.isSpinnerVisible = false, 500);
             });
 
         this.shopService.getCategoryByUrl(this.currentUrl)
             .subscribe((category: ICategory) => {
                 this.category = category;
+                this.getProducts(category.id);
             });
     }
 
@@ -115,5 +122,13 @@ export class CategoryDetailComponent implements OnInit {
     closeAddProduct(): void {
         this.isAddProductOpen = false;
         this.isProductsOpen = true;
+    }
+
+    getProducts(id: number): void {
+        this.shopService.getFullInfoByCategory(id)
+            .subscribe((products: IProductFullInfo[]) => {
+                this.products = products;
+                console.log(this.products);
+            });
     }
 }
