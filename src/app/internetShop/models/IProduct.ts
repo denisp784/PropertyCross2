@@ -4,6 +4,8 @@ export interface IProduct {
     mainImageId: number;
     name: string;
     category: {
-        id: number
+        id: number;
+        categoryName?: string;
+        urlName?: string;
     };
 }

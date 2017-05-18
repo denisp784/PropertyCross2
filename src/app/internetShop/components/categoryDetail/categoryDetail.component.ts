@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ICategory} from '../../models/ICategory';
 import {ShopService} from '../../ShopService';
 import {StorageService} from '../../StorageService';
@@ -7,6 +7,7 @@ import {ISection} from '../../models/ISection';
 import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {DialogService} from '../../dialogModule/dialogService';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'category-detail',
@@ -18,7 +19,8 @@ export class CategoryDetailComponent implements OnInit {
     constructor(private activatedRoute: ActivatedRoute,
                 private shopService: ShopService,
                 private storageService: StorageService,
-                private dialogService: DialogService) {
+                private dialogService: DialogService,
+                private router: Router) {
     }
 
     currentUrl: string;
@@ -27,30 +29,64 @@ export class CategoryDetailComponent implements OnInit {
     showCategoryFlag: boolean;
     isPropertiesOpen = false;
     isProductsOpen = true;
+    isProductDetailOpen = false;
     isAddProductOpen = false;
     isSpinnerVisible = false;
     products: IProductFullInfo[];
+    localParams: Params;
 
     ngOnInit() {
         this.isSpinnerVisible = true;
-        this.activatedRoute.params.subscribe((params: Params) => {
-            this.currentUrl = params['url'];
-            this.loadContent();
-        });
+        this.activatedRoute.params
+            .flatMap((params: Params) => {
+                this.localParams = params;
+                return this.shopService.getCategoryByUrl(params['url']);
+            })
+            .subscribe((category: ICategory) => {
+                    if (category.urlName === this.localParams['url']) {
+                        this.loadContent(category.urlName);
+                    } else {
+                        Observable.throw('');
+                    }
+                },
+                (error) => {
+                    this.router.navigate(['/']);
+                }
+            );
     }
 
-    loadContent() {
+    loadContent(category: string) {
         this.isSpinnerVisible = true;
         this.shopService.getSections()
-            .subscribe((sections) => {
+            .flatMap((sections) => {
                 this.sections = sections;
-                setTimeout(() => this.isSpinnerVisible = false, 500);
-            });
-
-        this.shopService.getCategoryByUrl(this.currentUrl)
-            .subscribe((category: ICategory) => {
+                return this.shopService.getCategoryByUrl(category);
+            })
+            .flatMap((category: ICategory) => {
                 this.category = category;
-                this.getProducts(category.id);
+                return this.shopService.getFullInfoByCategory(category.id);
+            })
+            .subscribe((products: IProductFullInfo[]) => {
+                if (!this.localParams['id']) {
+                    this.products = products;
+                    setTimeout(() => this.isSpinnerVisible = false, 500);
+                    return;
+                }
+                if (this.localParams['id'] === 'add-product') {
+                    this.isSpinnerVisible = false;
+                    this.openAddProduct();
+                    return;
+                }
+                if (this.localParams['id'] === 'add-property') {
+                    this.isSpinnerVisible = false;
+                    this.openProperties();
+                    return;
+                }
+                if (+this.localParams['id']) {
+                    this.isSpinnerVisible = false;
+                    this.isProductDetailOpen = true;
+                    return;
+                }
             });
     }
 
@@ -122,13 +158,5 @@ export class CategoryDetailComponent implements OnInit {
     closeAddProduct(): void {
         this.isAddProductOpen = false;
         this.isProductsOpen = true;
-    }
-
-    getProducts(id: number): void {
-        this.shopService.getFullInfoByCategory(id)
-            .subscribe((products: IProductFullInfo[]) => {
-                this.products = products;
-                console.log(this.products);
-            });
     }
 }

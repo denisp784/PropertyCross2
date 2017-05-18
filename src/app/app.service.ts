@@ -32,6 +32,9 @@ export class AppService {
         return this.getRequest(type, fullPath, data, {headers})
             .map(response => response.json())
             .catch((error: any) => {
+                if (error.status === 401) {
+                    this.cookieService.deleteCookie('auth');
+                }
                 return Observable.throw(error);
             });
     }

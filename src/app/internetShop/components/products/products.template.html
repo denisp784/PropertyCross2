@@ -22,7 +22,7 @@
         <img [src]="'http://localhost:8080/images/get/' + product.product.mainImageId">
     </div>
 
-    <span class="name">
+    <span class="name" (click)="openProduct(product.product.id, product.product.category.urlName)">
         {{product.product.name}}
     </span>
 

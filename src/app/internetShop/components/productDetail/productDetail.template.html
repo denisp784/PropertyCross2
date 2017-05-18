@@ -1,0 +1,20 @@
+<div class="content">
+    <span class="product-title">Apple MacBook Air 13" [MMGF2]</span>
+
+    <div class="properties">
+        <table class="table table-hover">
+            <thead>
+            <tr class="active">
+                <th class="name">Описание</th>
+                <th class="value"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let property of product.properties">
+                <td class="name">{{property.name}}</td>
+                <td class="value">{{property.value}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

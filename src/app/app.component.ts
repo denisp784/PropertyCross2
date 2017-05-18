@@ -19,20 +19,8 @@ export class AppComponent implements OnInit{
     }
 
     ngOnInit() {
-
-        //this.cookieService.deleteCookie('auth');
         this.authService.autoLogin();
-
-
-
     }
-
-    checkCookie() {
-
-        //this.cookieService.setCookie('auth', 'Basic '  + btoa('admin' + ':' + 'admin'), 10, 'aaa');
-    }
-
-
 
     title = 'app works!';
 }

@@ -26,6 +26,7 @@ import {ProductsComponent} from './internetShop/components/products/products.com
 import {FilterComponent} from './internetShop/components/filter/filter.component';
 import {AddProductComponent} from './internetShop/components/addProduct/addProduct.component';
 import {SpinnerComponent} from './internetShop/components/spinner/spinner.component';
+import {ProductDetailComponent} from './internetShop/components/productDetail/productDetail.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import {SpinnerComponent} from './internetShop/components/spinner/spinner.compon
         ProductsComponent,
         FilterComponent,
         AddProductComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        ProductDetailComponent
     ],
     imports: [
         DialogsModule,

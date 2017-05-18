@@ -18,7 +18,7 @@
 <category-group [class.showGroups]="showCategoryFlag" [class.hideGroups]="!showCategoryFlag"></category-group>
 
 <div class="content">
-    <div class="current-category" *ngIf="category?.categoryName">
+    <div class="current-category" *ngIf="category?.categoryName && !isProductDetailOpen">
         <div class="name-block">
             <span class="category-name">
                 <span *ngIf="isPropertiesOpen">Свойства категории</span>
@@ -26,7 +26,6 @@
                 {{category.categoryName}}
             </span>
         </div>
-
         <div class="add-block">
             <span class="add-properties" (click)="openProperties()"
                   *ngIf="storageService.isAdmin()">
@@ -40,7 +39,7 @@
         </div>
     </div>
 
-    <div class="wrapper" *ngIf="isProductsOpen">
+    <div class="wrapper" *ngIf="isProductsOpen && !isProductDetailOpen">
         <div class="filter" >
             <filter></filter>
         </div>
@@ -56,6 +55,8 @@
     <add-product *ngIf="isAddProductOpen"
                  [category]="category"
                  (closeAddProductEvent)="closeAddProduct()"
-                 (addProductEvent)="loadContent()"></add-product>
+                 (addProductEvent)="loadContent(category.urlName)"></add-product>
+
+    <productDetail *ngIf="isProductDetailOpen"></productDetail>
 </div>
 

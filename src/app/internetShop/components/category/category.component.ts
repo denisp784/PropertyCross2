@@ -53,6 +53,6 @@ export class CategoriesComponent implements OnInit {
     }
 
     onSelect(url: string) {
-        this.router.navigate(['category', url]);
+        this.router.navigate(['', url]);
     }
 }
