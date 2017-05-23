@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ShopService} from '../../ShopService';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {error} from 'selenium-webdriver';
 import {Observable} from 'rxjs/Observable';
+import {ICategory} from '../../models/ICategory';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'productDetail',
@@ -18,6 +19,10 @@ export class ProductDetailComponent implements OnInit {
     }
 
     product: IProductFullInfo = <IProductFullInfo>{};
+    category: ICategory;
+    isAddProduct = false;
+    fullImageId: number;
+    productsId: number[];
 
     ngOnInit() {
         let localParams;
@@ -26,7 +31,8 @@ export class ProductDetailComponent implements OnInit {
                 localParams = params;
                 return this.shopService.getCategoryByUrl(params['url']);
             })
-            .flatMap(() => {
+            .flatMap((category) => {
+                this.category = category;
                 if (!+localParams['id']) {
                     return Observable.throw('');
                 }
@@ -43,5 +49,25 @@ export class ProductDetailComponent implements OnInit {
                 },
                 () => this.router.navigate(['/'])
             );
+    }
+
+    showFullImage(id: number): void {
+        this.fullImageId = id;
+    }
+
+    addToCart(id: number) {
+        if (localStorage['productsId']) {
+            this.productsId = JSON.parse(localStorage['productsId']);
+            if (_.indexOf(this.productsId, id) !== -1) {
+                console.log('Уже есть в корзине');
+                return;
+            }
+            this.productsId.push(id);
+            localStorage['productsId'] = JSON.stringify(this.productsId);
+        } else {
+            this.productsId = [];
+            this.productsId.push(id);
+            localStorage['productsId'] = JSON.stringify(this.productsId);
+        }
     }
 }

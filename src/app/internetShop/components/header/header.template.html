@@ -8,12 +8,14 @@
     </div>
 
     <div class="right-buttons">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-shopping-cart"></span> Корзина
-        </button>
+        <a routerLink="/cart" routerLinkActive="active">
+            <button type="button" class="btn btn-default" (click)="openCart()">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Корзина
+            </button>
+        </a>
 
         <button *ngIf="!cookieService.getCookie('auth')"
-            type="button" class="btn btn-default" (click)="showLoginDialog()">
+                type="button" class="btn btn-default" (click)="showLoginDialog()">
             <span class="glyphicon glyphicon-log-in"></span> Войти / Регистрация
         </button>
 

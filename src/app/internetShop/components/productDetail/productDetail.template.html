@@ -1,5 +1,43 @@
-<div class="content">
-    <span class="product-title">Apple MacBook Air 13" [MMGF2]</span>
+<div class="crumbs" *ngIf="product.product">
+    <a [routerLink]="'/'" routerLinkActive="active">
+        Главная
+    </a>
+    -
+    <a [routerLink]="'/' + [category.urlName]" routerLinkActive="active">
+        {{category.categoryName}}
+    </a>
+    -
+    <a [routerLink]="'/' + [category.urlName] + '/' + [product.product.id]" routerLinkActive="active">
+        {{product.product.name}}
+    </a>
+</div>
+
+<div class="content" *ngIf="product.product">
+    <span class="product-title">{{product.product.name}}</span>
+    <div class="add-block">
+        <div class="change">
+            <span class="add-item" (click)="isAddProduct = true">
+                Изменить
+            </span>
+            <span class="add-item">
+                Удалить
+            </span>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addToCart(product.product.id)">
+            <span class="glyphicon glyphicon-shopping-cart"></span> Добавить в корзину
+        </button>
+    </div>
+
+    <div class="images">
+        <div class="image" *ngFor="let id of product.product.images; let i = index"
+             (click)="showFullImage(id)">
+            <img [src]="'http://localhost:8080/images/get/' + id">
+        </div>
+    </div>
+
+    <div class="full-image" *ngIf="fullImageId">
+        <img [src]="'http://localhost:8080/images/get/' + fullImageId">
+    </div>
 
     <div class="properties">
         <table class="table table-hover">
@@ -16,5 +54,57 @@
             </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<add-product *ngIf="isAddProduct" [isEdit]="true" [productId]="product.product.id"></add-product>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Отзывы о товаре</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Добавить отзыв:</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+        <button type="button" class="btn btn-primary">Отправить</button>
     </div>
 </div>

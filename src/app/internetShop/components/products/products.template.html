@@ -18,13 +18,15 @@
 </div>-->
 
 <div class="product" *ngFor="let product of products">
-    <div class="img-wrap">
-        <img [src]="'http://localhost:8080/images/get/' + product.product.mainImageId">
-    </div>
+    <a [routerLink]="'/' + [product.product.category.urlName] + '/' + [product.product.id]" routerLinkActive="active">
+        <div class="img-wrap">
+            <img [src]="'http://localhost:8080/images/get/' + product.product.mainImageId">
+        </div>
 
-    <span class="name" (click)="openProduct(product.product.id, product.product.category.urlName)">
-        {{product.product.name}}
-    </span>
+        <span class="name">
+            {{product.product.name}}
+        </span>
+    </a>
 
     <span class="description">
          <span *ngFor="let prop of product.properties | slice:0:10">{{prop.name}}: {{prop.value}}; </span>

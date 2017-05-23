@@ -149,14 +149,4 @@ export class CategoryDetailComponent implements OnInit {
         }
         this.isAddProductOpen = !this.isAddProductOpen;
     }
-
-    closeProperties(): void {
-        this.isPropertiesOpen = false;
-        this.isProductsOpen = true;
-    }
-
-    closeAddProduct(): void {
-        this.isAddProductOpen = false;
-        this.isProductsOpen = true;
-    }
 }

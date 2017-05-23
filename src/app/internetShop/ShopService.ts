@@ -133,6 +133,10 @@ export class ShopService {
         return this.appService.makePost(`${PRODUCT_PROPERTY}/addAll`, productProperty);
     }
 
+    updatePropertyInProduct(productProperty: IProductProperty): Observable <IProductProperty> {
+        return this.appService.makePost(`${PRODUCT_PROPERTY}/update`, productProperty);
+    }
+
     deleteImage(id: number): Observable <any> {
         return this.appService.makeGet(`${IMAGES}/delete/${id}`);
     }

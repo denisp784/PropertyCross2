@@ -1,5 +1,7 @@
 <spinner [isSpinnerVisible]="isSpinnerVisible"></spinner>
 
+
+
 <ul class="sections">
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)">
 
@@ -27,20 +29,24 @@
             </span>
         </div>
         <div class="add-block">
-            <span class="add-properties" (click)="openProperties()"
-                  *ngIf="storageService.isAdmin()">
-                    Управление свойствами
-            </span>
+            <a [routerLink]="'/' + [category.urlName] + '/add-property'" routerLinkActive="active">
+                <span class="add-properties"
+                      *ngIf="storageService.isAdmin()">
+                        Управление свойствами
+                </span>
+            </a>
 
-            <span class="add-item" (click)="openAddProduct()"
-                  *ngIf="storageService.isAdmin()">
-            Добавить товар
-            </span>
+            <a [routerLink]="'/' + [category.urlName] + '/add-product'" routerLinkActive="active">
+                <span class="add-item"
+                      *ngIf="storageService.isAdmin()">
+                Добавить товар
+                </span>
+            </a>
         </div>
     </div>
 
     <div class="wrapper" *ngIf="isProductsOpen && !isProductDetailOpen">
-        <div class="filter" >
+        <div class="filter">
             <filter></filter>
         </div>
         <div class="products">
@@ -49,13 +55,10 @@
     </div>
 
     <properties *ngIf="isPropertiesOpen"
-                [category]="category"
-                (closePropertiesEmit)="closeProperties()"></properties>
+                [category]="category"></properties>
 
     <add-product *ngIf="isAddProductOpen"
-                 [category]="category"
-                 (closeAddProductEvent)="closeAddProduct()"
-                 (addProductEvent)="loadContent(category.urlName)"></add-product>
+                 [category]="category"></add-product>
 
     <productDetail *ngIf="isProductDetailOpen"></productDetail>
 </div>

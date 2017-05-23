@@ -27,6 +27,8 @@ import {FilterComponent} from './internetShop/components/filter/filter.component
 import {AddProductComponent} from './internetShop/components/addProduct/addProduct.component';
 import {SpinnerComponent} from './internetShop/components/spinner/spinner.component';
 import {ProductDetailComponent} from './internetShop/components/productDetail/productDetail.component';
+import {CartComponent} from './internetShop/components/cart/cart.component';
+import {FooterComponent} from './internetShop/components/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import {ProductDetailComponent} from './internetShop/components/productDetail/pr
         FilterComponent,
         AddProductComponent,
         SpinnerComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        CartComponent,
+        FooterComponent
     ],
     imports: [
         DialogsModule,

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'filter',
@@ -6,5 +6,10 @@ import {Component} from '@angular/core';
     styleUrls: ['filter.less']
 })
 
-export class FilterComponent {
+export class FilterComponent implements AfterViewInit {
+
+    ngAfterViewInit() {
+        console.log('a');
+    }
+
 }

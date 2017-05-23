@@ -7,6 +7,7 @@ import {IProductProperty} from '../../models/IProductProperty';
 import * as _ from 'lodash';
 import {SimpleModel} from '../../models/SimpleModel';
 import {AppService} from '../../../app.service';
+import {IProductFullInfo} from '../../models/IProductFullInfo';
 
 interface IFileReaderEventTarget extends EventTarget {
     result: string;
@@ -32,10 +33,19 @@ export class AddProductComponent implements OnInit {
 
     ngOnInit() {
         this.isSpinnerVisible = true;
-        this.getProperties();
+        console.log(this.productId);
+
+        if (!this.isEdit) {
+            this.getProperties();
+        } else {
+            this.getProduct(this.productId);
+        }
+
     }
 
-    @Input() category: ICategory;
+    @Input() isEdit: boolean;
+    @Input() category: ICategory = <ICategory>{};
+    @Input() productId: number;
     @Output() closeAddProductEvent = new EventEmitter;
     @Output() addProductEvent = new EventEmitter;
 
@@ -45,7 +55,7 @@ export class AddProductComponent implements OnInit {
     propertiesArray = [];
     file: any;
     pictures = [];
-    mainId: number = 0;
+    mainId = 0;
 
     closeAddProduct(): void {
         this.closeAddProductEvent.emit();
@@ -63,6 +73,30 @@ export class AddProductComponent implements OnInit {
                             name: prop.name
                         },
                         value: null
+                    };
+                    propertyArray.push(propertyObject);
+                });
+                return propertyArray;
+            })
+            .subscribe((properties) => {
+                this.propertiesArray = properties;
+                setTimeout(() => this.isSpinnerVisible = false, 500);
+            });
+    }
+
+    getProduct(id: number): void {
+        this.shopService.getProductFullInfo(id)
+            .map((product) => {
+                this.product = product.product;
+                this.category.id = product.product.category.id;
+                let propertyObject = {};
+                let propertyArray = [];
+                _.map(product.properties, (prop) => {
+                    propertyObject = {
+                        property: {
+                            name: prop.name
+                        },
+                        value: prop.value
                     };
                     propertyArray.push(propertyObject);
                 });
@@ -94,6 +128,14 @@ export class AddProductComponent implements OnInit {
                 this.addProductEvent.emit();
                 this.closeAddProduct();
             });
+    }
+    
+    updateProduct(): void {
+        this.productProperty.product = this.product;
+        this.productProperty.propertiesValues = this.propertiesArray;
+        console.log(this.productProperty);
+        this.shopService.updatePropertyInProduct(this.productProperty)
+            .subscribe(() => 'тип обновлено');
     }
 
     onFileChange(event: any, type: string): void {

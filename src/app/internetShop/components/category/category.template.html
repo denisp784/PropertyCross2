@@ -1,15 +1,17 @@
 <ul>
     <li *ngFor="let category of categoryGroup.categories" (click)="onSelect(category.urlName)">
-        <div class="img-wrapper">
-            <img [src]="'http://localhost:8080/images/get/' + category.imageId">
-        </div>
-        <span class="name">{{category.categoryName}}</span>
-        <span class="count">Много штук</span>
-        <div class="hover">
+        <a [routerLink]="'/' + [category.urlName]" routerLinkActive="active">
+            <div class="img-wrapper">
+                <img [src]="'http://localhost:8080/images/get/' + category.imageId">
+            </div>
+            <span class="name">{{category.categoryName}}</span>
+            <span class="count">Много штук</span>
+            <div class="hover">
             <span class="remove-section glyphicon glyphicon-edit"
                   (click)="showCategoryDialog($event, category.id)"
                   *ngIf="storageService.isAdmin()"></span>
-        </div>
+            </div>
+        </a>
     </li>
 
     <li (click)="showCategoryDialog($event)" *ngIf="storageService.isAdmin()">

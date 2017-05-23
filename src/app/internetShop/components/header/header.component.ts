@@ -5,6 +5,7 @@ import {CookieService} from "../../CookieService";
 import {StorageService} from "../../StorageService";
 import {ShopService} from "../../ShopService";
 import {AuthService} from "../../AuthService";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class HeaderComponent {
                 private cookieService: CookieService,
                 private authService: AuthService,
                 private shopService: ShopService,
-                private storageService: StorageService) {
+                private storageService: StorageService,
+                private router: Router) {
 
     }
 
@@ -30,7 +32,7 @@ export class HeaderComponent {
         this.dialogService.showDialog(loginDialog)
             .subscribe(() => {
 
-            })
+            });
 
     }
 
@@ -38,6 +40,11 @@ export class HeaderComponent {
         this.cookieService.deleteCookie('auth');
         //this.shopService.checkUserRole();
         this.authService.role = '';
+    }
+
+
+    openCart(): void {
+        this.router.navigate(['cart']);
     }
 
 }

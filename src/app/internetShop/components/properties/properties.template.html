@@ -18,7 +18,9 @@
             </form>
         </div>
 
-        <span class="close" (click)="closeProperties()">Закрыть</span>
+        <a [routerLink]="'/' + [category.urlName]" routerLinkActive="active">
+            <span class="close">Закрыть</span>
+        </a>
     </div>
 
     <div class="properties">
