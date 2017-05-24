@@ -1,9 +1,9 @@
-import {Component, OnInit} from "@angular/core";
-import {DialogAwareComponent} from "../../dialogModule/dialogAware.component";
-import {ISection} from "../../models/ISection";
-import {SimpleModel} from "../../models/SimpleModel";
-import {AppService} from "../../../app.service";
-import {ShopService} from "../../ShopService";
+import {Component, Inject, OnInit} from '@angular/core';
+import {DialogAwareComponent} from '../../dialogModule/dialogAware.component';
+import {ISection} from '../../models/ISection';
+import {SimpleModel} from '../../models/SimpleModel';
+import {AppService} from '../../../app.service';
+import {ShopService} from '../../ShopService';
 
 const noImageIcon = require('../../resource/images/noImageIcon.png');
 

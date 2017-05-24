@@ -1,7 +1,7 @@
-import {Injectable, ViewContainerRef, ComponentFactoryResolver, Compiler, EventEmitter} from "@angular/core";
-import {DialogComponent} from "./dialog.component";
-import {DialogsModule} from "../dialogs/Dialogs.module";
-import {IDialogConfig} from "./IDialogConfig";
+import {Injectable, ViewContainerRef, ComponentFactoryResolver, Compiler, EventEmitter} from '@angular/core';
+import {DialogComponent} from './dialog.component';
+import {DialogsModule} from '../dialogs/Dialogs.module';
+import {IDialogConfig} from './IDialogConfig';
 
 @Injectable()
 export class DialogService {

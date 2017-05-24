@@ -29,7 +29,7 @@ export class PropertiesComponent implements OnInit {
     property: IProperty = <IProperty>{};
     properties: IProperty[];
     propertyInCategory: IPropertyInCategory = <IPropertyInCategory>{};
-    isSpinnerVisible: boolean = false;
+    isSpinnerVisible = false;
 
     ngOnInit() {
         this.isSpinnerVisible = true;
@@ -43,10 +43,6 @@ export class PropertiesComponent implements OnInit {
                 this.properties = properties;
                 setTimeout(() => this.isSpinnerVisible = false, 500);
             });
-    }
-
-    closeProperties(): void {
-        this.closePropertiesEmit.emit();
     }
 
     showPropertiesDialog(propertyId: number) {
@@ -77,8 +73,15 @@ export class PropertiesComponent implements OnInit {
             });
     }
 
-    delete(propertyId: number) {
-        this.shopService.deleteProperty(propertyId)
-            .subscribe(() => this.getProperties());
+    deleteProperty(propertyId: number) {
+        const confirmDeleteDialog = dialogConfigs.confirmDeleteDialogConfig;
+
+        this.dialogService.showDialog(confirmDeleteDialog)
+            .flatMap(() => {
+                return this.shopService.deleteProperty(propertyId);
+            })
+            .subscribe(() => {
+                this.getProperties();
+            }, () => {});
     }
 }

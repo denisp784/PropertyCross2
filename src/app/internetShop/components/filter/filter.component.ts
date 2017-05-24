@@ -9,7 +9,6 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 export class FilterComponent implements AfterViewInit {
 
     ngAfterViewInit() {
-        console.log('a');
     }
 
 }

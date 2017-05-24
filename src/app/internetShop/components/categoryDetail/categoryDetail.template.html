@@ -1,7 +1,5 @@
 <spinner [isSpinnerVisible]="isSpinnerVisible"></spinner>
 
-
-
 <ul class="sections">
     <li *ngFor="let section of sections" (click)="switchCategory(section.id)">
 
@@ -37,7 +35,7 @@
             </a>
 
             <a [routerLink]="'/' + [category.urlName] + '/add-product'" routerLinkActive="active">
-                <span class="add-item"
+                <span class="add-item" (click)="openAddProduct()"
                       *ngIf="storageService.isAdmin()">
                 Добавить товар
                 </span>

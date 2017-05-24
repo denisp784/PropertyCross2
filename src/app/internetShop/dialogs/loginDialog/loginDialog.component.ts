@@ -18,7 +18,7 @@ export class LoginDialogComponent extends DialogAwareComponent {
     constructor(private shopService: ShopService,
                 private cookieService: CookieService,
                 private authService: AuthService) {
-        super()
+        super();
     }
 
     @ViewChild('login') login: ElementRef;
@@ -45,10 +45,9 @@ export class LoginDialogComponent extends DialogAwareComponent {
     register() {
         this.shopService.userRegistration(this.user)
             .subscribe(() => {
-                console.log(this.user);
                 this.dialog.ok();
                 console.log('Пользователь добавлен');
-            })
+            });
 
     }
 
@@ -106,9 +105,7 @@ export class LoginDialogComponent extends DialogAwareComponent {
             let fio = new ElementRef(this.fio.valueAccessor._elementRef.nativeElement);
             let address = new ElementRef(this.address.valueAccessor._elementRef.nativeElement);
 
-            console.log(this.regLogin);
             this.regLogin.nativeElement.markAsDirty();
-            console.log(this.regLogin);
 
             if (this.regLogin.valid) {
                 regPassword.nativeElement.focus();
@@ -127,7 +124,6 @@ export class LoginDialogComponent extends DialogAwareComponent {
                     this.password.nativeElement.focus();
                 }
             });
-            console.log(this.isCorrectLogin);
         }
     }
 

@@ -1,5 +1,5 @@
-import {Component, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy, Inject} from '@angular/core';
-import {DialogService} from "./dialogService";
+import {Component, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy} from '@angular/core';
+import {DialogService} from './dialogService';
 
 @Component({
     selector: 'dialogHost',

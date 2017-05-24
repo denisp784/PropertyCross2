@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import {SimpleModel} from '../../models/SimpleModel';
 import {AppService} from '../../../app.service';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
+import {Router} from '@angular/router';
 
 interface IFileReaderEventTarget extends EventTarget {
     result: string;
@@ -26,14 +27,14 @@ interface IFileReaderEvent extends Event {
 
 export class AddProductComponent implements OnInit {
     constructor(private shopService: ShopService,
-                private appService: AppService) {
+                private appService: AppService,
+                private router: Router) {
     }
 
     isSpinnerVisible: boolean = false;
 
     ngOnInit() {
         this.isSpinnerVisible = true;
-        console.log(this.productId);
 
         if (!this.isEdit) {
             this.getProperties();
@@ -94,9 +95,11 @@ export class AddProductComponent implements OnInit {
                 _.map(product.properties, (prop) => {
                     propertyObject = {
                         property: {
+                            id: prop.id,
                             name: prop.name
                         },
-                        value: prop.value
+                        value: prop.value,
+                        propertyValueId: prop.propertyValueId
                     };
                     propertyArray.push(propertyObject);
                 });
@@ -125,16 +128,14 @@ export class AddProductComponent implements OnInit {
             })
             .subscribe(() => {
                 console.log('Добавлено');
-                this.addProductEvent.emit();
-                this.closeAddProduct();
+                this.router.navigate(['', this.category.urlName]);
             });
     }
-    
+
     updateProduct(): void {
         this.productProperty.product = this.product;
         this.productProperty.propertiesValues = this.propertiesArray;
-        console.log(this.productProperty);
-        this.shopService.updatePropertyInProduct(this.productProperty)
+        this.shopService.addPropertyInProduct(this.productProperty)
             .subscribe(() => 'тип обновлено');
     }
 

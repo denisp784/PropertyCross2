@@ -8,5 +8,6 @@ export interface IProductProperty {
             id: number;
         };
         value: string;
+        propertyValueId: number;
     }[];
 }

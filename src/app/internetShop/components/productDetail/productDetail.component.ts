@@ -5,6 +5,9 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ICategory} from '../../models/ICategory';
 import * as _ from 'lodash';
+import {IProduct} from '../../models/IProduct';
+import {DialogService} from '../../dialogModule/dialogService';
+import {dialogConfigs} from '../../dialogs/dialogs.config';
 
 @Component({
     selector: 'productDetail',
@@ -15,14 +18,15 @@ import * as _ from 'lodash';
 export class ProductDetailComponent implements OnInit {
     constructor(private shopService: ShopService,
                 private activatedRoute: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private dialogService: DialogService) {
     }
 
     product: IProductFullInfo = <IProductFullInfo>{};
     category: ICategory;
     isAddProduct = false;
     fullImageId: number;
-    productsId: number[];
+    products: IProduct[];
 
     ngOnInit() {
         let localParams;
@@ -44,8 +48,6 @@ export class ProductDetailComponent implements OnInit {
                         this.router.navigate(['/']);
                     }
                     this.product = product;
-                    console.log(this.product);
-                    console.log(this.product.properties);
                 },
                 () => this.router.navigate(['/'])
             );
@@ -55,19 +57,31 @@ export class ProductDetailComponent implements OnInit {
         this.fullImageId = id;
     }
 
-    addToCart(id: number) {
-        if (localStorage['productsId']) {
-            this.productsId = JSON.parse(localStorage['productsId']);
-            if (_.indexOf(this.productsId, id) !== -1) {
+    addToCart(product: IProduct) {
+        if (localStorage['products']) {
+            this.products = JSON.parse(localStorage['products']);
+            if (_.find(this.products, product) !== -1) {
                 console.log('Уже есть в корзине');
                 return;
             }
-            this.productsId.push(id);
-            localStorage['productsId'] = JSON.stringify(this.productsId);
+            this.products.push(product);
+            localStorage['products'] = JSON.stringify(this.products);
         } else {
-            this.productsId = [];
-            this.productsId.push(id);
-            localStorage['productsId'] = JSON.stringify(this.productsId);
+            this.products = [];
+            this.products.push(product);
+            localStorage['products'] = JSON.stringify(this.products);
         }
+    }
+
+    deleteProduct(id: number) {
+        const confirmDeleteDialog = dialogConfigs.confirmDeleteDialogConfig;
+
+        this.dialogService.showDialog(confirmDeleteDialog)
+            .flatMap(() => {
+                return this.shopService.deleteProduct(id);
+            })
+            .subscribe(() => {
+                this.router.navigate(['', this.category.urlName]);
+            }, () => {});
     }
 }

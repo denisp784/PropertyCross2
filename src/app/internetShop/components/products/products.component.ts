@@ -24,7 +24,6 @@ export class ProductsComponent {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
-            console.log(params);
         });
     }
 }

@@ -19,11 +19,11 @@
             <span class="add-item" (click)="isAddProduct = true">
                 Изменить
             </span>
-            <span class="add-item">
+            <span class="add-item" (click)="deleteProduct(product.product.id)">
                 Удалить
             </span>
         </div>
-        <button type="button" class="btn btn-primary" (click)="addToCart(product.product.id)">
+        <button type="button" class="btn btn-primary" (click)="addToCart(product.product)">
             <span class="glyphicon glyphicon-shopping-cart"></span> Добавить в корзину
         </button>
     </div>
@@ -39,7 +39,7 @@
         <img [src]="'http://localhost:8080/images/get/' + fullImageId">
     </div>
 
-    <div class="properties">
+    <div class="properties" *ngIf="!isAddProduct">
         <table class="table table-hover">
             <thead>
             <tr class="active">

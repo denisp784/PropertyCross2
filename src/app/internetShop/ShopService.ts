@@ -129,6 +129,10 @@ export class ShopService {
         return this.appService.makeGet(`${PRODUCTS}/getFullInfo/${id}`);
     }
 
+    deleteProduct(id: number): Observable <IProduct> {
+        return this.appService.makeGet(`${PRODUCTS}/delete/${id}`);
+    }
+
     addPropertyInProduct(productProperty: IProductProperty): Observable <IProductProperty> {
         return this.appService.makePost(`${PRODUCT_PROPERTY}/addAll`, productProperty);
     }
