@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {animate, Component, OnInit, style, transition, trigger} from '@angular/core';
 import {ShopService} from '../../ShopService';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -12,7 +12,21 @@ import {dialogConfigs} from '../../dialogs/dialogs.config';
 @Component({
     selector: 'productDetail',
     templateUrl: 'productDetail.template.html',
-    styleUrls: ['productDetail.less']
+    styleUrls: ['productDetail.less'],
+    animations: [
+        trigger(
+            'enterAnimation', [
+                transition(':enter', [
+                    style({transform: 'translateY(50%)', opacity: 0}),
+                    animate('500ms', style({transform: 'translateY(0)', opacity: 1}))
+                ]),
+                transition(':leave', [
+                    style({transform: 'translateY(0)', opacity: 1}),
+                    animate('500ms', style({transform: 'translateY(50%)', opacity: 0}))
+                ])
+            ]
+        )
+    ]
 })
 
 export class ProductDetailComponent implements OnInit {
@@ -26,7 +40,9 @@ export class ProductDetailComponent implements OnInit {
     category: ICategory;
     isAddProduct = false;
     fullImageId: number;
-    products: IProduct[];
+    productsInCart: IProduct[];
+    showAlert = false;
+    alertText: string;
 
     ngOnInit() {
         let localParams;
@@ -51,6 +67,10 @@ export class ProductDetailComponent implements OnInit {
                 },
                 () => this.router.navigate(['/'])
             );
+
+        if (localStorage['products']) {
+            this.productsInCart = JSON.parse(localStorage['products']);
+        }
     }
 
     showFullImage(id: number): void {
@@ -59,17 +79,25 @@ export class ProductDetailComponent implements OnInit {
 
     addToCart(product: IProduct) {
         if (localStorage['products']) {
-            this.products = JSON.parse(localStorage['products']);
-            if (_.find(this.products, product) !== -1) {
-                console.log('Уже есть в корзине');
+            if (_.find(this.productsInCart, product)) {
+                this.alertText = 'Товар уже есть в корзине';
+                this.showAlert = !this.showAlert;
+                setTimeout(() => this.showAlert = !this.showAlert, 3000);
                 return;
+            } else {
+                this.productsInCart.push(product);
+                localStorage['products'] = JSON.stringify(this.productsInCart);
+                this.alertText = 'Товар добавлен в корзину';
+                this.showAlert = !this.showAlert;
+                setTimeout(() => this.showAlert = !this.showAlert, 3000);
             }
-            this.products.push(product);
-            localStorage['products'] = JSON.stringify(this.products);
         } else {
-            this.products = [];
-            this.products.push(product);
-            localStorage['products'] = JSON.stringify(this.products);
+            this.productsInCart = [];
+            this.productsInCart.push(product);
+            localStorage['products'] = JSON.stringify(this.productsInCart);
+            this.alertText = 'Товар добавлен в корзину';
+            this.showAlert = !this.showAlert;
+            setTimeout(() => this.showAlert = !this.showAlert, 3000);
         }
     }
 
@@ -82,6 +110,7 @@ export class ProductDetailComponent implements OnInit {
             })
             .subscribe(() => {
                 this.router.navigate(['', this.category.urlName]);
-            }, () => {});
+            }, () => {
+            });
     }
 }

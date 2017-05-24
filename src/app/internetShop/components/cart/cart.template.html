@@ -1,5 +1,10 @@
 <spinner [isSpinnerVisible]="isSpinnerVisible"></spinner>
 
+<div class="alert alert-success alert-dismissable" *ngIf="showAlert" [@enterAnimation]="showAlert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{alertText}}
+</div>
+
 <div class="content">
     <span class="cart-title">Корзина</span>
 </div>
@@ -41,7 +46,7 @@
                 <td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
                 <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
                 <td class="col-sm-1 col-md-1">
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" (click)="deleteFromCart(product)">
                         <span class="glyphicon glyphicon-remove"></span> Удалить
                     </button>
                 </td>

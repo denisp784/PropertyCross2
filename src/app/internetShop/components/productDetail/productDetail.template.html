@@ -1,3 +1,8 @@
+<div class="alert alert-success alert-dismissable" *ngIf="showAlert" [@enterAnimation]="showAlert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{alertText}}
+</div>
+
 <div class="crumbs" *ngIf="product.product">
     <a [routerLink]="'/'" routerLinkActive="active">
         Главная

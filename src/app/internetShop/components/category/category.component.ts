@@ -50,9 +50,6 @@ export class CategoriesComponent implements OnInit {
                     );
             });
         event.stopPropagation();
-    }
-
-    onSelect(url: string) {
-        this.router.navigate(['', url]);
+        event.preventDefault();
     }
 }
