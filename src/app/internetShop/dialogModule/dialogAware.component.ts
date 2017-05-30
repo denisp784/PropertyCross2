@@ -7,6 +7,7 @@ export interface IDialogAwareComponent {
 }
 
 export class DialogAwareComponent implements IDialogAwareComponent {
+
     dialog: DialogComponent;
     currentData: any;
 

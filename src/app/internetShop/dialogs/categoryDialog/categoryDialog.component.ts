@@ -77,6 +77,10 @@ export class CategoryDialogComponent extends DialogAwareComponent implements OnI
     deleteCategory() {
         this.shopService.deleteCategory(this.category.id)
             .subscribe(() => this.dialog.ok());
+
+        this.storageService.alertText = 'Категория успешно удалена';
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     upload() {
@@ -93,6 +97,14 @@ export class CategoryDialogComponent extends DialogAwareComponent implements OnI
             this.shopService.addCategory(this.category)
                 .subscribe(() => this.dialog.ok());
         }
+
+        if (this.currentData.isEditFlag) {
+            this.storageService.alertText = 'Категория успешно изменена';
+        } else {
+            this.storageService.alertText = 'Категория успешно добавлена';
+        }
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     isAddDisabled(categoryName, urlName, priority, file): boolean {

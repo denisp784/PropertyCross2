@@ -13,8 +13,8 @@ import {AuthService} from '../../AuthService';
 })
 export class SectionsComponent {
     @Input() sections: ISection[];
-    showCategoryFlag: boolean = false;
-    loaded: boolean = false;
+    showCategoryFlag = false;
+    loaded = false;
 
     constructor(private dialogService: DialogService,
                 private shopService: ShopService,

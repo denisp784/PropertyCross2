@@ -23,7 +23,7 @@ export class CategoryGroupComponent implements OnInit {
     previewImg: any;
     activeGroupIndex: number;
     isAdmin: boolean;
-    isSpinnerVisible: boolean = false;
+    isSpinnerVisible = false;
     private subscription: Subscription;
 
     constructor(private shopService: ShopService,

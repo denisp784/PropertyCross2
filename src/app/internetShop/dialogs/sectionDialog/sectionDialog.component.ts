@@ -4,6 +4,7 @@ import {ISection} from '../../models/ISection';
 import {SimpleModel} from '../../models/SimpleModel';
 import {AppService} from '../../../app.service';
 import {ShopService} from '../../ShopService';
+import {StorageService} from '../../StorageService';
 
 const noImageIcon = require('../../resource/images/noImageIcon.png');
 
@@ -28,7 +29,8 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
     imageUrl: string;
 
     constructor(private appService: AppService,
-                private shopService: ShopService) {
+                private shopService: ShopService,
+                private storageService: StorageService) {
         super();
         this.initNewSection();
     }
@@ -53,6 +55,10 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
     deleteSection() {
         this.shopService.deleteSection(this.currentData.sectionId)
             .subscribe(() => this.dialog.ok());
+
+        this.storageService.showAlert = true;
+        this.storageService.alertText = 'Секция успешно удалена';
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     getPicture() {
@@ -83,8 +89,18 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
                 .subscribe(() => this.dialog.ok());
         } else {
             this.shopService.addSection(this.section)
-                .subscribe(() => this.dialog.ok());
+                .subscribe(() => {
+                    this.dialog.ok();
+                });
         }
+
+        if (this.currentData.isEditFlag) {
+            this.storageService.alertText = 'Секция успешно изменена';
+        } else {
+            this.storageService.alertText = 'Секция успешно добавлена';
+        }
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     isAddDisabled(sectionName, priority, file): boolean {

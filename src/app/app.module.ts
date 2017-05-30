@@ -29,6 +29,7 @@ import {SpinnerComponent} from './internetShop/components/spinner/spinner.compon
 import {ProductDetailComponent} from './internetShop/components/productDetail/productDetail.component';
 import {CartComponent} from './internetShop/components/cart/cart.component';
 import {FooterComponent} from './internetShop/components/footer/footer.component';
+import {AlertComponent} from './internetShop/components/alert/alert.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import {FooterComponent} from './internetShop/components/footer/footer.component
         SpinnerComponent,
         ProductDetailComponent,
         CartComponent,
-        FooterComponent
+        FooterComponent,
+        AlertComponent
     ],
     imports: [
         DialogsModule,

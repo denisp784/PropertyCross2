@@ -20,7 +20,7 @@
 <div class="content" *ngIf="product.product">
     <span class="product-title">{{product.product.name}}</span>
     <div class="add-block">
-        <div class="change">
+        <div class="change" *ngIf="storageService.isAdmin()">
             <span class="add-item" (click)="isAddProduct = true">
                 Изменить
             </span>
@@ -33,14 +33,14 @@
         </button>
     </div>
 
-    <div class="images">
+    <div class="images" *ngIf="!isAddProduct">
         <div class="image" *ngFor="let id of product.product.images; let i = index"
              (click)="showFullImage(id)">
             <img [src]="'http://localhost:8080/images/get/' + id">
         </div>
     </div>
 
-    <div class="full-image" *ngIf="fullImageId">
+    <div class="full-image" *ngIf="fullImageId && !isAddProduct">
         <img [src]="'http://localhost:8080/images/get/' + fullImageId">
     </div>
 
@@ -54,8 +54,8 @@
             </thead>
             <tbody>
             <tr *ngFor="let property of product.properties">
-                <td class="name">{{property.name}}</td>
-                <td class="value">{{property.value}}</td>
+                <td class="name" *ngIf="property.value">{{property.name}}</td>
+                <td class="value" *ngIf="property.value">{{property.value}}</td>
             </tr>
             </tbody>
         </table>
@@ -64,7 +64,7 @@
 
 <add-product *ngIf="isAddProduct" [isEdit]="true" [productId]="product.product.id"></add-product>
 
-<div class="container">
+<div class="container" *ngIf="!isAddProduct">
     <div class="row">
         <div class="col-sm-12">
             <h3>Отзывы о товаре</h3>

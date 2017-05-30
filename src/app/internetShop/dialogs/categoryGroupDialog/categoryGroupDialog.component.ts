@@ -42,6 +42,14 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
 
         this.shopService.addCategoryGroup(categoryGroup)
             .subscribe(() => this.dialog.ok());
+
+        if (this.currentData.isEditFlag) {
+            this.storageService.alertText = 'Группа категорий успешно изменена';
+        } else {
+            this.storageService.alertText = 'Группа категорий успешно добавлена';
+        }
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     isAddDisabled(categoryGroupName, priority): boolean {
@@ -51,5 +59,9 @@ export class CategoryGroupDialogComponent extends DialogAwareComponent implement
     deleteGroup() {
         this.shopService.deleteCategoryGroup(this.categoryGroup.id)
             .subscribe(() => this.dialog.ok());
+
+        this.storageService.alertText = 'Группа категорий успешно удалена';
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 }

@@ -1,11 +1,10 @@
 import {
-    Component, ViewContainerRef, ViewChild, AfterViewInit, ComponentFactory, OnInit,
+    Component, ViewContainerRef, ViewChild, ComponentFactory, OnInit,
     EventEmitter
-} from "@angular/core";
-import {IDialogAwareComponent} from "./dialogAware.component";
-import {ModalComponent} from "ng2-bs3-modal/components/modal";
-import {IDialogConfig} from "./IDialogConfig";
-import {NgForm} from '@angular/forms';
+} from '@angular/core';
+import {IDialogAwareComponent} from './dialogAware.component';
+import {ModalComponent} from 'ng2-bs3-modal/components/modal';
+import {IDialogConfig} from './IDialogConfig';
 
 @Component({
     selector: 'ng2-dialog',

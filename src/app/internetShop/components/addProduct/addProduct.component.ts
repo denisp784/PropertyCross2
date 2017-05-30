@@ -9,6 +9,7 @@ import {SimpleModel} from '../../models/SimpleModel';
 import {AppService} from '../../../app.service';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {Router} from '@angular/router';
+import {StorageService} from '../../StorageService';
 
 interface IFileReaderEventTarget extends EventTarget {
     result: string;
@@ -28,7 +29,8 @@ interface IFileReaderEvent extends Event {
 export class AddProductComponent implements OnInit {
     constructor(private shopService: ShopService,
                 private appService: AppService,
-                private router: Router) {
+                private router: Router,
+                private storageService: StorageService) {
     }
 
     isSpinnerVisible: boolean = false;
@@ -130,13 +132,22 @@ export class AddProductComponent implements OnInit {
                 console.log('Добавлено');
                 this.router.navigate(['', this.category.urlName]);
             });
+
+        this.storageService.alertText = 'Товар успешно добавлен';
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     updateProduct(): void {
         this.productProperty.product = this.product;
         this.productProperty.propertiesValues = this.propertiesArray;
+        console.log(this.productProperty);
         this.shopService.addPropertyInProduct(this.productProperty)
             .subscribe(() => 'тип обновлено');
+
+        this.storageService.alertText = 'Товар успешно обновлён';
+        this.storageService.showAlert = true;
+        setTimeout(() => this.storageService.showAlert = false, 3000);
     }
 
     onFileChange(event: any, type: string): void {

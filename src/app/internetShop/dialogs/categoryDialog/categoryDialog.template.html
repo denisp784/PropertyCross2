@@ -45,6 +45,6 @@
         </button>
         <button type="button" class="btn btn-primary"
                 [disabled]="isAddDisabled(categoryName, urlName, priority, file)"
-                (click)="upload()">Добавить
+                (click)="upload()">{{!currentData.isEditFlag ? 'Добавить' : 'Изменить'}}
         </button>
 </modal-footer>

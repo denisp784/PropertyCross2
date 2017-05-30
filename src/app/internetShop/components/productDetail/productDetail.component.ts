@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import {IProduct} from '../../models/IProduct';
 import {DialogService} from '../../dialogModule/dialogService';
 import {dialogConfigs} from '../../dialogs/dialogs.config';
+import {StorageService} from '../../StorageService';
 
 @Component({
     selector: 'productDetail',
@@ -33,7 +34,8 @@ export class ProductDetailComponent implements OnInit {
     constructor(private shopService: ShopService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private dialogService: DialogService) {
+                private dialogService: DialogService,
+                private storageService: StorageService) {
     }
 
     product: IProductFullInfo = <IProductFullInfo>{};
@@ -80,24 +82,24 @@ export class ProductDetailComponent implements OnInit {
     addToCart(product: IProduct) {
         if (localStorage['products']) {
             if (_.find(this.productsInCart, product)) {
-                this.alertText = 'Товар уже есть в корзине';
-                this.showAlert = !this.showAlert;
-                setTimeout(() => this.showAlert = !this.showAlert, 3000);
+                this.storageService.alertText = 'Товар уже есть в корзине';
+                this.storageService.showAlert = true;
+                setTimeout(() => this.storageService.showAlert = false, 3000);
                 return;
             } else {
                 this.productsInCart.push(product);
                 localStorage['products'] = JSON.stringify(this.productsInCart);
-                this.alertText = 'Товар добавлен в корзину';
-                this.showAlert = !this.showAlert;
-                setTimeout(() => this.showAlert = !this.showAlert, 3000);
+                this.storageService.alertText = 'Товар добавлен в корзину';
+                this.storageService.showAlert = true;
+                setTimeout(() => this.storageService.showAlert = false, 3000);
             }
         } else {
             this.productsInCart = [];
             this.productsInCart.push(product);
             localStorage['products'] = JSON.stringify(this.productsInCart);
-            this.alertText = 'Товар добавлен в корзину';
-            this.showAlert = !this.showAlert;
-            setTimeout(() => this.showAlert = !this.showAlert, 3000);
+            this.storageService.alertText = 'Товар добавлен в корзину';
+            this.storageService.showAlert = true;
+            setTimeout(() => this.storageService.showAlert = false, 3000);
         }
     }
 
@@ -110,6 +112,9 @@ export class ProductDetailComponent implements OnInit {
             })
             .subscribe(() => {
                 this.router.navigate(['', this.category.urlName]);
+                this.storageService.alertText = 'Товар успешно удалён';
+                this.storageService.showAlert = true;
+                setTimeout(() => this.storageService.showAlert = false, 3000);
             }, () => {
             });
     }

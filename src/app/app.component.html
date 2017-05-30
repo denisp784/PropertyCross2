@@ -1,4 +1,6 @@
 <div class="wrapper" >
+    <alert *ngIf="storageService.showAlert" [@enterAnimation]="storageService.showAlert"></alert>
+
     <header></header>
 
     <router-outlet></router-outlet>
