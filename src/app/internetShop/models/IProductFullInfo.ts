@@ -5,4 +5,5 @@ export interface IProductFullInfo {
         name: string;
         value: string;
     }[];
+    opinions: any[];
 }

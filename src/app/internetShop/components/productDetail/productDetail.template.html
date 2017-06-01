@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngFor="let opinion of product.opinions">
         <div class="col-sm-1">
             <div class="thumbnail">
                 <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -80,28 +80,12 @@
         <div class="col-sm-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                    <strong *ngIf="opinion.login; else elseBlock">{{opinion.login}}</strong>
+                    <ng-template #elseBlock><strong>Аноним</strong></ng-template>
+                    <span class="text-muted">оставил комментарий {{opinion.date | date:'dd-MM-yyyy' }}</span>
                 </div>
                 <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-1">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                </div>
-                <div class="panel-body">
-                    Panel content
+                    {{opinion.description}}
                 </div>
             </div>
         </div>
@@ -109,7 +93,12 @@
 
     <div class="form-group">
         <label for="comment">Добавить отзыв:</label>
-        <textarea class="form-control" rows="5" id="comment"></textarea>
-        <button type="button" class="btn btn-primary">Отправить</button>
+        <textarea class="form-control" rows="5" id="comment"
+                  [(ngModel)]="opinion.description" #description="ngModel"></textarea>
+        <button type="button" class="btn btn-primary"
+                (click)="addOpinion()">Отправить</button>
+        <label class="input-label">
+            <input type="checkbox" [checked]="anon" (change)="anon = !anon">Анонимно
+        </label>
     </div>
 </div>

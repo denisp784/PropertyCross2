@@ -7,7 +7,7 @@ import {StorageService} from "../../StorageService";
 import {SimpleModel} from "../../models/SimpleModel";
 import {ICategoryGroup} from "../../models/ICategoryGroup";
 
-const noImageIcon = require("../../resource/images/noImageIcon.png");
+const noImageIcon = require('../../resource/images/noImageIcon.png');
 
 interface FileReaderEventTarget extends EventTarget {
     result: string

@@ -8,6 +8,8 @@ import * as _ from 'lodash';
 import {Router} from "@angular/router";
 import {AuthService} from "../../AuthService";
 
+const ADD_ICON = require('../../resource/images/add.png');
+
 @Component({
     selector: 'category',
     templateUrl: 'category.template.html',
@@ -16,6 +18,7 @@ import {AuthService} from "../../AuthService";
 export class CategoriesComponent implements OnInit {
     @Input() categoryGroup: ICategoryGroup;
     isAdmin: boolean;
+    addIcon = ADD_ICON;
 
     constructor(private shopService: ShopService,
                 private dialogService: DialogService,

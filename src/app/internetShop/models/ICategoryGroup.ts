@@ -1,6 +1,6 @@
 import {ICategory} from './ICategory';
 
-export class ICategoryGroup {
+export interface ICategoryGroup {
     id: number;
     categoryGroupName: string;
     sectionId: number;

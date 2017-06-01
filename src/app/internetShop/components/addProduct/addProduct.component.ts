@@ -97,11 +97,11 @@ export class AddProductComponent implements OnInit {
                 _.map(product.properties, (prop) => {
                     propertyObject = {
                         property: {
-                            id: prop.id,
-                            name: prop.name
+                            id: prop[id],
+                            name: prop['name']
                         },
                         value: prop.value,
-                        propertyValueId: prop.propertyValueId
+                        propertyValueId: prop['propertyValueId']
                     };
                     propertyArray.push(propertyObject);
                 });

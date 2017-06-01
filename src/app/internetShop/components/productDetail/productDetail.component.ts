@@ -9,25 +9,12 @@ import {IProduct} from '../../models/IProduct';
 import {DialogService} from '../../dialogModule/dialogService';
 import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {StorageService} from '../../StorageService';
+import {IOpinion} from '../../models/IOpinion';
 
 @Component({
     selector: 'productDetail',
     templateUrl: 'productDetail.template.html',
-    styleUrls: ['productDetail.less'],
-    animations: [
-        trigger(
-            'enterAnimation', [
-                transition(':enter', [
-                    style({transform: 'translateY(50%)', opacity: 0}),
-                    animate('500ms', style({transform: 'translateY(0)', opacity: 1}))
-                ]),
-                transition(':leave', [
-                    style({transform: 'translateY(0)', opacity: 1}),
-                    animate('500ms', style({transform: 'translateY(50%)', opacity: 0}))
-                ])
-            ]
-        )
-    ]
+    styleUrls: ['productDetail.less']
 })
 
 export class ProductDetailComponent implements OnInit {
@@ -45,8 +32,20 @@ export class ProductDetailComponent implements OnInit {
     productsInCart: IProduct[];
     showAlert = false;
     alertText: string;
+    opinion: IOpinion = <IOpinion>{};
+    anon = false;
 
     ngOnInit() {
+        this.getProductInfo();
+
+        if (localStorage['products']) {
+            this.productsInCart = JSON.parse(localStorage['products']);
+        }
+
+        console.log(this.product.opinions);
+    }
+
+    getProductInfo(): void {
         let localParams;
         this.activatedRoute.params
             .flatMap((params: Params) => {
@@ -69,10 +68,6 @@ export class ProductDetailComponent implements OnInit {
                 },
                 () => this.router.navigate(['/'])
             );
-
-        if (localStorage['products']) {
-            this.productsInCart = JSON.parse(localStorage['products']);
-        }
     }
 
     showFullImage(id: number): void {
@@ -116,6 +111,22 @@ export class ProductDetailComponent implements OnInit {
                 this.storageService.showAlert = true;
                 setTimeout(() => this.storageService.showAlert = false, 3000);
             }, () => {
+            });
+    }
+
+    addOpinion(): void {
+        this.opinion.product = {
+            id: this.product.product.id,
+        };
+        this.opinion.anon = this.anon;
+
+        this.shopService.addOpinion(this.opinion)
+            .subscribe(() => {
+                this.getProductInfo();
+                this.storageService.alertText = 'Ваш отзыв успешно добавлен';
+                this.storageService.showAlert = true;
+                setTimeout(() => this.storageService.showAlert = false, 3000);
+                this.opinion.description = '';
             });
     }
 }

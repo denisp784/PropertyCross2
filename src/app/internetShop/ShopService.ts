@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 import {IProduct} from './models/IProduct';
 import {IProductProperty} from './models/IProductProperty';
 import {IProductFullInfo} from './models/IProductFullInfo';
+import {IOpinion} from './models/IOpinion';
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
@@ -21,6 +22,7 @@ const USERS = 'users';
 const PRODUCTS = 'products';
 const PRODUCT_PROPERTY = 'productPropertyValues';
 const IMAGES = 'images';
+const OPINIONS = 'opinions';
 
 @Injectable()
 export class ShopService {
@@ -147,5 +149,13 @@ export class ShopService {
 
     deleteImage(id: number): Observable <any> {
         return this.appService.makeGet(`${IMAGES}/delete/${id}`);
+    }
+
+    addOpinion(opinions: IOpinion): Observable <IOpinion> {
+        return this.appService.makePost(`${OPINIONS}/add`, opinions);
+    }
+
+    getOpinion(id: number): Observable <IOpinion> {
+        return this.appService.makeGet(`${OPINIONS}/get/${id}`);
     }
 }

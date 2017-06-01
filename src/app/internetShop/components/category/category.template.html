@@ -16,7 +16,7 @@
 
     <li (click)="showCategoryDialog($event)" *ngIf="storageService.isAdmin()">
         <div class="img-wrapper">
-            <img src="app/internetShop/resource/images/add.png" height="100" width="100"/>
+            <img [src]="addIcon" height="100" width="100"/>
         </div>
         <span class="add">Добавить новую категорию</span>
         <div class="hover"></div>

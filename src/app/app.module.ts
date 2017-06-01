@@ -30,6 +30,7 @@ import {ProductDetailComponent} from './internetShop/components/productDetail/pr
 import {CartComponent} from './internetShop/components/cart/cart.component';
 import {FooterComponent} from './internetShop/components/footer/footer.component';
 import {AlertComponent} from './internetShop/components/alert/alert.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,7 @@ import {AlertComponent} from './internetShop/components/alert/alert.component';
         FormsModule,
         HttpModule,
         Ng2Bs3ModalModule,
-        MaterialModule.forRoot(),
+        BrowserAnimationsModule,
         RouterModule.forRoot(routes)
     ],
     providers: [
