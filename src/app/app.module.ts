@@ -31,6 +31,7 @@ import {CartComponent} from './internetShop/components/cart/cart.component';
 import {FooterComponent} from './internetShop/components/footer/footer.component';
 import {AlertComponent} from './internetShop/components/alert/alert.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RatingModule} from 'ng2-rating';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         HttpModule,
         Ng2Bs3ModalModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        RatingModule
     ],
     providers: [
         AppService,

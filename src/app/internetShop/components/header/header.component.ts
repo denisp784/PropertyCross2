@@ -31,21 +31,17 @@ export class HeaderComponent {
 
         this.dialogService.showDialog(loginDialog)
             .subscribe(() => {
-
             });
-
     }
 
     logout() {
         this.cookieService.deleteCookie('auth');
-        //this.shopService.checkUserRole();
         this.authService.role = '';
 
         this.storageService.alertText = 'Вы вышли из профиля';
         this.storageService.showAlert = true;
         setTimeout(() => this.storageService.showAlert = false, 3000);
     }
-
 
     openCart(): void {
         this.router.navigate(['cart']);

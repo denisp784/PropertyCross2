@@ -8,6 +8,7 @@ import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {DialogService} from '../../dialogModule/dialogService';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {Observable} from 'rxjs/Observable';
+import {IFilter} from '../../models/IFilter';
 
 @Component({
     selector: 'category-detail',
@@ -34,6 +35,8 @@ export class CategoryDetailComponent implements OnInit {
     isSpinnerVisible = false;
     products: IProductFullInfo[];
     localParams: Params;
+    filters: IFilter = <IFilter>{
+    };
 
     ngOnInit() {
         this.isSpinnerVisible = true;
@@ -64,7 +67,7 @@ export class CategoryDetailComponent implements OnInit {
             })
             .flatMap((category: ICategory) => {
                 this.category = category;
-                return this.shopService.getFullInfoByCategory(category.id);
+                return this.shopService.getFullInfoByCategory(category.id, this.filters);
             })
             .subscribe((products: IProductFullInfo[]) => {
                 if (!this.localParams['id']) {

@@ -9,12 +9,10 @@
                     {{group.categoryGroupName}}
                     <span class="remove-section glyphicon glyphicon-edit"
                           (click)="showCategoryGroupDialog($event, group.id)"
-                          *ngIf="storageService.isAdmin()"></span>
+                          *ngIf="storageService.isAdmin()"
+                          title="Изменить группу"></span>
                 </div>
             </div>
-<!--                    <div [ngClass]="{'categories-hide': group.id !== categoryGroupId, 'categories-show': group.id === categoryGroupId}">
-                        <category [categoryGroup]="group"></category>
-                    </div>-->
         </div>
         <div class="cat-groups" *ngIf="storageService.isAdmin()">
             <div class="group">

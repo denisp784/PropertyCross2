@@ -1,4 +1,4 @@
-import {animate, Component, OnInit, style, transition, trigger} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ShopService} from '../../ShopService';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -10,6 +10,14 @@ import {DialogService} from '../../dialogModule/dialogService';
 import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {StorageService} from '../../StorageService';
 import {IOpinion} from '../../models/IOpinion';
+
+const OPINION_GRADE = {
+    1: 'жуть',
+    2: 'ниже среднего',
+    3: 'нормально',
+    4: 'хорошо',
+    5: 'отлично!'
+};
 
 @Component({
     selector: 'productDetail',
@@ -33,19 +41,19 @@ export class ProductDetailComponent implements OnInit {
     showAlert = false;
     alertText: string;
     opinion: IOpinion = <IOpinion>{};
+    opinionGrade = OPINION_GRADE;
     anon = false;
+    isSpinnerVisible = false;
 
     ngOnInit() {
         this.getProductInfo();
-
         if (localStorage['products']) {
             this.productsInCart = JSON.parse(localStorage['products']);
         }
-
-        console.log(this.product.opinions);
     }
 
     getProductInfo(): void {
+        this.isSpinnerVisible = true;
         let localParams;
         this.activatedRoute.params
             .flatMap((params: Params) => {
@@ -65,6 +73,7 @@ export class ProductDetailComponent implements OnInit {
                         this.router.navigate(['/']);
                     }
                     this.product = product;
+                    this.isSpinnerVisible = false;
                 },
                 () => this.router.navigate(['/'])
             );
@@ -128,5 +137,65 @@ export class ProductDetailComponent implements OnInit {
                 setTimeout(() => this.storageService.showAlert = false, 3000);
                 this.opinion.description = '';
             });
+    }
+
+    timeSince(date: number): string {
+        let seconds = Math.ceil((<any>new Date() - date) / 1000);
+        let interval = Math.ceil(seconds / 31536000);
+
+        if (interval > 1) {
+            return interval + this.declOfNum(interval, 'years');
+        }
+        interval = Math.ceil(seconds / 2592000);
+        if (interval > 1) {
+            return interval + this.declOfNum(interval, 'months');
+        }
+        interval = Math.ceil(seconds / 86400);
+        if (interval > 1) {
+            return interval + this.declOfNum(interval, 'days');
+        }
+        interval = Math.ceil(seconds / 3600);
+        if (interval > 1) {
+            return interval + this.declOfNum(interval, 'hours');
+        }
+        interval = Math.ceil(seconds / 60);
+        if (interval > 1) {
+            return interval + this.declOfNum(interval, 'minutes');
+        }
+        return Math.ceil(seconds) + this.declOfNum(seconds, 'seconds');
+    }
+
+    declOfNum(number: number, period: string): string {
+        let cases = [2, 0, 1, 1, 1, 2];
+        let words = {
+            seconds: [' секунду', ' секунды', ' секунд'],
+            minutes: [' минуту', ' минуты', ' минут'],
+            hours: [' час', ' часа', ' часов'],
+            days: ['день', 'дня', 'дней'],
+            months: [' месяц', ' месяца', ' месяцев'],
+            years: [' год', ' года', ' лет']
+        };
+
+        return words[period][(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+    }
+
+    deleteOpinion(id: number) {
+        const confirmDeleteDialog = dialogConfigs.confirmDeleteDialogConfig;
+
+        this.dialogService.showDialog(confirmDeleteDialog)
+            .flatMap(() => {
+                return this.shopService.deleteOpinion(id);
+            })
+            .subscribe(() => {
+                this.getProductInfo();
+                this.storageService.alertText = 'Отзыв успешно удалён';
+                this.storageService.showAlert = true;
+                setTimeout(() => this.storageService.showAlert = false, 3000);
+            }, () => {
+            });
+    }
+
+    isAddOpinionDisabled(): boolean {
+        return !this.opinion.mark || !this.opinion.description;
     }
 }

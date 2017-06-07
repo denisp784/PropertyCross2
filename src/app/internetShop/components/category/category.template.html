@@ -9,7 +9,8 @@
             <div class="hover">
             <span class="remove-section glyphicon glyphicon-edit"
                   (click)="showCategoryDialog($event, category.id)"
-                  *ngIf="storageService.isAdmin()"></span>
+                  *ngIf="storageService.isAdmin()"
+                  title="Изменить категорию"></span>
             </div>
         </a>
     </li>

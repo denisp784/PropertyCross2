@@ -35,6 +35,12 @@
                        [(ngModel)]="product.name" #productName='ngModel'
                        name="productName" id="productName">
             </div>
+            <div class="property">
+                <span class="name">Цена</span>
+                <input class="input form-control" type="number"
+                       [(ngModel)]="price.value" #priceValue='ngModel'
+                       name="priceValue" id="priceValue">
+            </div>
             <div class="property" *ngFor="let property of propertiesArray">
                 <span class="name">{{property.property.name}}</span>
                 <input class="input form-control" type="text"

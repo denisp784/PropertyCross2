@@ -1,3 +1,5 @@
+<spinner [isSpinnerVisible]="isSpinnerVisible"></spinner>
+
 <div class="alert alert-success alert-dismissable" *ngIf="showAlert" [@enterAnimation]="showAlert">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     {{alertText}}
@@ -65,7 +67,7 @@
 <add-product *ngIf="isAddProduct" [isEdit]="true" [productId]="product.product.id"></add-product>
 
 <div class="container" *ngIf="!isAddProduct">
-    <div class="row">
+    <div class="row" *ngIf="product.opinions?.length">
         <div class="col-sm-12">
             <h3>Отзывы о товаре</h3>
         </div>
@@ -82,10 +84,17 @@
                 <div class="panel-heading">
                     <strong *ngIf="opinion.login; else elseBlock">{{opinion.login}}</strong>
                     <ng-template #elseBlock><strong>Аноним</strong></ng-template>
-                    <span class="text-muted">оставил комментарий {{opinion.date | date:'dd-MM-yyyy' }}</span>
+                    <span class="text-muted">отправил {{timeSince(opinion.date)}} назад</span>
+                    <span class="remove-opinion glyphicon glyphicon-remove"
+                          (click)="deleteOpinion(opinion.id)"
+                          *ngIf="storageService.isAdmin()" title="Удалить отзыв"></span>
                 </div>
                 <div class="panel-body">
                     {{opinion.description}}
+                    <div class="rating">
+                        <rating [(ngModel)]="opinion.mark" [readonly]="true"
+                                [titles]="['жуть!', 'ниже среднего', 'нормально', 'хорошо', 'отлично!']"></rating>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,8 +104,17 @@
         <label for="comment">Добавить отзыв:</label>
         <textarea class="form-control" rows="5" id="comment"
                   [(ngModel)]="opinion.description" #description="ngModel"></textarea>
+
+        <span class="mark">Ваша оценка: </span>
+        <rating [(ngModel)]="opinion.mark"
+                [titles]="['жуть!', 'ниже среднего', 'нормально', 'хорошо', 'отлично!']">
+        </rating>
+        <span class="opinion-grade" *ngIf="opinion.mark">—&nbsp;&nbsp;&nbsp;{{opinionGrade[opinion.mark]}}</span>
+
         <button type="button" class="btn btn-primary"
-                (click)="addOpinion()">Отправить</button>
+                (click)="addOpinion()"
+                [disabled]="isAddOpinionDisabled()">Отправить
+        </button>
         <label class="input-label">
             <input type="checkbox" [checked]="anon" (change)="anon = !anon">Анонимно
         </label>

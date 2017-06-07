@@ -6,4 +6,5 @@ export interface IProductFullInfo {
         value: string;
     }[];
     opinions: any[];
+    lastPrice: number;
 }

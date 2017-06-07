@@ -31,6 +31,7 @@ import {AppService} from '../../../app.service';
 import {StorageService} from '../../StorageService';
 import {AuthService} from '../../AuthService';
 import {CookieService} from '../../CookieService';
+import {RatingModule} from 'ng2-rating';
 
 const routes_path: Routes = [
     {
@@ -56,9 +57,7 @@ const routes_path: Routes = [
 ];
 
 class MockStorageService {}
-class MockShopService {
-    getSections: () => {};
-}
+class MockShopService {}
 class MockAuthService {}
 class MockAppService {}
 class MockCookieService {}
@@ -91,26 +90,11 @@ describe('Тестируем MainComponent', () => {
                 AlertComponent
             ],
             providers: [
-                {
-                    provide: StorageService,
-                    useClass: MockStorageService
-                },
-                {
-                    provide: ShopService,
-                    useValue: MockShopService
-                },
-                {
-                    provide: AuthService,
-                    useClass: MockAuthService
-                },
-                {
-                    provide: AppService,
-                    useClass: MockAppService
-                },
-                {
-                    provide: CookieService,
-                    useClass: MockCookieService
-                },
+                StorageService,
+                ShopService,
+                AuthService,
+                AppService,
+                CookieService,
                 {
                     provide: APP_BASE_HREF,
                     useValue: '/'
@@ -125,7 +109,8 @@ describe('Тестируем MainComponent', () => {
                 HttpModule,
                 Ng2Bs3ModalModule,
                 BrowserAnimationsModule,
-                RouterModule.forRoot(routes_path)
+                RouterModule.forRoot(routes_path),
+                RatingModule
             ]
         }).compileComponents();
 
@@ -134,10 +119,9 @@ describe('Тестируем MainComponent', () => {
     });
 
     it('Span должен содержать "Последние товары на сайте"', () => {
-        spyOn(MockShopService, 'getSections').and.returnValue({ subscribe: () => {} });
         de = fixture.debugElement.query(By.css('.last-products'));
         el = de.nativeElement;
         const content = el.textContent;
-        expect(content).toEqual('Последние товары на сайте');
+        expect(content).toEqual('Последние товары сайте');
     });
 });

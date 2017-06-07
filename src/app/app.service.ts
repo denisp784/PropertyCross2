@@ -21,7 +21,7 @@ export class AppService {
         if (userpass) {
             headers.append('Authorization', userpass);
         }
-        // headers.append("Content-Type", 'application/json; charset=utf-8');
+
         return headers;
     }
 

@@ -10,6 +10,7 @@ import {AppService} from '../../../app.service';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {Router} from '@angular/router';
 import {StorageService} from '../../StorageService';
+import {IPrice} from '../../models/IPrice';
 
 interface IFileReaderEventTarget extends EventTarget {
     result: string;
@@ -59,6 +60,8 @@ export class AddProductComponent implements OnInit {
     file: any;
     pictures = [];
     mainId = 0;
+    price: IPrice = <IPrice>{};
+    currentCategory: string;
 
     closeAddProduct(): void {
         this.closeAddProductEvent.emit();
@@ -90,10 +93,14 @@ export class AddProductComponent implements OnInit {
     getProduct(id: number): void {
         this.shopService.getProductFullInfo(id)
             .map((product) => {
+                this.price = <IPrice>{
+                    value: product.lastPrice
+                };
                 this.product = product.product;
                 this.category.id = product.product.category.id;
                 let propertyObject = {};
                 let propertyArray = [];
+                this.currentCategory = product.product.category.urlName;
                 _.map(product.properties, (prop) => {
                     propertyObject = {
                         property: {
@@ -128,8 +135,13 @@ export class AddProductComponent implements OnInit {
 
                 return this.shopService.addPropertyInProduct(this.productProperty);
             })
-            .subscribe(() => {
-                console.log('Добавлено');
+            .flatMap((response) => {
+                this.price.productId = response.product.id;
+                this.price.value = +this.price.value;
+                return this.shopService.addPrice(this.price);
+            })
+            .subscribe((response) => {
+                console.log(response);
                 this.router.navigate(['', this.category.urlName]);
             });
 

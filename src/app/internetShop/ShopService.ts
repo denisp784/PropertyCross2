@@ -11,6 +11,8 @@ import {IProduct} from './models/IProduct';
 import {IProductProperty} from './models/IProductProperty';
 import {IProductFullInfo} from './models/IProductFullInfo';
 import {IOpinion} from './models/IOpinion';
+import {IFilter} from './models/IFilter';
+import {IPrice} from './models/IPrice';
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
@@ -23,6 +25,7 @@ const PRODUCTS = 'products';
 const PRODUCT_PROPERTY = 'productPropertyValues';
 const IMAGES = 'images';
 const OPINIONS = 'opinions';
+const PRICES = 'prices';
 
 @Injectable()
 export class ShopService {
@@ -127,8 +130,8 @@ export class ShopService {
         return this.appService.makeGet(`${PRODUCTS}/get`);
     }
 
-    getFullInfoByCategory(id: number): Observable <IProductFullInfo[]> {
-        return this.appService.makeGet(`${PRODUCTS}/getFullInfoByCategory/${id}`);
+    getFullInfoByCategory(id: number, propertyObject: IFilter): Observable <IProductFullInfo[]> {
+        return this.appService.makePost(`${PRODUCTS}/getFullInfoByCategory/${id}`, propertyObject);
     }
 
     getProductFullInfo(id: number): Observable <IProductFullInfo> {
@@ -157,5 +160,13 @@ export class ShopService {
 
     getOpinion(id: number): Observable <IOpinion> {
         return this.appService.makeGet(`${OPINIONS}/get/${id}`);
+    }
+
+    deleteOpinion(id: number): Observable <any> {
+        return this.appService.makeGet(`${OPINIONS}/delete/${id}`);
+    }
+
+    addPrice(price: IPrice): Observable <IPrice> {
+        return this.appService.makePost(`${PRICES}/add`, price);
     }
 }
