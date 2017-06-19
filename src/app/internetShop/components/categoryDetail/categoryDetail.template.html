@@ -45,7 +45,7 @@
 
     <div class="wrapper" *ngIf="isProductsOpen && !isProductDetailOpen">
         <div class="filter">
-            <filter></filter>
+            <filter [propertiesWithValues]="propertiesWithValues" (onFilter)="applyFilter($event)"></filter>
         </div>
         <div class="products">
             <products [products]="products"></products>

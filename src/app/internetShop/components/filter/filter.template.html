@@ -1,40 +1,38 @@
-<div class="form-group">
+<!--<div class="form-group">
     <label>Цена</label>
     <div class="cost">
-        <input type="email" class="form-control" placeholder="От">
-        <input type="email" class="form-control" placeholder="До">
+        <input type="number" class="form-control" placeholder="От">
+        <input type="number" class="form-control" placeholder="До">
     </div>
+</div>-->
+
+<div *ngFor="let value of propertiesWithValues | values">
+    <ng-select
+            (selected)="applyFilter($event, value.property.id)"
+            (deselected)="applyFilter($event, value.property.id)"
+            [options]="value.vals"
+            [multiple]="true"
+            [placeholder]="'Ничего не выбрано'"
+            [label]="value.property.name">
+
+    </ng-select>
 </div>
 
-<label>Производитель</label>
-<select class="selectpicker" multiple
-        data-width="100%"
-        data-actions-box="true"
-        data-none-selected-text="Ничего не выбрано"
-        data-deselect-all-text="Отменить всё"
-        data-select-all-text="Выбрать всё">
-    <option>Sony</option>
-    <option>Samsung</option>
-    <option>Huawei</option>
-    <option>Apple</option>
-    <option>LG</option>
-</select>
+<!--<div *ngFor="let value of propertiesWithValues | values">
+    <label>{{value.property.name}}</label>
+    <select class="form-control" [(ngModel)]="valueObj[value.property.id]" (change)="applyFilter()">
+        <option [value]="null">
+            Нет
+        </option>
+        <ng-template ngFor let-value [ngForOf]="value.vals" >
+            <option *ngIf="value" [value]="value">
+                {{value}}
+            </option>
+        </ng-template>
+    </select>
+</div>-->
 
-<label>Дата выхода на рынок</label>
-<select class="selectpicker" multiple
-        data-width="100%"
-        data-actions-box="true"
-        data-none-selected-text="Ничего не выбрано"
-        data-deselect-all-text="Отменить всё"
-        data-select-all-text="Выбрать всё">
-    <option>2017</option>
-    <option>2016</option>
-    <option>2015</option>
-    <option>2014</option>
-    <option>2013</option>
-</select>
-
-<label>Операционная система</label>
+<!--<label>Операционная система</label>
 <select class="selectpicker" multiple
         data-width="100%"
         data-actions-box="true"
@@ -46,4 +44,4 @@
     <option>Windows Phone</option>
     <option>Symbian</option>
     <option>Bada</option>
-</select>
+</select>-->

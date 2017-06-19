@@ -29,9 +29,10 @@ export class CartComponent implements OnInit {
     }
 
     isSpinnerVisible = false;
-    productsInCart: IProduct[];
+    productsInCart: any[];
     showAlert = false;
     alertText: string;
+    count = 1;
 
     ngOnInit() {
         this.isSpinnerVisible = true;
@@ -50,5 +51,15 @@ export class CartComponent implements OnInit {
                 this.showAlert = !this.showAlert;
                 setTimeout(() => this.showAlert = !this.showAlert, 3000);
             });
+    }
+    
+    save() {
+        localStorage['products'] = JSON.stringify(this.productsInCart);
+    }
+
+    getSum(): number {
+        return _.reduce(this.productsInCart, (result, product, key) => {
+            return result + product.price * product.count;
+        }, 0);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, HostListener, OnInit} from "@angular/core";
 import {DialogService} from "../../dialogModule/dialogService";
 import {dialogConfigs} from "../../dialogs/dialogs.config";
 import {CookieService} from "../../CookieService";
@@ -6,14 +6,13 @@ import {StorageService} from "../../StorageService";
 import {ShopService} from "../../ShopService";
 import {AuthService} from "../../AuthService";
 import {Router} from '@angular/router';
-
+import {IProduct} from '../../models/IProduct';
 
 @Component({
     selector: 'header',
     templateUrl: 'header.template.html',
     styleUrls: ['header.less']
 })
-
 
 export class HeaderComponent {
 
@@ -24,6 +23,14 @@ export class HeaderComponent {
                 private storageService: StorageService,
                 private router: Router) {
 
+    }
+
+    searchText = '';
+    searchProducts: IProduct[];
+
+    @HostListener('document:click')
+    clickout() {
+        this.searchText = '';
     }
 
     showLoginDialog() {
@@ -47,4 +54,20 @@ export class HeaderComponent {
         this.router.navigate(['cart']);
     }
 
+    searchProduct(): void {
+        if (this.searchText.length > 0) {
+            this.shopService.getProductByName(this.searchText)
+                .subscribe((products: IProduct[]) => {
+                    this.searchProducts = products;
+                });
+        }
+    }
+
+    clearInput(): void {
+        this.searchText = '';
+    }
+
+    test() {
+        console.log('==');
+    }
 }

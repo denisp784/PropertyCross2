@@ -13,6 +13,7 @@ import {IProductFullInfo} from './models/IProductFullInfo';
 import {IOpinion} from './models/IOpinion';
 import {IFilter} from './models/IFilter';
 import {IPrice} from './models/IPrice';
+import {IPropertyWithValues} from './models/IPropertyWithValues';
 
 const CATEGORIES = 'categories';
 const SECTIONS = 'sections';
@@ -106,6 +107,10 @@ export class ShopService {
         return this.appService.makeGet(`${CATEGORY_PROPERTIES}/getByCategory?categoryId=${categoryId}`);
     }
 
+    getByCategoryWithValues(id: number): Observable <IPropertyWithValues[]> {
+        return this.appService.makeGet(`${CATEGORY_PROPERTIES}/getByCategoryWithValues?categoryId=${id}`);
+    }
+
     checkUserRole(): Observable<any> {
         return this.appService.makeGet(`${USER_ROLES}/login`);
     }
@@ -128,6 +133,10 @@ export class ShopService {
 
     getProducts(): Observable <IProduct[]> {
         return this.appService.makeGet(`${PRODUCTS}/get`);
+    }
+
+    getProductByName(name: string): Observable <IProduct[]> {
+        return this.appService.makeGet(`${PRODUCTS}/getByName/${name}`);
     }
 
     getFullInfoByCategory(id: number, propertyObject: IFilter): Observable <IProductFullInfo[]> {

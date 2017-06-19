@@ -5,7 +5,6 @@ import {DebugElement} from '@angular/core';
 import {BrowserModule, By} from '@angular/platform-browser';
 import {SpinnerComponent} from '../spinner/spinner.component';
 import {SectionsComponent} from '../sections/sections.component';
-import {routes} from '../../../app.routes';
 import {RouterModule, Routes} from '@angular/router';
 import {CartComponent} from '../cart/cart.component';
 import {CategoryDetailComponent} from '../categoryDetail/categoryDetail.component';

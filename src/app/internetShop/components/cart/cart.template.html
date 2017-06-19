@@ -26,24 +26,25 @@
                 <td class="col-sm-8 col-md-6">
                     <div class="media">
                         <a class="thumbnail pull-left"
-                           [routerLink]="'/' + [product.category.urlName] + '/' + [product.id]"
+                           [routerLink]="'/' + [product.product.category.urlName] + '/' + [product.product.id]"
                            routerLinkActive="active">
-                            <img class="media-object" [src]="'http://localhost:8080/images/get/' + product.mainImageId">
+                            <img class="media-object" [src]="'http://localhost:8080/images/get/' + product.product.mainImageId">
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading">
-                                <a [routerLink]="'/' + [product.category.urlName] + '/' + [product.id]"
-                                   routerLinkActive="active">{{product.name}}</a>
+                                <a [routerLink]="'/' + [product.product.category.urlName] + '/' + [product.product.id]"
+                                   routerLinkActive="active">{{product.product.name}}</a>
                             </h4>
                             <span>Статус: </span><span class="text-success"><strong>В продаже</strong></span>
                         </div>
                     </div>
                 </td>
                 <td class="col-sm-1 col-md-1" style="text-align: center">
-                    <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                    <input type="number" min='1' class="form-control" id="exampleInputEmail1"
+                           [(ngModel)]="product.count" #count="ngModel" (change)="save()">
                 </td>
-                <td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
-                <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
+                <td class="col-sm-1 col-md-1 text-center"><strong>{{product.price}},00</strong></td>
+                <td class="col-sm-1 col-md-1 text-center"><strong>{{product.price * product.count}},00</strong></td>
                 <td class="col-sm-1 col-md-1">
                     <button type="button" class="btn btn-danger" (click)="deleteFromCart(product)">
                         <span class="glyphicon glyphicon-remove"></span> Удалить
@@ -55,7 +56,7 @@
                 <td>  </td>
                 <td>  </td>
                 <td><h3>Общая сумма</h3></td>
-                <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+                <td class="text-right"><h3><strong>{{getSum()}},00</strong></h3></td>
             </tr>
             <tr>
                 <td>  </td>

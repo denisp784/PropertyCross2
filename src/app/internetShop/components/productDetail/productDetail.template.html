@@ -30,7 +30,7 @@
                 Удалить
             </span>
         </div>
-        <button type="button" class="btn btn-primary" (click)="addToCart(product.product)">
+        <button type="button" class="btn btn-primary" (click)="addToCart(product.product, product.lastPrice)">
             <span class="glyphicon glyphicon-shopping-cart"></span> Добавить в корзину
         </button>
     </div>
@@ -119,4 +119,7 @@
             <input type="checkbox" [checked]="anon" (change)="anon = !anon">Анонимно
         </label>
     </div>
+
+
+
 </div>

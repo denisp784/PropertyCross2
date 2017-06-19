@@ -4,7 +4,6 @@ import {AuthService} from './AuthService';
 @Injectable()
 export class StorageService {
     constructor(private authService: AuthService) {
-        console.log('storage service');
     }
 
     onSetLastSection = new EventEmitter();

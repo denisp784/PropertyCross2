@@ -32,6 +32,8 @@ import {FooterComponent} from './internetShop/components/footer/footer.component
 import {AlertComponent} from './internetShop/components/alert/alert.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RatingModule} from 'ng2-rating';
+import {ValuesPipe} from './internetShop/components/filter/filter.pipe';
+import {SelectModule} from '../ng-select';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,8 @@ import {RatingModule} from 'ng2-rating';
         ProductDetailComponent,
         CartComponent,
         FooterComponent,
-        AlertComponent
+        AlertComponent,
+        ValuesPipe
     ],
     imports: [
         DialogsModule,
@@ -62,7 +65,8 @@ import {RatingModule} from 'ng2-rating';
         Ng2Bs3ModalModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(routes),
-        RatingModule
+        RatingModule,
+        SelectModule
     ],
     providers: [
         AppService,

@@ -1,0 +1,113 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "ng-select",
+        "scope": null,
+        "escapedName": "ng-select",
+        "name": "ng-select",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\andersen\\myDiploma\\PropertyCross2"
+    ]
+  ],
+  "_from": "ng-select@latest",
+  "_id": "ng-select@1.0.0-beta.5",
+  "_inCache": true,
+  "_location": "/ng-select",
+  "_nodeVersion": "4.2.6",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/ng-select-1.0.0-beta.5.tgz_1490777131101_0.2272909462917596"
+  },
+  "_npmUser": {
+    "name": "basvandenberg",
+    "email": "b.a.vandenberg@gmail.com"
+  },
+  "_npmVersion": "3.5.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "ng-select",
+    "scope": null,
+    "escapedName": "ng-select",
+    "name": "ng-select",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ng-select/-/ng-select-1.0.0-beta.5.tgz",
+  "_shasum": "1ba39ed4f5aaac2b132c8f7672e3040d78ef0739",
+  "_shrinkwrap": null,
+  "_spec": "ng-select",
+  "_where": "D:\\andersen\\myDiploma\\PropertyCross2",
+  "author": {
+    "name": "Bastiaan van den Berg",
+    "email": "b.a.vandenberg@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/basvandenberg/ng-select/issues"
+  },
+  "dependencies": {},
+  "description": "Select component for angular.",
+  "devDependencies": {
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/platform-server": "^4.0.0",
+    "@types/jasmine": "2.5.46",
+    "@types/node": "^7.0.12",
+    "core-js": "^2.4.1",
+    "del": "^2.2.2",
+    "fs": "^0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.4.2",
+    "gulp-sass": "^3.0.0",
+    "gulp-tslint": "^7.0.1",
+    "reflect-metadata": "^0.1.9",
+    "rxjs": "^5.0.2",
+    "tslint": "^4.2.0",
+    "typescript": "^2.2.0",
+    "zone.js": "^0.8.5"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "1ba39ed4f5aaac2b132c8f7672e3040d78ef0739",
+    "tarball": "https://registry.npmjs.org/ng-select/-/ng-select-1.0.0-beta.5.tgz"
+  },
+  "gitHead": "209975f22d08381e21809568b9d0f21228e8c248",
+  "homepage": "https://basvandenberg.github.io/ng-select",
+  "keywords": [
+    "angular",
+    "select",
+    "select2",
+    "selectize",
+    "chosen"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "basvandenberg",
+      "email": "b.a.vandenberg@gmail.com"
+    }
+  ],
+  "name": "ng-select",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/basvandenberg/ng-select.git"
+  },
+  "scripts": {},
+  "version": "1.0.0-beta.5"
+}

@@ -1,10 +1,25 @@
 <div class="header">
     <div class="logo"><a routerLink="/">Здесь будет любой логотип</a></div>
     <div class="input-group">
-        <input type="text" class="form-control" placeholder="Введите запрос...">
-        <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Найти!</button>
-            </span>
+        <input type="text" data-provide="typeahead" class="form-control" placeholder="Введите запрос..."
+               [(ngModel)]="searchText" #search="ngModel" (keyup)="searchProduct()">
+        <div class="auto-complete" *ngIf="searchText.length >= 3 && searchProducts?.length">
+            <a [routerLink]="'/' + [product.category.urlName] + '/' + [product.id]"
+               routerLinkActive="active" *ngFor="let product of searchProducts" (click)="clearInput()">
+                <div class="item">
+                    <span class="product-name">{{product.name}}</span>
+                    <span class="product-category"> {{product.category.categoryName}}</span>
+                </div>
+            </a>
+        </div>
+        <div class="auto-complete" *ngIf="searchText.length >= 3 && searchProducts?.length === 0">
+                <div class="item">
+                    <span class="product-name">По вашему запросу нет результатов</span>
+                </div>
+        </div>
+        <span class="input-group-btn" (click)="test()">
+            <button class="btn btn-default" type="button">Поиск</button>
+        </span>
     </div>
 
     <div class="right-buttons">

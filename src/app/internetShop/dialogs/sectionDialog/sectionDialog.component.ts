@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import {DialogAwareComponent} from '../../dialogModule/dialogAware.component';
 import {ISection} from '../../models/ISection';
 import {SimpleModel} from '../../models/SimpleModel';
@@ -50,6 +50,8 @@ export class SectionDialogComponent extends DialogAwareComponent implements OnIn
                     this.imageUrl = 'http://localhost:8080/images/get/' + this.section.imageId;
                 });
         }
+
+
     }
 
     deleteSection() {

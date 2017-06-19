@@ -11,6 +11,7 @@ import {dialogConfigs} from '../../dialogs/dialogs.config';
 import {StorageService} from '../../StorageService';
 import {IOpinion} from '../../models/IOpinion';
 
+
 const OPINION_GRADE = {
     1: 'жуть',
     2: 'ниже среднего',
@@ -31,13 +32,13 @@ export class ProductDetailComponent implements OnInit {
                 private router: Router,
                 private dialogService: DialogService,
                 private storageService: StorageService) {
-    }
 
+    }
     product: IProductFullInfo = <IProductFullInfo>{};
     category: ICategory;
     isAddProduct = false;
     fullImageId: number;
-    productsInCart: IProduct[];
+    productsInCart: any[];
     showAlert = false;
     alertText: string;
     opinion: IOpinion = <IOpinion>{};
@@ -83,7 +84,12 @@ export class ProductDetailComponent implements OnInit {
         this.fullImageId = id;
     }
 
-    addToCart(product: IProduct) {
+    addToCart(product: IProduct, lastPrice: number) {
+        let tempProduct = {
+            product: product,
+            price: lastPrice,
+            count: 1
+        };
         if (localStorage['products']) {
             if (_.find(this.productsInCart, product)) {
                 this.storageService.alertText = 'Товар уже есть в корзине';
@@ -91,7 +97,7 @@ export class ProductDetailComponent implements OnInit {
                 setTimeout(() => this.storageService.showAlert = false, 3000);
                 return;
             } else {
-                this.productsInCart.push(product);
+                this.productsInCart.push(tempProduct);
                 localStorage['products'] = JSON.stringify(this.productsInCart);
                 this.storageService.alertText = 'Товар добавлен в корзину';
                 this.storageService.showAlert = true;
@@ -99,7 +105,7 @@ export class ProductDetailComponent implements OnInit {
             }
         } else {
             this.productsInCart = [];
-            this.productsInCart.push(product);
+            this.productsInCart.push(tempProduct);
             localStorage['products'] = JSON.stringify(this.productsInCart);
             this.storageService.alertText = 'Товар добавлен в корзину';
             this.storageService.showAlert = true;
@@ -171,7 +177,7 @@ export class ProductDetailComponent implements OnInit {
             seconds: [' секунду', ' секунды', ' секунд'],
             minutes: [' минуту', ' минуты', ' минут'],
             hours: [' час', ' часа', ' часов'],
-            days: ['день', 'дня', 'дней'],
+            days: [' день', ' дня', ' дней'],
             months: [' месяц', ' месяца', ' месяцев'],
             years: [' год', ' года', ' лет']
         };

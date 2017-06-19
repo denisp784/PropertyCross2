@@ -1,3 +1,3 @@
 export interface IFilter {
-    [id: number]: string[];
+    [id: string]: string[];
 }

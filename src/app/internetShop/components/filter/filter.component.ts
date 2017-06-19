@@ -1,4 +1,6 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnDestroy, Output} from '@angular/core';
+import {IPropertyWithValues} from '../../models/IPropertyWithValues';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'filter',
@@ -6,9 +8,21 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
     styleUrls: ['filter.less']
 })
 
-export class FilterComponent implements AfterViewInit {
+export class FilterComponent  {
+    @Input() propertiesWithValues: IPropertyWithValues;
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    valueObj = {};
 
-    ngAfterViewInit() {
+    applyFilter(event, id: number) {
+        const values = _(event.options)
+            .map((option: any) => {
+                if (option.selected) {
+                    return option.wrappedOption.value;
+                }
+            })
+            .filter(option => !!option).value();
+
+        this.valueObj[id] = values;
+        this.onFilter.emit(this.valueObj);
     }
-
 }

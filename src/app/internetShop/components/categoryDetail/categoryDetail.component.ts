@@ -9,6 +9,7 @@ import {DialogService} from '../../dialogModule/dialogService';
 import {IProductFullInfo} from '../../models/IProductFullInfo';
 import {Observable} from 'rxjs/Observable';
 import {IFilter} from '../../models/IFilter';
+import {IPropertyWithValues} from '../../models/IPropertyWithValues';
 
 @Component({
     selector: 'category-detail',
@@ -35,8 +36,8 @@ export class CategoryDetailComponent implements OnInit {
     isSpinnerVisible = false;
     products: IProductFullInfo[];
     localParams: Params;
-    filters: IFilter = <IFilter>{
-    };
+    filters: IFilter = <IFilter>{};
+    propertiesWithValues: IPropertyWithValues[];
 
     ngOnInit() {
         this.isSpinnerVisible = true;
@@ -58,6 +59,14 @@ export class CategoryDetailComponent implements OnInit {
             );
     }
 
+    applyFilter(event: IFilter) {
+        this.filters = event;
+        this.shopService.getFullInfoByCategory(this.category.id, this.filters)
+            .subscribe((products: IProductFullInfo[]) => {
+                this.products = products;
+            });
+    }
+
     loadContent(category: string) {
         this.isSpinnerVisible = true;
         this.shopService.getSections()
@@ -67,7 +76,11 @@ export class CategoryDetailComponent implements OnInit {
             })
             .flatMap((category: ICategory) => {
                 this.category = category;
-                return this.shopService.getFullInfoByCategory(category.id, this.filters);
+                return this.shopService.getByCategoryWithValues(category.id);
+            })
+            .flatMap((response: IPropertyWithValues[]) => {
+                this.propertiesWithValues = response;
+                return this.shopService.getFullInfoByCategory(this.category.id, this.filters);
             })
             .subscribe((products: IProductFullInfo[]) => {
                 if (!this.localParams['id']) {
